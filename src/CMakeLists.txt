@@ -1,22 +1,15 @@
-add_library(${PROJECT_NAME} 
-    SHARED 
-        BoxHead.cpp
-)
+project(game)
 
-set(GLOBAL "${PROJECT_SOURCE_DIR}/src/global")
-
-target_include_directories(${PROJECT_NAME}
-    INTERFACE
-        ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-add_subdirectory(sdl_specific)
-add_subdirectory(modules)
-
-target_link_libraries(${PROJECT_NAME}
-    PUBLIC
-        ${PROJECT_NAME}_sdl_specific
-        ${PROJECT_NAME}_modules
-)
-
+# Interface library don't need sources
+add_library(${PROJECT_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+add_subdirectory(components)
+add_subdirectory(game_engine)
+add_subdirectory(graphic)
+add_subdirectory(input_event)
+
+target_link_libraries(${PROJECT_NAME} INTERFACE 
+    components::components
+    game_engine::game_engine
+)
