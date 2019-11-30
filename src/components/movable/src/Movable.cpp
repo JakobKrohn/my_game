@@ -1,7 +1,8 @@
 #include "Movable/Movable.hpp"
-#include "Player/Player.hpp"
 
 #include <math.h>
+
+using namespace component;
 
 Movable::Movable() {
     current_ = std::make_shared<position_t>();

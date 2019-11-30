@@ -1,19 +1,25 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-class Player{
-public: 
+#include "Player_I.hpp"
 
-    const char * const name_;
+#include "Movable/Movable_I.hpp"
 
-    Player(const char * name);
+namespace component
+{
+class Player
+{
+public:
+    const char *const name_;
+
+    Player(const char *name);
 
     void initialize();
 
     void getData();
 
-private: 
-
+private:
 };
+} // namespace component
 
 #endif // PLAYER_H

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+using namespace component;
+
 Player::Player(const char * name) : name_(name) {
 }
 
