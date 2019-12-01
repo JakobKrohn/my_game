@@ -1,10 +1,10 @@
-project(sdl_input_device)
+project(sdl_input_event)
 
 add_library(${PROJECT_NAME} SHARED)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
         input_event::input_event
         ${SDL2_LIBRARIES} 
         ${SDL2_IMAGE_LIBRARIES} 
