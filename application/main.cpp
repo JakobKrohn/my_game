@@ -12,7 +12,11 @@ int main(int argc, char **argv) {
     // component::Player player("name");
     // component::Movable movable;
     // input_event::InputEvent_I input;
-    sdl_input_event::SdlInputEvent* sie;
+
+    input_event::InputEvent_I * inputEvent;
+    inputEvent = new sdl_input_event::SdlInputEvent();
+
+    // sdl_input_event::SdlInputEvent* sie;
     
     if (argc > 1) {
         std::cout << argv[2] << "\n";

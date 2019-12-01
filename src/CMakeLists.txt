@@ -9,10 +9,11 @@ add_subdirectory(game_engine)
 add_subdirectory(graphic)
 add_subdirectory(input_event)
 
-target_link_libraries(${PROJECT_NAME} INTERFACE 
-    components::components
-    game_engine::game_engine
-    input_event::input_event
-
-    sdl_input_device::sdl_input_device
+target_link_libraries(${PROJECT_NAME} 
+    INTERFACE 
+        components::components
+        game_engine::game_engine
+        input_event::input_event
+    
+        sdl_input_device::sdl_input_device
 )
