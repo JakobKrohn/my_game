@@ -2,12 +2,17 @@
 
 #include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
+#include "InputEvent/InputEvent_I.hpp"
 
 #include "GameEngine/GameEngine.hpp"
 
+#include "SdlInputEvent/SdlInputEvent.hpp"
+
 int main(int argc, char **argv) {
-    component::Player player("name");
-    component::Movable movable;
+    // component::Player player("name");
+    // component::Movable movable;
+    // input_event::InputEvent_I input;
+    sdl_input_event::SdlInputEvent* sie;
     
     if (argc > 1) {
         std::cout << argv[2] << "\n";

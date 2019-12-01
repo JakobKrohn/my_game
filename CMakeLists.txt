@@ -12,6 +12,7 @@ include(CTest)
 add_subdirectory(external/doctest)
 include(external/doctest/scripts/cmake/doctest.cmake)
 
+add_subdirectory(external)
 add_subdirectory(src)
 # add_subdirectory(test)
 add_subdirectory(application)
