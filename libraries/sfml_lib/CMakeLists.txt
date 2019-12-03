@@ -1,0 +1,2 @@
+project(sfml_lib)
+

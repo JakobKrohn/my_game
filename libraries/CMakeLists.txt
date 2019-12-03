@@ -1,0 +1,2 @@
+add_subdirectory(sfml_lib)
+add_subdirectory(sdl_input_event)
