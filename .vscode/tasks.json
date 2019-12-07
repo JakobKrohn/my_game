@@ -54,7 +54,10 @@
         {
             "label": "run game",
             "type": "shell",
-            "command": "./build/tools/MY_GAME_tool",
+            "command": "./build/application/application",
+            "args": [
+                "0"
+            ],
             "problemMatcher": [],
             "dependsOn": [
                 "build"
