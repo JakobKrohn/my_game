@@ -6,7 +6,7 @@
 
 #include "GameEngine/GameEngine.hpp"
 
-// #include "SdlInputEvent/SdlInputEvent.hpp"
+#include "SdlInputEvent/SdlInputEvent.hpp"
 // #include "SDL.h"
 
 int main(int argc, char **argv) {
@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     // input_event::InputEvent_I input;
 
     input_event::InputEvent_I * inputEvent;
-    // inputEvent = new sdl_input_event::SdlInputEvent();
+    inputEvent = new sdl_input_event::SdlInputEvent();
     // SDL_Init(NULL);
 
     // sdl_input_event::SdlInputEvent* sie;

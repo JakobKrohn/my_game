@@ -5,14 +5,14 @@
 
 #include "InputEvent/InputEvent_I.hpp"
 
-// #include "SDL.h"
+#include "SDL.h"
 
 namespace sdl_input_event
 {
 class SdlInputEvent : public input_event::InputEvent_I
 {
 public:
-    // void registerCallback(std::function<void()> callback, input_event::input_key key);
+    void registerCallback(std::function<void()> callback, input_event::input_key key);
     void setExitCallback(std::function<void()> callback);
 
 private:
