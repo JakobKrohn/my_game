@@ -8,8 +8,6 @@ set(CMAKE_MODULE_PATH
         ${PROJECT_SOURCE_DIR}/sdl2-cmake-scripts
 )
 
-add_subdirectory(install_sdl2)
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
@@ -17,17 +15,6 @@ if (${SDL2_FOUND})
     message(STATUS "SDL IS INSTALLED AND FOUND!")
 else()  
     message(FATA_ERROR "SDL COULD NOT BE INSTALLED/FOUND")
-    # message(FATAL_ERROR "SDL2 not found. ")
-    # message(STATUS "SDL is not found, trying install")
-    
-    # find_package(SDL2 REQUIRED)
-    # find_package(SDL2_image REQUIRED)
-
-    # if (${SDL2_FOUND})
-    #     message(STATUS "SDL IS INSTALLED AND FOUND!")
-    # else()  
-    #     message(FATA_ERROR "SDL COULD NOT BE INSTALLED/FOUND")
-    # endif()
 endif()
 
 message(STATUS "SDL_LIB: ${SDL2_LIBRARY}")
