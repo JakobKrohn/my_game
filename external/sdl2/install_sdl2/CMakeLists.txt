@@ -1,5 +1,7 @@
 # https://github.com/fifengine/fifengine/blob/master/cmake/get-sdl2.cmake
 
+include(ExternalProject)
+
 set(SDL2_VERSION "2.0.10")
 
 set(SDL2_CMAKE_ARGS
