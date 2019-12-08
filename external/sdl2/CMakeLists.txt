@@ -8,6 +8,8 @@ set(CMAKE_MODULE_PATH
         ${PROJECT_SOURCE_DIR}/sdl2-cmake-scripts
 )
 
+add_subdirectory(install_sdl2)
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
