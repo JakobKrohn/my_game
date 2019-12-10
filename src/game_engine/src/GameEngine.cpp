@@ -2,6 +2,9 @@
 
 #include <iostream>
 
-void GameEngine::print() {
-    std::cout << "GameEngine!\n";
+using namespace game_engine;
+
+GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent)
+{
+    m_inputEvent = inputEvent;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
@@ -21,12 +22,15 @@ int main(int argc, char **argv)
         std::cout << "no args\n";
     }
 
+    auto inputEvent = std::make_shared<sdl_input_event::SdlInputEvent>();
+    auto gameEngine = std::make_unique<game_engine::GameEngine>(inputEvent);
+
     // component::Player player("name");
     // component::Movable movable;
     // input_event::InputEvent_I input;
 
-    input_event::InputEvent_I *inputEvent;
-    inputEvent = new sdl_input_event::SdlInputEvent();
+    // input_event::InputEvent_I *inputEvent;
+    // inputEvent = new sdl_input_event::SdlInputEvent();
 
     return 0;
 }
