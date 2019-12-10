@@ -14,7 +14,7 @@ find_package(SDL2_image REQUIRED)
 if (${SDL2_FOUND})
     message(STATUS "SDL IS INSTALLED AND FOUND!")
 else()  
-    message(FATA_ERROR "SDL COULD NOT BE INSTALLED/FOUND")
+    message(FATAL_ERROR "SDL COULD NOT BE INSTALLED/FOUND")
 endif()
 
 message(STATUS "SDL_LIB: ${SDL2_LIBRARY}")
@@ -31,4 +31,3 @@ target_include_directories(${PROJECT_NAME}
         ${SDL2_INCLUDE_DIRS}
         ${SDL2_IMAGE_INCLUDE_DIRS}
 )
-

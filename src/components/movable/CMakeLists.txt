@@ -1,7 +1,9 @@
 project(movable)
 
+message("${LIBRARY_NAME} --> ${PROJECT_NAME}")
+
 add_library(${PROJECT_NAME} SHARED)
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(${LIBRARY_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
