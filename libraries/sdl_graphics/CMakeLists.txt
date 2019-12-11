@@ -9,6 +9,8 @@ target_link_libraries(${PROJECT_NAME}
         graphics::graphics
 )
 
+add_subdirectory(components)
+
 target_sources(${PROJECT_NAME}
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/SdlGraphics.cpp

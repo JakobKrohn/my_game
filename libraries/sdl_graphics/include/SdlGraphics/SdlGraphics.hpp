@@ -2,8 +2,13 @@
 #define SDL_GRAPHICS_HPP
 
 #include <vector>
+#include <memory>
+
+#include "SDL.h"
+#include "SDL_image.h"
 
 #include "Graphics/Graphics_I.hpp"
+#include "Window/Window.hpp"
 
 namespace sdl_graphics
 {
@@ -15,6 +20,8 @@ public:
     void addElement(std::shared_ptr<graphics::Drawable_I> element);
 
 private:
+    std::unique_ptr<Window> m_window;
+    // std::unique_ptr<SDL_Renderer> m_renderer;
     std::vector<std::shared_ptr<graphics::Drawable_I>> m_elements;
 
 };
