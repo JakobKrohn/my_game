@@ -11,6 +11,7 @@
         "clear": true
     },
     "tasks": [
+        // ========================= CONFIGURE
         {
             "label": "configure",
             "type": "shell",
@@ -22,6 +23,7 @@
             ],
             "problemMatcher": []
         },
+        // ========================= CLEAN
         {
             "label": "clean",
             "type": "shell",
@@ -32,6 +34,7 @@
             ],
             "problemMatcher": []
         },
+        // ========================= BUILD
         {
             "label": "build",
             "type": "shell",
@@ -42,6 +45,18 @@
             ],
             "problemMatcher": []
         },
+        // ========================= CPP CHECK
+        {
+            "label": "cpp check", 
+            "type": "shell", 
+            "command": "cppcheck", 
+            "args": [
+                "src", 
+                "libraries", 
+                "application"
+            ]
+        },
+        // ========================= RUN ALL
         {
             "label": "run all",
             "type": "shell",
@@ -51,6 +66,7 @@
                 "run tests"
             ]
         },
+        // ========================= RUN GAME
         {
             "label": "run game",
             "type": "shell",
@@ -63,6 +79,7 @@
                 "build"
             ]
         },
+        // ========================= RUN TESTS
         {
             "label": "run tests",
             "type": "shell",
@@ -82,6 +99,7 @@
                 "cwd": "${workspaceFolder}/build/test"
             }
         },
+        // ========================= CLEAN & CONFIGURE
         {
             "label": "clean and configure",
             "type": "shell",
