@@ -6,7 +6,7 @@ using namespace sdl_graphics;
 
 Window::Window(uint16_t positionX, uint16_t positionY, uint16_t width, uint16_t height, uint32_t flag)
 {
-    m_window = SDL_CreateWindow("", positionX, positionY, width, height, flag);
+    m_window = SDL_CreateWindow("window", positionX, positionY, width, height, flag);
 
     if (m_window == nullptr)
     {
