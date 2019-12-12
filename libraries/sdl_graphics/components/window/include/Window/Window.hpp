@@ -3,15 +3,22 @@
 
 #include "SDL.h"
 
+#include "Types.hpp"
+
 namespace sdl_graphics
 {
 class Window
 {
 public:
-    Window(uint32_t positionX, uint32_t positionY, uint32_t width, uint32_t height, uint32_t flag);
+    Window(uint16_t positionX, uint16_t positionY, uint16_t width, uint16_t height, uint32_t flag);
     ~Window();
+
+    SDL_Window *getSdlObject() const;
+
 private:
-    SDL_Window * m_window;
+    SDL_Window *m_window;
+    WindowPosition m_position;
+    WindowSize m_size;
 };
 } // namespace sdl_graphics
 

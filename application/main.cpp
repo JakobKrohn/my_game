@@ -33,5 +33,7 @@ int main(int argc, char **argv)
     // component::Player player("name");
     // component::Movable movable;
 
+    for (uint32_t i = 0; i < 999999999; i++){}
+
     return 0;
 }

@@ -8,7 +8,8 @@ void SdlGraphics::createWindow(unsigned int windowPosX, unsigned int windowPosY)
         throw std::runtime_error(SDL_GetError());
     }
 
-    m_window = std::make_unique<Window>(windowPosX, windowPosY, 500, 500, SDL_WINDOW_SHOWN);
+    m_window = std::make_shared<Window>(windowPosX, windowPosY, 500, 500, SDL_WINDOW_SHOWN);
+    m_renderer = std::make_unique<Renderer>(m_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
 void SdlGraphics::update()
