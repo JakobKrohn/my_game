@@ -19,9 +19,15 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawa
     {
         throw std::runtime_error(IMG_GetError());
     }
+
+    m_rect.h = drawable->getHeight();
+    m_rect.w = drawable->getWidth();
+    m_rect.x = drawable->getPosX();
+    m_rect.y = drawable->getPosY();
+
 }
 
 void Image::draw()
 {
-    SDL_RenderCopy(m_renderer->getSdlObject(), m_texture, NULL, NULL);
+    SDL_RenderCopyEx(m_renderer->getSdlObject(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
 }

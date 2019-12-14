@@ -29,9 +29,8 @@ void SdlGraphics::update()
     m_renderer->setColor(0x00, 0x00, 0x00);
     m_renderer->clear();
 
-    for (auto & element : m_elements)
+    for (auto &element : m_elements)
     {
-        // print("test");
         element.second.draw();
     }
 

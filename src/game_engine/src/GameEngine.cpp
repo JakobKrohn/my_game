@@ -14,7 +14,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     initializeKeys();
 
-    auto draw = std::make_shared<graphics::Drawable>("assets/arrow.png", 100, 100);
+    auto draw = std::make_shared<graphics::Drawable>("assets/arrow.png", 100, 100, 100, 0, 0);
     m_graphics->addElement(draw);
 }
 
