@@ -20,7 +20,7 @@ public:
     SdlGraphics(unsigned int windowPositionX = 250, unsigned int windowPositionY = 250);
 
     void update();
-    void addElement(std::shared_ptr<graphics::Drawable_I> element);
+    void addElement(std::shared_ptr<graphics::Drawable_I> element, std::string imagePath);
 
 private:
     std::shared_ptr<Window> m_window;

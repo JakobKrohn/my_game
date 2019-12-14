@@ -21,7 +21,7 @@ void SdlGraphics::update()
 {
 }
 
-void SdlGraphics::addElement(std::shared_ptr<graphics::Drawable_I> element)
+void SdlGraphics::addElement(std::shared_ptr<graphics::Drawable_I> element, std::string imagePath)
 {
     m_elements.push_back(element);
 }

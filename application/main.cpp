@@ -30,12 +30,7 @@ int main(int argc, char **argv)
 
     auto gameEngine = std::make_unique<game_engine::GameEngine>(inputEvent, graphics);
 
-    // component::Player player("name");
-    // component::Movable movable;
-
-    for (uint32_t i = 0; i < 999999999999; i++)
-    {
-    }
+    gameEngine->start();
 
     return 0;
 }

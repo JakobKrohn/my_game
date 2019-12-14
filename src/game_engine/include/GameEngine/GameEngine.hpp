@@ -18,10 +18,16 @@ class GameEngine
 public:
     GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<graphics::Graphics_I> graphics);
 
+    void start();
+    void exit();
+
 private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<graphics::Graphics_I> m_graphics;
     std::vector<component::Player_I> m_players;
+    bool m_active;
+
+    void initializeKeys();
 };
 } // namespace game_engine
 
