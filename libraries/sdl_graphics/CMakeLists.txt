@@ -7,6 +7,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         sdl_lib::sdl_lib
         graphics::graphics
+        logger::logger
 )
 
 add_subdirectory(components)

@@ -3,6 +3,7 @@
 
 #include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
+#include "Logger/Logger.hpp"
 
 #include "InputEvent/InputEvent_I.hpp"
 #include "Graphics/Graphics_I.hpp"
@@ -14,8 +15,9 @@
 
 int main(int argc, char **argv)
 {
-    std::cout << "Application\n";
-
+    Logger::getInstance().setMode(LogMode::TERMINAL);
+    
+    print("Application");
     if (argc > 1)
     {
         std::cout << argv[1] << "\n";

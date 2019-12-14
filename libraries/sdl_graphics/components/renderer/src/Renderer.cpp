@@ -18,6 +18,11 @@ Renderer::~Renderer()
     m_renderer = nullptr;
 }
 
+SDL_Renderer *Renderer::getSdlObject() const
+{
+    return m_renderer;
+}
+
 void Renderer::setColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
 {
     SDL_SetRenderDrawColor(m_renderer, red, green, blue, alpha);

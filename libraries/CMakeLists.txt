@@ -1,2 +1,3 @@
 add_subdirectory(sdl_input_event)
 add_subdirectory(sdl_graphics)
+add_subdirectory(logger)

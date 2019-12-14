@@ -4,16 +4,16 @@
 #include <memory>
 #include <string>
 
-#include "Drawable_I.hpp"
+#include "Drawable.hpp"
 
 namespace graphics
 {
-    class Graphics_I
-    {
-        virtual void update() = 0;
-        virtual void addElement(std::shared_ptr<Drawable_I> element, std::string imagePath) = 0;
-    };
+class Graphics_I
+{
+public:
+    virtual void update() = 0;
+    virtual void addElement(std::shared_ptr<Drawable> element) = 0;
+};
 } // namespace graphics
-
 
 #endif // GRAPHICS_INTERFACE_HPP
