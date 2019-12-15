@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "Drawable.hpp"
+#include "Drawable_I.hpp"
 
 namespace graphics
 {
@@ -12,7 +12,7 @@ class Graphics_I
 {
 public:
     virtual void update() = 0;
-    virtual void addElement(std::shared_ptr<Drawable> element) = 0;
+    virtual void addElement(std::shared_ptr<Drawable_I> element) = 0;
 };
 } // namespace graphics
 

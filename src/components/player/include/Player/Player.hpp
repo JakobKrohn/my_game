@@ -4,15 +4,18 @@
 #include "Player_I.hpp"
 
 #include "Movable/Movable_I.hpp"
+#include "Movable/Movable.hpp"
+#include "Graphics/Drawable_I.hpp"
+#include "Graphics/Drawable.hpp"
 
-namespace component
+namespace components
 {
-class Player
+class Player : public Movable, public graphics::Drawable
 {
 public:
     const char *const name_;
 
-    Player(const char *name);
+    Player(const char *name, position_T position, graphics::Drawable_T drawData);
 
     void initialize();
 
@@ -20,6 +23,6 @@ public:
 
 private:
 };
-} // namespace component
+} // namespace components
 
 #endif // PLAYER_H

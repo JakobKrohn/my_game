@@ -2,7 +2,7 @@
 
 using namespace sdl_graphics;
 
-Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable> drawable)
+Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable_I> drawable)
 {
     m_renderer = renderer;
     m_drawable = drawable;

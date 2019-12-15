@@ -24,7 +24,7 @@ public:
 private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<graphics::Graphics_I> m_graphics;
-    std::vector<component::Player_I> m_players;
+    std::vector<components::Player_I> m_players;
     bool m_active;
 
     void initializeKeys();

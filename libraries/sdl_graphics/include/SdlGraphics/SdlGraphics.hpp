@@ -21,13 +21,13 @@ public:
     SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
 
     void update();
-    void addElement(std::shared_ptr<graphics::Drawable> element);
+    void addElement(std::shared_ptr<graphics::Drawable_I> element);
 
 private:
     std::shared_ptr<Window> m_window;
     std::shared_ptr<Renderer> m_renderer;
     // std::vector<std::shared_ptr<graphics::Drawable>> m_elements;
-    std::vector<std::pair<std::shared_ptr<graphics::Drawable>, Image>> m_elements;
+    std::vector<std::pair<std::shared_ptr<graphics::Drawable_I>, Image>> m_elements;
 };
 } // namespace sdl_graphics
 

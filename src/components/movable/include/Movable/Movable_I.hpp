@@ -1,13 +1,13 @@
 #ifndef MOVABLE_INTERFACE_HPP
 #define MOVABLE_INTERFACE_HPP
 
-namespace component
+namespace components
 {
 class Movable_I
 {
 public:
 private:
 };
-} // namespace component
+} // namespace components
 
 #endif // MOVABLE_INTERFACE_HPP

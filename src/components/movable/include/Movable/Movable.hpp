@@ -5,35 +5,37 @@
 
 #include <memory>
 
-struct position_t
+namespace components
 {
-    int x;
-    int y;
+
+struct position_T
+{
+    uint32_t posX;
+    uint32_t posY;
     int angle;
 };
 
-namespace component
-{
 class Movable
 {
 public:
-    Movable();
+    Movable(uint32_t posX, uint32_t posY, uint16_t angle);
+    Movable(position_T position);
 
-    void setPosition(int x, int y, int angle);
+    void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 
     void moveForward(int velocity);
     void moveBackward(int velocity);
     void rotateLeft(int velocity);
     void rotateRight(int velocity);
 
-    const std::shared_ptr<position_t> getPosition() const;
+    const std::shared_ptr<position_T> getPosition() const;
 
 protected:
 private:
-    std::shared_ptr<position_t> current_;
+    std::shared_ptr<position_T> m_position;
 
     void updateAngle(int angle);
 };
-} // namespace component
+} // namespace components
 
 #endif // MOVABLE_HPP

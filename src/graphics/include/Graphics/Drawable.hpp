@@ -3,13 +3,16 @@
 
 #include <string>
 
+#include "Drawable_I.hpp"
+
 namespace graphics
 {
 
-class Drawable
+class Drawable : public Drawable_I
 {
 public:
     Drawable(std::string imagePath, uint16_t width, uint16_t height, uint32_t posX, uint32_t posY, uint16_t angle);
+    Drawable(Drawable_T data);
 
     void setWidth(uint16_t width);
     void setHeight(uint16_t height);
@@ -25,6 +28,7 @@ public:
     uint16_t getAngle() const;
 
 private:
+    Drawable_T m_data;
     const std::string m_imagePath;
     uint16_t m_width;
     uint16_t m_height;

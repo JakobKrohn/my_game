@@ -1,13 +1,13 @@
 #ifndef PLAYER_INTERFACE_HPP
 #define PLAYER_INTERFACE_HPP
 
-namespace component
+namespace components
 {
 class Player_I
 {
 public:
 private:
 };
-} // namespace component
+} // namespace components
 
 #endif // PLAYER_INTERFACE_HPP

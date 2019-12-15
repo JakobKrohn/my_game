@@ -13,14 +13,14 @@ namespace sdl_graphics
 class Image
 {
 public:
-    Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable> drawable);
+    Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable_I> drawable);
     // TODO destruct
 
     void draw();
 
 private:
     std::shared_ptr<Renderer> m_renderer;
-    std::shared_ptr<graphics::Drawable> m_drawable;
+    std::shared_ptr<graphics::Drawable_I> m_drawable;
     SDL_Texture *m_texture;
     SDL_Rect m_rect;
 };

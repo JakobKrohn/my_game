@@ -37,7 +37,7 @@ void SdlGraphics::update()
     m_renderer->present();
 }
 
-void SdlGraphics::addElement(std::shared_ptr<graphics::Drawable> element)
+void SdlGraphics::addElement(std::shared_ptr<graphics::Drawable_I> element)
 {
     Image image(m_renderer, element);
     m_elements.push_back(std::make_pair(element, image));
