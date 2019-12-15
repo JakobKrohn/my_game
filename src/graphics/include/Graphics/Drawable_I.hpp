@@ -6,14 +6,19 @@
 namespace graphics
 {
 
+struct Position_T
+{
+int x;
+int y;
+int angle;
+};
+
 struct Drawable_T
 {
     std::string imagePath; // TODO: const
     uint16_t width;
     uint16_t height;
-    uint32_t posX;
-    uint32_t posY;
-    uint16_t angle;
+    Position_T position;
 };
 
 class Drawable_I
@@ -25,6 +30,11 @@ public:
     virtual uint32_t getPosX() const = 0;
     virtual uint32_t getPosY() const = 0;
     virtual uint16_t getAngle() const = 0;
+
+protected:
+    // Drawable_T m_data;
+
+private:
 };
 
 } // namespace graphics

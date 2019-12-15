@@ -4,7 +4,7 @@
 
 using namespace components;
 
-Player::Player(const char *name, position_T position, graphics::Drawable_T drawData) : components::Movable(position), graphics::Drawable(drawData), name_(name)
+Player::Player(const char *name, graphics::Drawable_T drawData) : components::Movable(drawData), name_(name)
 {
 }
 

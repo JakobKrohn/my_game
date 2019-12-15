@@ -5,6 +5,8 @@
 
 #include <memory>
 
+#include "Graphics/Drawable.hpp"
+
 namespace components
 {
 
@@ -15,11 +17,12 @@ struct position_T
     int angle;
 };
 
-class Movable
+class Movable : public graphics::Drawable
 {
 public:
-    Movable(uint32_t posX, uint32_t posY, uint16_t angle);
-    Movable(position_T position);
+    // Movable(uint32_t posX, uint32_t posY, uint16_t angle);
+    // Movable(position_T position);
+    Movable(graphics::Drawable_T data);
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 

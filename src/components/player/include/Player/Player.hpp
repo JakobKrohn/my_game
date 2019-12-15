@@ -10,12 +10,13 @@
 
 namespace components
 {
-class Player : public Movable, public graphics::Drawable
+
+class Player : public Movable
 {
 public:
     const char *const name_;
 
-    Player(const char *name, position_T position, graphics::Drawable_T drawData);
+    Player(const char *name, graphics::Drawable_T drawData);
 
     void initialize();
 
@@ -23,6 +24,7 @@ public:
 
 private:
 };
+
 } // namespace components
 
 #endif // PLAYER_H
