@@ -8,9 +8,9 @@ namespace graphics
 
 struct Position_T
 {
-int x;
-int y;
-int angle;
+    int x;
+    int y;
+    int angle;
 };
 
 struct Drawable_T

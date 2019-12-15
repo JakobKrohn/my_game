@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 #include "Logger/Logger.hpp"
 #include "Graphics/Drawable.hpp"
@@ -24,8 +26,8 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     graphics::Drawable_T playerDrawable;
     playerDrawable.imagePath = "assets/arrow.png";
-    playerDrawable.width = 100;
-    playerDrawable.height = 100;
+    playerDrawable.width = 50;
+    playerDrawable.height = 50;
     playerDrawable.position = positionData;
 
     auto player = std::make_shared<components::Player>("Jakob", playerDrawable);
@@ -34,10 +36,10 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     {
         using namespace std::placeholders;
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 10), input_event::input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 10), input_event::input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 10), input_event::input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 10), input_event::input_key::DOWN);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_event::input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_event::input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_event::input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_event::input_key::DOWN);
     }
 }
 
@@ -45,10 +47,23 @@ void GameEngine::start()
 {
     print("Starting game ...");
     m_active = true;
+
+    using namespace std::chrono;
+
+    // https://stackoverflow.com/a/55192715
+    auto fpsLimit = duration_cast<system_clock::duration>(duration<double>{1. / 60});
+    
     while (m_active)
     {
+        auto begin = system_clock::now();
+
         m_inputEvent->check();
         m_graphics->update();
+
+        auto end = system_clock::now();
+        auto loopTime = end - begin;
+        // print(loopTime.count());
+
     }
 }
 

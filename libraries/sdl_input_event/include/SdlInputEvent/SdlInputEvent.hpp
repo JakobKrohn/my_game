@@ -21,10 +21,12 @@ public:
 private:
     SDL_Event m_event;
     std::function<void()> m_exitCallback;
-    std::map<SDL_Keycode, std::function<void()>> m_callbacks;
+    // std::map<SDL_Keycode, std::function<void()>> m_callbacks;
+    std::map<SDL_Scancode, std::function<void()>> m_callbacks;
 
     void executeCallback(std::function<void()> callback);
     SDL_Keycode translateKey(input_event::input_key key);
+    SDL_Scancode translateToScancode(input_event::input_key key);
 };
 } // namespace sdl_input_event
 

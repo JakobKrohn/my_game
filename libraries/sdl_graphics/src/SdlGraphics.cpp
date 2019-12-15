@@ -17,7 +17,8 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY)
     }
 
     m_window = std::make_shared<Window>(windowPosX, windowPosY, 640, 580, SDL_WINDOW_SHOWN);
-    m_renderer = std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_ACCELERATED);
+    // m_renderer = std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_ACCELERATED);
+    m_renderer = std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
 
     m_renderer->setColor(0x00, 0x00, 0x00);
     m_renderer->clear();
