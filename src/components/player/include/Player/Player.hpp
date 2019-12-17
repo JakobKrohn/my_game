@@ -18,10 +18,6 @@ public:
 
     Player(const char *name, graphics::Drawable_T drawData);
 
-    void initialize();
-
-    void getData();
-
 private:
 };
 

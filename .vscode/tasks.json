@@ -60,7 +60,7 @@
         {
             "label": "run all",
             "type": "shell",
-            "command": "./build/tools/MY_GAME_tool",
+            "command": "./build/application/application",
             "problemMatcher": [],
             "dependsOn": [
                 "run tests"
@@ -83,7 +83,7 @@
         {
             "label": "run tests",
             "type": "shell",
-            "command": "./MY_GAMETest",
+            "command": "./my_gameTest",
             // "command": "ctest",
             "args": [
                 "--abort-after=1"

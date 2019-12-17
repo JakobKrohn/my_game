@@ -63,7 +63,6 @@ void GameEngine::start()
         auto end = system_clock::now();
         auto loopTime = end - begin;
         // print(loopTime.count());
-
     }
 }
 
