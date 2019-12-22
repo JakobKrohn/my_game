@@ -40,26 +40,10 @@ void GameEngine::start()
     print("Starting game ...");
     m_active = true;
 
-    using namespace std::chrono;
-
-    // https://stackoverflow.com/a/55192715
-    auto fpsLimit = duration_cast<system_clock::duration>(duration<double>{1. / 60});
-    
-    uint frames = 0;
-    uint fpsCount = 0; // updates
-
     while (m_active)
     {
-        auto begin = system_clock::now();
-
         m_inputEvent->check();
         m_graphics->update();
-
-        auto end = system_clock::now();
-        auto loopTime = end - begin;
-
-        fpsCount++;
-        // print(loopTime.count());
     }
 }
 

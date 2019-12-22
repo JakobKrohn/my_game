@@ -35,6 +35,8 @@ private:
     TTF_Font *m_font;
 
     double getFramesPerSecond(uint32_t startTime);
+    void drawFrame(int width, int height) const;
+    static int resizeEvent(void *data, SDL_Event *event); // todo: not static
 };
 
 } // namespace sdl_graphics

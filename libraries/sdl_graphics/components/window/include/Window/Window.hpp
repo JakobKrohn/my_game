@@ -5,6 +5,8 @@
 
 #include "Types.hpp"
 
+// https://wiki.libsdl.org/SDL_WindowFlags
+
 namespace sdl_graphics
 {
 

@@ -37,3 +37,10 @@ void Renderer::present()
 {
     SDL_RenderPresent(m_renderer);
 }
+
+std::tuple<int, int> Renderer::getWindowSize() const
+{
+    int w, h = 0;
+    SDL_GetRendererOutputSize(m_renderer, &w, &h);
+    return {w, h};
+}

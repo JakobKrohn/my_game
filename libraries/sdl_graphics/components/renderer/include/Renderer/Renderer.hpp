@@ -20,6 +20,7 @@ public:
     void setColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255);
     void clear();
     void present();
+    std::tuple<int, int> getWindowSize() const;
 
 private:
     SDL_Renderer *m_renderer;
