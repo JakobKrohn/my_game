@@ -4,7 +4,7 @@ using namespace sdl_graphics;
 
 Renderer::Renderer(std::shared_ptr<Window> window, int index, uint32_t flag)
 {
-    m_renderer = SDL_CreateRenderer(window->getSdlObject(), index, flag);
+    m_renderer = SDL_CreateRenderer(window->get(), index, flag);
 
     if (m_renderer == nullptr)
     {
