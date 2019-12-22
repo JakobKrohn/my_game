@@ -9,6 +9,7 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
     INTERFACE
         ${PROJECT_SOURCE_DIR}/src/GameEngine.cpp
+        ${PROJECT_SOURCE_DIR}/src/Factory.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

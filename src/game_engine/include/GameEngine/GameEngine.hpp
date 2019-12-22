@@ -13,6 +13,7 @@
 
 namespace game_engine
 {
+
 class GameEngine
 {
 public:
@@ -29,6 +30,7 @@ private:
 
     void initializeKeys();
 };
+
 } // namespace game_engine
 
 #endif // GAME_ENGINE_HPP

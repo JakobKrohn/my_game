@@ -11,7 +11,7 @@
 namespace components
 {
 
-class Player : public Movable
+class Player : public Movable, public Player_I
 {
 public:
     const char *const name_;

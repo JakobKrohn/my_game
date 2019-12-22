@@ -3,11 +3,13 @@
 
 namespace components
 {
+
 class Player_I
 {
 public:
 private:
 };
+
 } // namespace components
 
 #endif // PLAYER_INTERFACE_HPP

@@ -9,6 +9,7 @@
 #include "Graphics/Drawable.hpp"
 #include "Player/Player.hpp"
 #include "Movable/Movable.hpp"
+#include "GameEngine/Factory.hpp"
 
 using namespace game_engine;
 
@@ -19,18 +20,20 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     initializeKeys();
 
-    graphics::Position_T positionData;
-    positionData.x = 0;
-    positionData.y = 0;
-    positionData.angle = 0;
+    // graphics::Position_T positionData;
+    // positionData.x = 0;
+    // positionData.y = 0;
+    // positionData.angle = 0;
 
-    graphics::Drawable_T playerDrawable;
-    playerDrawable.imagePath = "assets/arrow.png";
-    playerDrawable.width = 50;
-    playerDrawable.height = 50;
-    playerDrawable.position = positionData;
+    // graphics::Drawable_T playerDrawable;
+    // playerDrawable.imagePath = "assets/arrow.png";
+    // playerDrawable.width = 50;
+    // playerDrawable.height = 50;
+    // playerDrawable.position = positionData;
 
-    auto player = std::make_shared<components::Player>("Jakob", playerDrawable);
+    // auto player = std::make_shared<components::Player>("Jakob", playerDrawable);
+
+    auto player = Factory::createPlayer("Jakob");
 
     m_graphics->addElement(player);
 
@@ -53,6 +56,9 @@ void GameEngine::start()
     // https://stackoverflow.com/a/55192715
     auto fpsLimit = duration_cast<system_clock::duration>(duration<double>{1. / 60});
     
+    uint frames = 0;
+    uint fpsCount = 0; // updates
+
     while (m_active)
     {
         auto begin = system_clock::now();
@@ -62,6 +68,8 @@ void GameEngine::start()
 
         auto end = system_clock::now();
         auto loopTime = end - begin;
+
+        fpsCount++;
         // print(loopTime.count());
     }
 }
