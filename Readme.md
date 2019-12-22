@@ -23,6 +23,9 @@ $ apt install libsdl2-dev
 ### Install SDL2 image
 $ apt-get install libsdl2-image-dev
 
+### Install SDL2 TTF
+$ sudo apt-get install libsdl2-ttf-dev
+
 ### Modules
 1. https://github.com/tcbrindle/sdl2-cmake-scripts
 2. https://github.com/onqtam/doctest 

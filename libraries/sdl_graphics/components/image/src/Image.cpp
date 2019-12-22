@@ -13,7 +13,7 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawa
         throw std::runtime_error(IMG_GetError());
     }
 
-    m_texture = SDL_CreateTextureFromSurface(m_renderer->getSdlObject(), loadedSurface);
+    m_texture = SDL_CreateTextureFromSurface(m_renderer->get(), loadedSurface);
 
     if (m_texture == nullptr)
     {
@@ -33,5 +33,5 @@ void Image::draw()
     m_rect.w = m_drawable->getWidth();
     m_rect.x = m_drawable->getPosX();
     m_rect.y = m_drawable->getPosY();
-    SDL_RenderCopyEx(m_renderer->getSdlObject(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
 }

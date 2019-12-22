@@ -20,29 +20,18 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     initializeKeys();
 
-    // graphics::Position_T positionData;
-    // positionData.x = 0;
-    // positionData.y = 0;
-    // positionData.angle = 0;
-
-    // graphics::Drawable_T playerDrawable;
-    // playerDrawable.imagePath = "assets/arrow.png";
-    // playerDrawable.width = 50;
-    // playerDrawable.height = 50;
-    // playerDrawable.position = positionData;
-
-    // auto player = std::make_shared<components::Player>("Jakob", playerDrawable);
-
     auto player = Factory::createPlayer("Jakob");
 
     m_graphics->addElement(player);
 
     {
         using namespace std::placeholders;
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_event::input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_event::input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_event::input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_event::input_key::DOWN);
+        using namespace input_event;
+
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_key::DOWN);
     }
 }
 

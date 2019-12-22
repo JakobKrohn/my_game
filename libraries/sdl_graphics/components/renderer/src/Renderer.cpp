@@ -18,7 +18,7 @@ Renderer::~Renderer()
     m_renderer = nullptr;
 }
 
-SDL_Renderer *Renderer::getSdlObject() const
+SDL_Renderer *Renderer::get() const
 {
     return m_renderer;
 }

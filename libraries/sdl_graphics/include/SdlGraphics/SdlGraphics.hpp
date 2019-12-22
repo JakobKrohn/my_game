@@ -6,6 +6,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 
 #include "Graphics/Graphics_I.hpp"
 
@@ -26,8 +27,10 @@ public:
 private:
     std::shared_ptr<Window> m_window;
     std::shared_ptr<Renderer> m_renderer;
-    // std::vector<std::shared_ptr<graphics::Drawable>> m_elements;
     std::vector<std::pair<std::shared_ptr<graphics::Drawable_I>, Image>> m_elements;
+    uint32_t m_countedFrames;
+    uint32_t m_startTicks;
+    TTF_Font *m_font;
 };
 } // namespace sdl_graphics
 
