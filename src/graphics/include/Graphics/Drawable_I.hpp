@@ -13,7 +13,7 @@ struct Position_T
     float angle;
 };
 
-struct Drawable_T
+struct Image_T
 {
     std::string imagePath; // TODO: const
     uint16_t width;

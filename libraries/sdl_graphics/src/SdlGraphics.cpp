@@ -40,11 +40,10 @@ void SdlGraphics::update()
 {
     static auto start = SDL_GetTicks();
 
-    m_renderer->setColor(0x00, 0x00, 0x00);
+    m_renderer->setColor(0x00, 0x00, 0xFF);
     m_renderer->clear();
 
     auto [width, height] = m_renderer->getWindowSize();
-    print(width, " ", height);
 
     m_renderer->setColor(0xFF, 0xFF, 0x00);
     drawFrame(width, height);

@@ -2,9 +2,14 @@
 
 using namespace graphics;
 
-Drawable::Drawable(Drawable_T data) : m_data(data)
+Drawable::Drawable(Image_T data) : m_data(data)
 {
     
+}
+
+Drawable::Drawable(std::vector<Image_T> imageData) : m_imageData(imageData)
+{
+
 }
 
 const std::string Drawable::getImagePath() const

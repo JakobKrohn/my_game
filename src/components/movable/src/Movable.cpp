@@ -6,7 +6,12 @@
 
 using namespace components;
 
-Movable::Movable(graphics::Drawable_T data) : graphics::Drawable(data)
+Movable::Movable(graphics::Image_T data) : graphics::Drawable(data)
+{
+
+}
+
+Movable::Movable(std::vector<graphics::Image_T> imageData) : graphics::Drawable(imageData)
 {
 
 }
@@ -38,11 +43,6 @@ void Movable::rotateRight(int velocity)
 void Movable::rotateLeft(int velocity)
 {
     updateAngle(-velocity);
-}
-
-const std::shared_ptr<position_T> Movable::getPosition() const
-{
-    return m_position;
 }
 
 void Movable::updateAngle(int angle)

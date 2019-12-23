@@ -4,6 +4,7 @@
 #include "Movable_I.hpp"
 
 #include <memory>
+#include <vector>
 
 #include "Graphics/Drawable.hpp"
 
@@ -12,17 +13,17 @@ namespace components
 
 struct position_T
 {
-    uint32_t posX;
-    uint32_t posY;
-    int angle;
+    float posX;
+    float posY;
+    float angle;
 };
 
+// class Movable : public graphics::Drawable
 class Movable : public graphics::Drawable
 {
 public:
-    // Movable(uint32_t posX, uint32_t posY, uint16_t angle);
-    // Movable(position_T position);
-    Movable(graphics::Drawable_T data);
+    Movable(graphics::Image_T data);
+    Movable(std::vector<graphics::Image_T> imageData);
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 
@@ -30,8 +31,6 @@ public:
     void moveBackward(int velocity);
     void rotateLeft(int velocity);
     void rotateRight(int velocity);
-
-    const std::shared_ptr<position_T> getPosition() const;
 
 protected:
 private:
