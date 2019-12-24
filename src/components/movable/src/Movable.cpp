@@ -66,21 +66,6 @@ void Movable::rotateLeft(int velocity)
     updateAngle(-velocity);
 }
 
-uint32_t Movable::getPosX() const
-{
-    return (uint16_t)m_position->x;
-}
-
-uint32_t Movable::getPosY() const
-{
-    return (uint16_t)m_position->y;
-}
-
-uint16_t Movable::getAngle() const
-{
-    return (uint16_t)m_position->angle;
-}
-
 void Movable::updateAngle(int angle)
 {
     m_position->angle += angle;

@@ -36,12 +36,6 @@ public:
     // Sdl Element
     std::vector<std::shared_ptr<sdl_graphics::SdlImage_I>> getImages();
     const std::shared_ptr<sdl_graphics::SdlImage_I> getCurrentImage() const;
-    
-
-    // Overload position functions from graphics::Drawable
-    uint32_t getPosX() const;
-    uint32_t getPosY() const;
-    uint16_t getAngle() const;
 
 protected:
     // std::array<std::shared_ptr<graphics::Drawable>, 3> m_data;
