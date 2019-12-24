@@ -9,9 +9,9 @@ namespace graphics
 
 struct Position_T
 {
-    float x;
-    float y;
-    float angle;
+    float *x;
+    float *y;
+    float *angle;
 };
 
 struct Image_T

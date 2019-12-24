@@ -15,8 +15,11 @@ class Drawable : public sdl_graphics::SdlImage_I
 {
 public:
     Drawable(Image_T data);
+    // Drawable(Image_T data, int *posX, int *posY, int *angle);
     Drawable(std::vector<Image_T> imageData);
-    
+    // Drawable(std::vector<Image_T> imageData);
+    // Drawable(std::vector<Image_T> imageData, int *posX, int *posY, int *angle);
+
     const std::string getImagePath() const;
     uint16_t getWidth() const;
     uint16_t getHeight() const;

@@ -9,9 +9,9 @@ using namespace game_engine;
 std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
 {
     graphics::Position_T positionData;
-    positionData.x = 250;
-    positionData.y = 250;
-    positionData.angle = 0;
+    positionData.x = new float(250);
+    positionData.y = new float(750);
+    positionData.angle = new float(0);
 
     graphics::Image_T imageStill;
     imageStill.imagePath = "assets/player_green_still.png";
