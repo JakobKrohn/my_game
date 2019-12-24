@@ -4,8 +4,8 @@ add_library(${PROJECT_NAME} SHARED)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-        #
+    PUBLIC
+        sdl_graphics::sdl_graphics
 )
 
 target_sources(${PROJECT_NAME}

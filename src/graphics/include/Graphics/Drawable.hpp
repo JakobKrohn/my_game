@@ -5,11 +5,13 @@
 #include <vector>
 
 #include "Drawable_I.hpp"
+#include "SdlGraphics/SdlImage_I.hpp"
 
 namespace graphics
 {
 
-class Drawable : public Drawable_I
+// TODO: inherit from sdl_graphcis::SdlElement_I
+class Drawable : public sdl_graphics::SdlImage_I
 {
 public:
     Drawable(Image_T data);

@@ -50,7 +50,8 @@ void SdlGraphics::update()
 
     for (auto &element : m_elements)
     {
-        element.second.draw();
+        element.draw();
+        // element.second.draw();
     }
 
     auto fps = getFramesPerSecond(start);
@@ -59,10 +60,18 @@ void SdlGraphics::update()
     m_renderer->present();
 }
 
-void SdlGraphics::addElement(std::shared_ptr<graphics::Drawable_I> element)
+void SdlGraphics::addElement(std::shared_ptr<SdlImage_I> element)
 {
     Image image(m_renderer, element);
-    m_elements.push_back(std::make_pair(element, image));
+    // m_elements.push_back(std::make_pair(element, image));
+}
+
+void SdlGraphics::addElement(std::shared_ptr<SdlElement_I> element)
+{
+    Image image(m_renderer, element);
+
+    m_elements.push_back(image);
+    // m_elements.push_back(std::make_pair(element, image))
 }
 
 double SdlGraphics::getFramesPerSecond(uint32_t startTime)

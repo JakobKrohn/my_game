@@ -2,6 +2,7 @@
 #define DRAWABLE_INTERFACE_HPP
 
 #include <string>
+#include <memory>
 
 namespace graphics
 {

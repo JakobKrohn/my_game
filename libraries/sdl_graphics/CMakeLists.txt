@@ -6,7 +6,6 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         sdl_lib::sdl_lib
-        graphics::graphics
         logger::logger
 )
 

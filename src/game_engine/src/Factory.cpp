@@ -31,9 +31,9 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     imageMoveRight.height = 44;
     imageMoveRight.position = positionData;
 
-    std::vector<graphics::Image_T> imageData;
+    std::vector<graphics::Image_T> imageData {imageStill, imageMoveLeft, imageMoveRight};
 
-    // auto player = std::make_shared<components::Player>(name.c_str(), imageData);
-    auto player = std::make_shared<components::Player>(name.c_str(), imageStill);
+    auto player = std::make_shared<components::Player>(name.c_str(), imageData);
+    // auto player = std::make_shared<components::Player>(name.c_str(), imageStill);
     return player;
 }

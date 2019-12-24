@@ -1,16 +1,19 @@
 #include "Graphics/Drawable.hpp"
 
+#include <iostream>
+
 using namespace graphics;
 
 Drawable::Drawable(Image_T data) : m_data(data)
 {
-    
+    std::cout << "Draw ctor\n";
 }
 
-Drawable::Drawable(std::vector<Image_T> imageData) : m_imageData(imageData)
+Drawable::Drawable(std::vector<Image_T> imageData) : m_imageData(imageData), m_data(imageData[0])
 {
-
+    std::cout << "Draw ctor\n";
 }
+
 
 const std::string Drawable::getImagePath() const
 {

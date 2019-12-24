@@ -8,7 +8,9 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 
-#include "Graphics/Graphics_I.hpp"
+#include "SdlImage_I.hpp"
+#include "Graphics_I.hpp"
+#include "SdlElement_I.hpp"
 
 #include "Window/Window.hpp"
 #include "Renderer/Renderer.hpp"
@@ -18,19 +20,21 @@
 namespace sdl_graphics
 {
 
-class SdlGraphics : public graphics::Graphics_I
+class SdlGraphics : public Graphics_I
 {
 public:
     SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
 
     void update();
-    void addElement(std::shared_ptr<graphics::Drawable_I> element);
+    void addElement(std::shared_ptr<SdlImage_I> element);
+    void addElement(std::shared_ptr<SdlElement_I> element);
 
 private:
     std::shared_ptr<Window> m_window;
     std::shared_ptr<Renderer> m_renderer;
     std::unique_ptr<TextRenderer> m_fpsRenderer;
-    std::vector<std::pair<std::shared_ptr<graphics::Drawable_I>, Image>> m_elements;
+    std::vector<Image> m_elements;
+    // std::vector<std::pair<std::shared_ptr<SdlImage_I>, Image>> m_elements;
     uint32_t m_countedFrames;
     TTF_Font *m_font;
 
