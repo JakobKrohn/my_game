@@ -6,7 +6,7 @@
 #include "Logger/Logger.hpp"
 
 #include "InputEvent/InputEvent_I.hpp"
-#include "Graphics/Graphics_I.hpp"
+#include "GraphicsInterface/Graphics_I.hpp"
 
 #include "GameEngine/GameEngine.hpp"
 

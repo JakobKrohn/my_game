@@ -2,7 +2,7 @@
 
 using namespace sdl_graphics;
 
-Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable_I> drawable)
+Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable)
 {
     m_renderer = renderer;
     m_drawable = drawable;
@@ -15,23 +15,24 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawa
 
     m_texture = SDL_CreateTextureFromSurface(m_renderer->get(), loadedSurface);
 
+    SDL_FreeSurface(loadedSurface);
+
     if (m_texture == nullptr)
     {
         throw std::runtime_error(IMG_GetError());
     }
+}
 
-    m_rect.h = drawable->getHeight();
-    m_rect.w = drawable->getWidth();
-    m_rect.x = drawable->getPosX();
-    m_rect.y = drawable->getPosY();
-
+Image::~Image()
+{
+    SDL_DestroyTexture(m_texture);
 }
 
 void Image::draw()
 {
-    m_rect.h = m_drawable->getHeight();
-    m_rect.w = m_drawable->getWidth();
-    m_rect.x = m_drawable->getPosX();
-    m_rect.y = m_drawable->getPosY();
-    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
+    m_rect.h = *m_drawable->getHeight();
+    m_rect.w = *m_drawable->getWidth();
+    m_rect.x = *m_drawable->getPosX();
+    m_rect.y = *m_drawable->getPosY();
+    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_rect, *m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
 }

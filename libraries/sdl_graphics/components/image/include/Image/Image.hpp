@@ -6,24 +6,26 @@
 #include "SDL_image.h"
 
 #include "Renderer/Renderer.hpp"
-#include "Graphics/Drawable.hpp"
+#include "GraphicsInterface/Image_I.hpp"
 
 namespace sdl_graphics
 {
+
 class Image
 {
 public:
-    Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<graphics::Drawable_I> drawable);
-    // TODO destruct
+    Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable);
+    ~Image();
 
     void draw();
 
 private:
     std::shared_ptr<Renderer> m_renderer;
-    std::shared_ptr<graphics::Drawable_I> m_drawable;
+    std::shared_ptr<Image_I> m_drawable;
     SDL_Texture *m_texture;
     SDL_Rect m_rect;
 };
+
 } // namespace sdl_graphics
 
 #endif // IMAGE_HPP

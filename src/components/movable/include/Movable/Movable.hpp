@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "Graphics/Drawable.hpp"
+// #include "Graphics/Drawable.hpp"
 
 namespace components
 {
@@ -19,11 +19,11 @@ struct position_T
 };
 
 // class Movable : public graphics::Drawable
-class Movable : public graphics::Drawable
+class Movable //: public graphics::Drawable
 {
 public:
-    Movable(graphics::Image_T data);
-    Movable(std::vector<graphics::Image_T> imageData);
+    // Movable(graphics::Image_T data);
+    // Movable(std::vector<graphics::Image_T> imageData);
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 

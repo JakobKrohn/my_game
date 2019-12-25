@@ -6,14 +6,14 @@
 #include <chrono>
 
 #include "Logger/Logger.hpp"
-#include "Graphics/Drawable.hpp"
+// #include "Graphics/Drawable.hpp"
 #include "Player/Player.hpp"
 #include "Movable/Movable.hpp"
 #include "GameEngine/Factory.hpp"
 
 using namespace game_engine;
 
-GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<graphics::Graphics_I> graphics) : m_active(false)
+GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics) : m_active(false)
 {
     m_inputEvent = inputEvent;
     m_graphics = graphics;
@@ -22,17 +22,17 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     auto player = Factory::createPlayer("Jakob");
 
-    m_graphics->addElement(player);
+    // m_graphics->addElement(player);
 
-    {
-        using namespace std::placeholders;
-        using namespace input_event;
+    // {
+    //     using namespace std::placeholders;
+    //     using namespace input_event;
 
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_key::DOWN);
-    }
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_key::LEFT);
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_key::RIGHT);
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_key::UP);
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_key::DOWN);
+    // }
 }
 
 void GameEngine::start()

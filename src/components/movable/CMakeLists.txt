@@ -8,7 +8,6 @@ add_library(${LIBRARY_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         logger::logger
-        graphics::graphics
 )
 
 target_sources(${PROJECT_NAME}

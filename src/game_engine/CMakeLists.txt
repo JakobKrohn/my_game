@@ -6,6 +6,11 @@ message("${LIBRARY_NAME} --> ${PROJECT_NAME}")
 add_library(${PROJECT_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
+target_link_libraries(${PROJECT_NAME}
+    INTERFACE
+        graphics_interface::graphics_interface
+)
+
 target_sources(${PROJECT_NAME}
     INTERFACE
         ${PROJECT_SOURCE_DIR}/src/GameEngine.cpp
