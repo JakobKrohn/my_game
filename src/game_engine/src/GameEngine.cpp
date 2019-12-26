@@ -22,7 +22,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     auto player = Factory::createPlayer("Jakob");
 
-    // m_graphics->addElement(player);
+    m_graphics->addElement(player->getMovable());
 
     // {
     //     using namespace std::placeholders;

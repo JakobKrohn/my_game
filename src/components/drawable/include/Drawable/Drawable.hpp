@@ -23,11 +23,11 @@ public:
 
     // Image_I
     const std::string getImagePath() const;
-    std::shared_ptr<uint32_t> getWidth() const;
-    std::shared_ptr<uint32_t> getHeight() const;
-    std::shared_ptr<uint32_t> getPosX() const;
-    std::shared_ptr<uint32_t> getPosY() const;
-    std::shared_ptr<uint16_t> getAngle() const;
+    uint32_t getWidth() const;
+    uint32_t getHeight() const;
+    uint32_t getPosX() const;
+    uint32_t getPosY() const;
+    uint16_t getAngle() const;
 
 private:
     std::unique_ptr<Drawable_T> m_data;

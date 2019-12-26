@@ -6,13 +6,21 @@
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>>)
+Movable::Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables) : m_drawables(drawables)
 {
+    m_position = position;
 }
 
 std::vector<std::shared_ptr<Image_I>> Movable::getAllImages()
 {
-
+    // TODOOOOO ???????????
+    // DO NOT CAST LIKE THIS!
+    std::vector<std::shared_ptr<Image_I>> data;
+    for (const auto & d : m_drawables) 
+    {
+        data.push_back(d);
+    }
+    return data;
 }
 
 std::shared_ptr<Image_I> Movable::getCurrentImage()
@@ -22,7 +30,7 @@ std::shared_ptr<Image_I> Movable::getCurrentImage()
 
 uint Movable::getCurrentIndex()
 {
-
+    return 2;
 }
 
 // Movable::Movable(graphics::Image_T data) : graphics::Drawable(data)

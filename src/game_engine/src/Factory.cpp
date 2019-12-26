@@ -49,7 +49,7 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     drawables.push_back(drawableRight);
 
     // Create Movable object
-    auto movable = std::make_shared<components::Movable>(position, drawables);
+    auto movable = std::make_shared<components::Movable>(std::move(position), drawables);
 
     // Create Player object
     auto player = std::make_shared<components::Player>(movable);

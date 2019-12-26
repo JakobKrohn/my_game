@@ -8,6 +8,7 @@
 
 #include "Drawable/Drawable.hpp"
 #include "GraphicsInterface/Element_I.hpp"
+#include "Logger/Logger.hpp"
 
 namespace components
 {
@@ -17,13 +18,16 @@ struct Position_T
     std::shared_ptr<float> x;
     std::shared_ptr<float> y;
     std::shared_ptr<float> angle;
+    ~Position_T(){
+        print("Destructed");
+    }
 };
 
 class Movable : public Element_I
 {
 public:
 
-    Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>>);
+    Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables);
     
     // Element_I 
     std::vector<std::shared_ptr<Image_I>> getAllImages();
@@ -40,6 +44,7 @@ public:
 protected:
 private:
     std::shared_ptr<Position_T> m_position;
+    std::vector<std::shared_ptr<Drawable>> m_drawables;
 
     void updateAngle(int angle);
 };

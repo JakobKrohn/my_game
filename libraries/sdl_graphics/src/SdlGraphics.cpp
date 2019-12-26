@@ -61,7 +61,9 @@ void SdlGraphics::update()
 
 void SdlGraphics::addElement(std::shared_ptr<Element_I> element)
 {
+    // Element elem(m_renderer, element);
     m_elements.emplace_back(m_renderer, element);
+    // m_elements.push_back(m_renderer, element);
 }
 
 double SdlGraphics::getFramesPerSecond(uint32_t startTime)

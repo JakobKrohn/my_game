@@ -12,27 +12,27 @@ const std::string Drawable::getImagePath() const
     return m_data->imagePath;
 }
 
-std::shared_ptr<uint32_t> Drawable::getWidth() const
+uint32_t Drawable::getWidth() const
 {
-    return m_data->width;
+    return *m_data->width;
 }
 
-std::shared_ptr<uint32_t> Drawable::getHeight() const
+uint32_t Drawable::getHeight() const
 {
-    return m_data->height;
+    return *m_data->height;
 }
 
-std::shared_ptr<uint32_t> Drawable::getPosX() const
+uint32_t Drawable::getPosX() const
 {
-    // return m_data->posX;
+    return static_cast<uint32_t>(*m_data->posX);
 }
 
-std::shared_ptr<uint32_t> Drawable::getPosY() const
+uint32_t Drawable::getPosY() const
 {
-
+    return static_cast<uint32_t>(*m_data->posY);
 }
 
-std::shared_ptr<uint16_t> Drawable::getAngle() const
+uint16_t Drawable::getAngle() const
 {
-
+    return static_cast<uint32_t>(*m_data->angle);
 }
