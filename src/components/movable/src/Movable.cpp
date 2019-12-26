@@ -6,6 +6,25 @@
 
 using namespace components;
 
+Movable::Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>>)
+{
+}
+
+std::vector<std::shared_ptr<Image_I>> Movable::getAllImages()
+{
+
+}
+
+std::shared_ptr<Image_I> Movable::getCurrentImage()
+{
+
+}
+
+uint Movable::getCurrentIndex()
+{
+
+}
+
 // Movable::Movable(graphics::Image_T data) : graphics::Drawable(data)
 // {
 

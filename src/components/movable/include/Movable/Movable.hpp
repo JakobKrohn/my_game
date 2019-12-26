@@ -6,24 +6,29 @@
 #include <memory>
 #include <vector>
 
-// #include "Graphics/Drawable.hpp"
+#include "Drawable/Drawable.hpp"
+#include "GraphicsInterface/Element_I.hpp"
 
 namespace components
 {
 
-struct position_T
+struct Position_T
 {
-    float posX;
-    float posY;
-    float angle;
+    std::shared_ptr<float> x;
+    std::shared_ptr<float> y;
+    std::shared_ptr<float> angle;
 };
 
-// class Movable : public graphics::Drawable
-class Movable //: public graphics::Drawable
+class Movable : public Element_I
 {
 public:
-    // Movable(graphics::Image_T data);
-    // Movable(std::vector<graphics::Image_T> imageData);
+
+    Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>>);
+    
+    // Element_I 
+    std::vector<std::shared_ptr<Image_I>> getAllImages();
+    std::shared_ptr<Image_I> getCurrentImage();
+    uint getCurrentIndex();
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 
@@ -34,7 +39,7 @@ public:
 
 protected:
 private:
-    std::shared_ptr<position_T> m_position;
+    std::shared_ptr<Position_T> m_position;
 
     void updateAngle(int angle);
 };

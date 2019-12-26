@@ -3,37 +3,55 @@
 #include <vector>
 
 #include "Player/Player.hpp"
+#include "Drawable/Drawable.hpp"
 
 using namespace game_engine;
 
 std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
 {
-    // graphics::Position_T positionData;
-    // positionData.x = 250;
-    // positionData.y = 250;
-    // positionData.angle = 0;
+    // Position pointers
+    auto position = std::make_shared<components::Position_T>();
+    position->x = std::make_shared<float>(250);
+    position->y = std::make_shared<float>(250);
+    position->angle = std::make_shared<float>(0);
 
-    // graphics::Image_T imageStill;
-    // imageStill.imagePath = "assets/player_green_still.png";
-    // imageStill.width = 22;
-    // imageStill.height = 41;
-    // imageStill.position = positionData;
+    // Create drawable objects
+    auto imageStill = std::make_unique<components::Drawable_T>();
+    imageStill->imagePath = std::string("assets/player_green_still.png");
+    imageStill->width = std::make_shared<uint32_t>(22);
+    imageStill->height = std::make_shared<uint32_t>(41);
+    imageStill->posX = position->x;
+    imageStill->posY = position->y;
+    imageStill->angle = position->angle;
+    auto drawableStill = std::make_shared<components::Drawable>(std::move(imageStill));
 
-    // graphics::Image_T imageMoveLeft;
-    // imageMoveLeft.imagePath = "assets/player_green_left.png";
-    // imageMoveLeft.width = 22;
-    // imageMoveLeft.height = 44;
-    // imageMoveLeft.position = positionData;
+    auto imageMoveLeft = std::make_unique<components::Drawable_T>();
+    imageMoveLeft->imagePath = std::string("assets/player_green_left.png");
+    imageMoveLeft->width = std::make_shared<uint32_t>(22);
+    imageMoveLeft->height = std::make_shared<uint32_t>(44);
+    imageMoveLeft->posX = position->x;
+    imageMoveLeft->posY = position->y;
+    imageMoveLeft->angle = position->angle;
+    auto drawableLeft = std::make_shared<components::Drawable>(std::move(imageMoveLeft));
 
-    // graphics::Image_T imageMoveRight;
-    // imageMoveRight.imagePath = "assets/player_green_right.png";
-    // imageMoveRight.width = 22;
-    // imageMoveRight.height = 44;
-    // imageMoveRight.position = positionData;
+    auto imageMoveRight = std::make_unique<components::Drawable_T>();
+    imageMoveRight->imagePath = std::string("assets/player_green_right.png");
+    imageMoveRight->width = std::make_shared<uint32_t>(22);
+    imageMoveRight->height = std::make_shared<uint32_t>(44);
+    imageMoveRight->posX = position->x;
+    imageMoveRight->posY = position->y;
+    imageMoveRight->angle = position->angle;
+    auto drawableRight = std::make_shared<components::Drawable>(std::move(imageMoveRight));
 
-    // std::vector<graphics::Image_T> imageData;
+    std::vector<std::shared_ptr<components::Drawable>> drawables;
+    drawables.push_back(drawableStill);
+    drawables.push_back(drawableLeft);
+    drawables.push_back(drawableRight);
 
-    // // auto player = std::make_shared<components::Player>(name.c_str(), imageData);
-    // auto player = std::make_shared<components::Player>(name.c_str(), imageStill);
-    // return player;
+    // Create Movable object
+    auto movable = std::make_shared<components::Movable>(position, drawables);
+
+    // Create Player object
+    auto player = std::make_shared<components::Player>(movable);
+    return player;
 }

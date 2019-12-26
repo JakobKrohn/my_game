@@ -6,6 +6,7 @@ message("${LIBRARY_NAME} --> ${PROJECT_NAME}")
 add_library(${PROJECT_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
+add_subdirectory(drawable)
 add_subdirectory(movable)
 add_subdirectory(player)
 

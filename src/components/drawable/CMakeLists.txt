@@ -6,8 +6,9 @@ add_library(${PROJECT_NAME} SHARED)
 add_library(${LIBRARY_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
         logger::logger
+        graphics_interface::graphics_interface
 )
 
 target_sources(${PROJECT_NAME}

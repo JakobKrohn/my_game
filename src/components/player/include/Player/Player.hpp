@@ -13,10 +13,12 @@
 namespace components
 {
 
-class Player : public Movable, public Player_I
+class Player
 {
 public:
-    const char *const m_name;
+    Player(std::shared_ptr<Movable> movable);
+
+    // const char *const m_name;
 
     // Player(const char *name, graphics::Image_T drawData);
     // Player(const char *name, std::vector<graphics::Image_T> imageData);

@@ -4,6 +4,11 @@
 
 using namespace components;
 
+Player::Player(std::shared_ptr<Movable> movable)
+{
+    
+}
+
 // Player::Player(const char *name, graphics::Image_T drawData) : components::Movable(drawData), m_name(name)
 // {
 // }

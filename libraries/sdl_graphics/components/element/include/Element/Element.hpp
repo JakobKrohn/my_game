@@ -12,7 +12,7 @@ namespace sdl_graphics
 {
 
 /**
- * OMG a new name to Element or Element_I????
+ *  A new name to Element or Element_I????
  */
 class Element
 {
