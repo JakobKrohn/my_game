@@ -18,18 +18,15 @@ struct Position_T
     std::shared_ptr<float> x;
     std::shared_ptr<float> y;
     std::shared_ptr<float> angle;
-    ~Position_T(){
-        print("Destructed");
-    }
 };
 
 class Movable : public Element_I
 {
 public:
+    explicit Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables);
+    Movable(const Movable &) = delete;
 
-    Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables);
-    
-    // Element_I 
+    // Element_I
     std::vector<std::shared_ptr<Image_I>> getAllImages();
     std::shared_ptr<Image_I> getCurrentImage();
     uint getCurrentIndex();
@@ -45,9 +42,11 @@ protected:
 private:
     std::shared_ptr<Position_T> m_position;
     std::vector<std::shared_ptr<Drawable>> m_drawables;
+    bool m_isMoving;
 
     void updateAngle(int angle);
 };
+
 } // namespace components
 
 #endif // MOVABLE_HPP

@@ -15,6 +15,7 @@ class Image
 {
 public:
     Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable);
+    Image(const Image&); // Copy constructor
     ~Image();
 
     void draw();

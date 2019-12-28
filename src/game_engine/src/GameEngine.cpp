@@ -6,7 +6,6 @@
 #include <chrono>
 
 #include "Logger/Logger.hpp"
-// #include "Graphics/Drawable.hpp"
 #include "Player/Player.hpp"
 #include "Movable/Movable.hpp"
 #include "GameEngine/Factory.hpp"
@@ -24,15 +23,15 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     m_graphics->addElement(player->getMovable());
 
-    // {
-    //     using namespace std::placeholders;
-    //     using namespace input_event;
+    {
+        using namespace std::placeholders;
+        using namespace input_event;
 
-    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateLeft, player, _1), 2), input_key::LEFT);
-    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::rotateRight, player, _1), 2), input_key::RIGHT);
-    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveForward, player, _1), 3), input_key::UP);
-    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Player::moveBackward, player, _1), 3), input_key::DOWN);
-    // }
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, player->getMovable(), _1), 2), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, player->getMovable(), _1), 2), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, player->getMovable(), _1), 2), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, player->getMovable(), _1), 2), input_key::DOWN);
+    }
 }
 
 void GameEngine::start()

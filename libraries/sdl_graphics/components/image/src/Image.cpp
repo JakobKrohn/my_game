@@ -23,6 +23,11 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawab
     }
 }
 
+// Vector calls copy constructor when it grows: https://stackoverflow.com/a/40457433 
+Image::Image(const Image& image) : Image(image.m_renderer, image.m_drawable)
+{
+}
+
 Image::~Image()
 {
     SDL_DestroyTexture(m_texture);
@@ -35,5 +40,4 @@ void Image::draw()
     m_rect.x = m_drawable->getPosX();
     m_rect.y = m_drawable->getPosY();
     SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
-    // std::cout << "Draw image at x: " << m_rect.x << ", y: " << m_rect.y << "\n";
 }

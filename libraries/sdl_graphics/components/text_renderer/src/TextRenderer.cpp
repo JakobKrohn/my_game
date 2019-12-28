@@ -5,7 +5,7 @@ using namespace sdl_graphics;
 TextRenderer::TextRenderer(uint posX, uint posY, SDL_Color color, std::shared_ptr<Renderer> renderer) : m_posX(posX), m_posY(posY), m_color(color)
 {
     m_renderer = renderer;
-    m_font = TTF_OpenFont("assets/fonts/OpenSans-Light.ttf", 20);
+    m_font = TTF_OpenFont("assets/fonts/OpenSans-Bold.ttf", 20);
     if (m_font == NULL)
     {
         throw std::runtime_error(TTF_GetError());

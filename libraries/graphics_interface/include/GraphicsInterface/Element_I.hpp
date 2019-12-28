@@ -13,7 +13,7 @@
 class Element_I
 {
 public:
-    virtual ~Element_I(){}
+    virtual ~Element_I() {}
 
     // Get all images such that these can be loaded on startup
     virtual std::vector<std::shared_ptr<Image_I>> getAllImages() = 0;

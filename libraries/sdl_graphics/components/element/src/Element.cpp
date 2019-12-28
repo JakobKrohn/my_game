@@ -10,7 +10,6 @@ Element::Element(std::shared_ptr<Renderer> renderer, std::shared_ptr<Element_I> 
     for (const auto & img : images)
     {
         m_images.emplace_back(m_renderer, img);
-        // m_images.push_back(m_renderer, img);
     }
 }
 

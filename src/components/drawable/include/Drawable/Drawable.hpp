@@ -11,9 +11,9 @@ struct Drawable_T
     std::string imagePath; // TODO: const
     std::shared_ptr<uint32_t> width;
     std::shared_ptr<uint32_t> height;
-    std::shared_ptr<float> posX;    // TODO: uin32_T
-    std::shared_ptr<float> posY;    // TODO: uin32_T
-    std::shared_ptr<float> angle;   // TODO: uint16_T
+    std::shared_ptr<float> posX;  // TODO: uin32_T
+    std::shared_ptr<float> posY;  // TODO: uin32_T
+    std::shared_ptr<float> angle; // TODO: uint16_T
 };
 
 class Drawable : public Image_I
