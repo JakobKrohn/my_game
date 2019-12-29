@@ -19,7 +19,7 @@ struct Drawable_T
 class Drawable : public Image_I
 {
 public:
-    Drawable(std::unique_ptr<Drawable_T> data);
+    explicit Drawable(std::unique_ptr<Drawable_T> data);
 
     // Image_I
     const std::string getImagePath() const;

@@ -19,6 +19,17 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     initializeKeys();
 
+    auto background = std::make_unique<components::Drawable_T>();
+    background->imagePath = "assets/yellow.png";
+    background->width = m_graphics->getWindowWidth();
+    background->height = m_graphics->getWindowHeight();
+    background->posX = std::make_shared<float>(0);
+    background->posY = std::make_shared<float>(0);
+    background->angle = std::make_shared<float>(0);
+
+    m_background = std::make_shared<components::Drawable>(std::move(background));
+    m_graphics->addImage(m_background);
+
     auto player = Factory::createPlayer("Jakob");
 
     m_graphics->addElement(player->getMovable());

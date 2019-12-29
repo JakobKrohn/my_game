@@ -23,15 +23,21 @@ class SdlGraphics : public Graphics_I
 public:
     SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
 
+    // Graphics_I
     void update();
     void addElement(std::shared_ptr<Element_I> element);
+    void addImage(std::shared_ptr<Image_I> image);
+    std::shared_ptr<uint32_t> getWindowWidth() const;
+    std::shared_ptr<uint32_t> getWindowHeight() const;
 
 private:
     std::shared_ptr<Window> m_window;
     std::shared_ptr<Renderer> m_renderer;
     std::unique_ptr<TextRenderer> m_fpsRenderer;
     std::vector<Element> m_elements;
-    // std::vector<std::pair<std::shared_ptr<graphics::Drawable_I>, Image>> m_elements;
+    std::vector<Image> m_images;
+    std::shared_ptr<uint32_t> m_windowWidth;
+    std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
     TTF_Font *m_font;
 

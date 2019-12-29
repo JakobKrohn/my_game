@@ -23,8 +23,8 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawab
     }
 }
 
-// Vector calls copy constructor when it grows: https://stackoverflow.com/a/40457433 
-Image::Image(const Image& image) : Image(image.m_renderer, image.m_drawable)
+// Vector calls copy constructor when it grows: https://stackoverflow.com/a/40457433
+Image::Image(const Image &image) : Image(image.m_renderer, image.m_drawable)
 {
 }
 

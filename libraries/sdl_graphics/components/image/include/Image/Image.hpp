@@ -1,5 +1,5 @@
-#ifndef IMAGE_HPP
-#define IMAGE_HPP
+#ifndef SDL_IMAGE_HPP
+#define SDL_IMAGE_HPP
 
 #include <memory>
 
@@ -15,7 +15,7 @@ class Image
 {
 public:
     Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable);
-    Image(const Image&); // Copy constructor
+    Image(const Image &); // Copy constructor
     ~Image();
 
     void draw();
@@ -29,4 +29,4 @@ private:
 
 } // namespace sdl_graphics
 
-#endif // IMAGE_HPP
+#endif // SDL_IMAGE_HPP

@@ -10,6 +10,7 @@
 #include "InputEvent/InputEvent_I.hpp"
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "Player/Player_I.hpp"
+#include "Drawable/Drawable.hpp"
 
 namespace game_engine
 {
@@ -26,6 +27,7 @@ private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<Graphics_I> m_graphics;
     std::vector<components::Player_I> m_players;
+    std::shared_ptr<components::Drawable> m_background;
     bool m_active;
 
     void initializeKeys();

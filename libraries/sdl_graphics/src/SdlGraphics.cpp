@@ -25,6 +25,9 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
 
     m_renderer = std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
 
+    m_windowWidth = std::make_shared<uint32_t>(0);
+    m_windowHeight = std::make_shared<uint32_t>(0);
+
     SDL_Color textColor = {0, 0, 0, 255};
     m_fpsRenderer = std::make_unique<TextRenderer>(2, 0, textColor, m_renderer);
 
@@ -44,9 +47,16 @@ void SdlGraphics::update()
     m_renderer->clear();
 
     auto [width, height] = m_renderer->getWindowSize();
+    *m_windowWidth = width;
+    *m_windowHeight = height;
 
     m_renderer->setColor(0x00, 0x00, 0xFF);
     drawFrame(width, height);
+
+    for (auto &image : m_images)
+    {
+        image.draw();
+    }
 
     for (auto &element : m_elements)
     {
@@ -57,12 +67,26 @@ void SdlGraphics::update()
     m_fpsRenderer->renderText(std::to_string(fps));
 
     m_renderer->present();
-    
 }
 
 void SdlGraphics::addElement(std::shared_ptr<Element_I> element)
 {
     m_elements.emplace_back(m_renderer, element);
+}
+
+void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
+{
+    m_images.emplace_back(m_renderer, image);
+}
+
+std::shared_ptr<uint32_t> SdlGraphics::getWindowWidth() const
+{
+    return m_windowWidth;
+}
+
+std::shared_ptr<uint32_t> SdlGraphics::getWindowHeight() const
+{
+    return m_windowHeight;
 }
 
 double SdlGraphics::getFramesPerSecond(uint32_t startTime)
