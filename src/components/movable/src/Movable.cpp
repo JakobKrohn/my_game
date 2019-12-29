@@ -7,44 +7,9 @@
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables) : m_drawables(drawables), m_isMoving(false)
+Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite) : m_sprite(sprite)
 {
     m_position = position;
-}
-
-std::vector<std::shared_ptr<Image_I>> Movable::getAllImages()
-{
-    // DO NOT CAST LIKE THIS!
-    std::vector<std::shared_ptr<Image_I>> data;
-    for (const auto &d : m_drawables)
-    {
-        data.push_back(d);
-    }
-    return data;
-}
-
-std::shared_ptr<Image_I> Movable::getCurrentImage()
-{
-}
-
-uint Movable::getCurrentIndex()
-{
-    if (!m_isMoving)
-    {
-        return 0;
-    }
-    static bool test = 0;
-    static auto t = std::chrono::high_resolution_clock::now();
-    auto n = std::chrono::high_resolution_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(n - t).count() > 250)
-    {
-        t = std::chrono::high_resolution_clock::now();
-        test = !test;
-    }
-
-    m_isMoving = false;
-
-    return (test ? 1 : 2);
 }
 
 void Movable::setPosition(uint32_t x, uint32_t y, uint16_t angle)
@@ -58,14 +23,14 @@ void Movable::moveForward(int velocity)
 {
     *m_position->x += sin(*m_position->angle * M_PI / 180.0) * velocity;
     *m_position->y -= cos(*m_position->angle * M_PI / 180.0) * velocity;
-    m_isMoving = true;
+    m_sprite->setState(sprite_state::MOVING);
 }
 
 void Movable::moveBackward(int velocity)
 {
     *m_position->x -= sin(*m_position->angle * M_PI / 180) * velocity;
     *m_position->y += cos(*m_position->angle * M_PI / 180) * velocity;
-    m_isMoving = true;
+    m_sprite->setState(sprite_state::MOVING);
 }
 
 void Movable::rotateRight(int velocity)

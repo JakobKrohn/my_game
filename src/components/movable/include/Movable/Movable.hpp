@@ -1,5 +1,5 @@
-#ifndef MOVABLE_HPP
-#define MOVABLE_HPP
+#ifndef COMPONENTS_MOVABLE_HPP
+#define COMPONENTS_MOVABLE_HPP
 
 #include "Movable_I.hpp"
 
@@ -7,8 +7,8 @@
 #include <vector>
 
 #include "Drawable/Drawable.hpp"
-#include "GraphicsInterface/Element_I.hpp"
 #include "Logger/Logger.hpp"
+#include "Sprite/Sprite_I.hpp"
 
 namespace components
 {
@@ -20,16 +20,11 @@ struct Position_T
     std::shared_ptr<float> angle;
 };
 
-class Movable : public Element_I
+class Movable
 {
 public:
-    explicit Movable(std::shared_ptr<Position_T> position, std::vector<std::shared_ptr<Drawable>> drawables);
+    explicit Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite);
     Movable(const Movable &) = delete;
-
-    // Element_I
-    std::vector<std::shared_ptr<Image_I>> getAllImages();
-    std::shared_ptr<Image_I> getCurrentImage();
-    uint getCurrentIndex();
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
 
@@ -41,12 +36,11 @@ public:
 protected:
 private:
     std::shared_ptr<Position_T> m_position;
-    std::vector<std::shared_ptr<Drawable>> m_drawables;
-    bool m_isMoving;
+    std::shared_ptr<Sprite_I> m_sprite;
 
     void updateAngle(int angle);
 };
 
 } // namespace components
 
-#endif // MOVABLE_HPP
+#endif // COMPONENTS_MOVABLE_HPP

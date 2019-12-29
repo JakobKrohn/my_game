@@ -7,8 +7,7 @@
 
 #include "Movable/Movable_I.hpp"
 #include "Movable/Movable.hpp"
-// #include "Graphics/Drawable_I.hpp"
-// #include "Graphics/Drawable.hpp"
+#include "Sprite/Sprite.hpp"
 
 namespace components
 {
@@ -16,18 +15,17 @@ namespace components
 class Player
 {
 public:
-    Player(std::shared_ptr<Movable> movable);
+    explicit Player(std::string name, std::shared_ptr<Movable> movable, std::shared_ptr<Sprite> sprite);
+    Player() = delete;
+    ~Player();
 
     std::shared_ptr<Movable> getMovable() const;
-
-    // const char *const m_name;
-
-    // Player(const char *name, graphics::Image_T drawData);
-    // Player(const char *name, std::vector<graphics::Image_T> imageData);
+    std::shared_ptr<Sprite> getSprite() const;
 
 private:
+    const std::string m_name;
     std::shared_ptr<Movable> m_movable;
-
+    std::shared_ptr<Sprite> m_sprite;
 };
 
 } // namespace components

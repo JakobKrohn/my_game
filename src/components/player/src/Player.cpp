@@ -4,9 +4,15 @@
 
 using namespace components;
 
-Player::Player(std::shared_ptr<Movable> movable)
+Player::Player(std::string name, std::shared_ptr<Movable> movable, std::shared_ptr<Sprite> sprite) : m_name(name)
 {
     m_movable = movable;
+    m_sprite = sprite;
+}
+
+Player::~Player()
+{
+    print("Player destroyed");
 }
 
 std::shared_ptr<Movable> Player::getMovable() const
@@ -14,10 +20,7 @@ std::shared_ptr<Movable> Player::getMovable() const
     return m_movable;
 }
 
-// Player::Player(const char *name, graphics::Image_T drawData) : components::Movable(drawData), m_name(name)
-// {
-// }
-
-// Player::Player(const char *name, std::vector<graphics::Image_T> imageData) : components::Movable(imageData), m_name(name)
-// {
-// }
+std::shared_ptr<Sprite> Player::getSprite() const
+{
+    return m_sprite;
+}

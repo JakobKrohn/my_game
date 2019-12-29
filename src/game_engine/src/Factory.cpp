@@ -4,6 +4,7 @@
 
 #include "Player/Player.hpp"
 #include "Drawable/Drawable.hpp"
+#include "Sprite/Sprite.hpp"
 
 using namespace game_engine;
 
@@ -49,9 +50,11 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     drawables.push_back(drawableRight);
 
     // Create Movable object
-    auto movable = std::make_shared<components::Movable>(position, drawables);
+    auto playerSprite = std::make_shared<components::Sprite>(drawables);
+    auto movable = std::make_shared<components::Movable>(position, playerSprite);
+    // auto movable = std::make_shared<components::Movable>(position, drawables);
 
     // Create Player object
-    auto player = std::make_shared<components::Player>(movable);
+    auto player = std::make_shared<components::Player>(name.c_str(), movable, playerSprite);
     return player;
 }
