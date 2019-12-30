@@ -1,5 +1,5 @@
-#ifndef LIBRARY_IMAGE_INTERFACE_HPP
-#define LIBRARY_IMAGE_INTERFACE_HPP
+#ifndef GRAPHICS_INTERFACE_IMAGE_HPP
+#define GRAPHICS_INTERFACE_IMAGE_HPP
 
 #include <string>
 #include <memory>
@@ -28,4 +28,4 @@ public:
     virtual uint16_t getAngle() const = 0;
 };
 
-#endif // LIBRARY_IMAGE_INTERFACE_HPP
+#endif // GRAPHICS_INTERFACE_IMAGE_HPP

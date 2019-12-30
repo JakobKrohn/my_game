@@ -1,5 +1,5 @@
-#ifndef PLAYER_HPP
-#define PLAYER_HPP
+#ifndef COMPONENTS_PLAYER_HPP
+#define COMPONENTS_PLAYER_HPP
 
 #include "Player_I.hpp"
 
@@ -30,4 +30,4 @@ private:
 
 } // namespace components
 
-#endif // PLAYER_H
+#endif // COMPONENTS_PLAYER_HPP

@@ -1,5 +1,5 @@
-#ifndef LIBRARY_ELEMENT_INTERFACE_HPP
-#define LIBRARY_ELEMENT_INTERFACE_HPP
+#ifndef GRAPHICS_INTERFACE_ELEMENT_HPP
+#define GRAPHICS_INTERFACE_ELEMENT_HPP
 
 #include <memory>
 #include <vector>
@@ -25,4 +25,4 @@ public:
     virtual uint getCurrentIndex() = 0;
 };
 
-#endif // LIBRARY_ELEMENT_INTERFACE_HPP
+#endif // GRAPHICS_INTERFACE_ELEMENT_HPP

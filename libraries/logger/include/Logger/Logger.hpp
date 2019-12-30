@@ -1,5 +1,5 @@
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
+#ifndef LOGGER_LIB_HPP
+#define LOGGER_LIB_HPP
 
 #include <chrono>
 #include <cstring>
@@ -81,4 +81,4 @@ private:
 
 // https://stackoverflow.com/questions/21806561/concatenating-strings-and-numbers-in-variadic-template-function
 
-#endif // LOGGER_HPP
+#endif // LOGGER_LIB_HPP

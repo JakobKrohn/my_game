@@ -1,5 +1,5 @@
-#ifndef LIBRARY_GRAPHICS_INTERFACE_HPP
-#define LIBRARY_GRAPHICS_INTERFACE_HPP
+#ifndef GRAPHICS_INTERFACE_GRAPHICS_HPP
+#define GRAPHICS_INTERFACE_GRAPHICS_HPP
 
 #include <memory>
 
@@ -29,4 +29,4 @@ public:
     virtual std::shared_ptr<uint32_t> getWindowHeight() const = 0;
 };
 
-#endif // LIBRARY_GRAPHICS_INTERFACE_HPP
+#endif // GRAPHICS_INTERFACE_GRAPHICS_HPP

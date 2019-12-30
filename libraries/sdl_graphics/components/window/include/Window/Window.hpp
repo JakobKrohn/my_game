@@ -3,12 +3,26 @@
 
 #include "SDL.h"
 
-#include "Types.hpp"
+// #include "Types.hpp"
 
 // https://wiki.libsdl.org/SDL_WindowFlags
 
 namespace sdl_graphics
 {
+
+struct WindowPosition
+{
+    uint16_t x_begin;
+    uint16_t y_begin;
+    uint16_t x_end;
+    uint16_t y_end;
+};
+
+struct WindowSize
+{
+    uint16_t width;
+    uint16_t height;
+};
 
 class Window
 {
@@ -21,7 +35,6 @@ public:
 private:
     SDL_Window *m_window;
     WindowPosition m_position;
-    // WindowSize m_size;
 };
 
 } // namespace sdl_graphics

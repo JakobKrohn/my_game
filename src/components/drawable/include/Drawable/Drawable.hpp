@@ -1,5 +1,5 @@
-#ifndef COMPONENT_DRAWABLE_HPP
-#define COMPONENT_DRAWABLE_HPP
+#ifndef COMPONENTS_DRAWABLE_HPP
+#define COMPONENTS_DRAWABLE_HPP
 
 #include "GraphicsInterface/Image_I.hpp"
 
@@ -35,4 +35,4 @@ private:
 
 } // namespace components
 
-#endif // COMPONENT_DRAWABLE_HPP
+#endif // COMPONENTS_DRAWABLE_HPP
