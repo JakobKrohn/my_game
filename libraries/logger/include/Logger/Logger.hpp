@@ -5,56 +5,79 @@
 #include <cstring>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
+#include <memory>
 
 #define __FILENAME__ \
     (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define print(...)\
-    Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ", __VA_ARGS__)
+#define print(...) \
+    log_lib::Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ", __VA_ARGS__)
 
-enum class LogMode {
-    NONE, 
-    TERMINAL, 
-    FILE, 
+namespace log_lib
+{
+
+enum class Mode
+{
+    NONE,
+    TERMINAL,
+    FILE,
     FULL
 };
 
-class Logger {
-public: 
-
-    static Logger& getInstance() {
+class Logger
+{
+public:
+    static Logger &getInstance()
+    {
         static Logger instance;
         return instance;
     }
 
-    // Non copyable
-    Logger(Logger const&) = delete;
-    void operator = (Logger const&) = delete;
+    Logger(Logger const &) = delete;
+    void operator=(Logger const &) = delete;
 
-    void setMode(LogMode mode) {
-        mode_ = mode;
-    }
+    ~Logger();
 
-    template <class ... Msg>
-    void log(Msg const& ... msg) {
-        if (mode_ == LogMode::NONE) {
+    void setMode(Mode mode);
+
+    template <class... Msg>
+    void log(Msg const &... msg)
+    {
+        if (m_mode == Mode::NONE)
             return;
-        }
+
         std::ostringstream stream;
         using List = int[];
-        (void)List{0, ( (void) (stream << msg), 0) ... };
-        std::cout << stream.str() << "\n";
+        (void)List{0, ((void)(stream << msg), 0)...};
+
+        writeLog(stream.str());
     }
-    
-private: 
 
-    LogMode mode_;
+private:
+    Mode m_mode;
+    std::fstream m_file;
+    int m_numberOfRuns;
 
-    Logger() : mode_(LogMode::NONE)
-    {};
+    Logger();
 
+    void writeLog(std::string message);
+
+    void readNumberOfRuns();
+
+    void logNumberOfRuns();
+
+    void openFile();
+
+    void closeFile();
+
+    std::string readLastLogLine();
+
+    void createHeader();
 };
+
+} // namespace log_lib
 
 // https://stackoverflow.com/questions/21806561/concatenating-strings-and-numbers-in-variadic-template-function
 

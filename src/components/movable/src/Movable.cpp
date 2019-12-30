@@ -7,9 +7,8 @@
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite) : m_sprite(sprite)
+Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite) : m_position(position), m_sprite(sprite)
 {
-    m_position = position;
 }
 
 void Movable::setPosition(uint32_t x, uint32_t y, uint16_t angle)

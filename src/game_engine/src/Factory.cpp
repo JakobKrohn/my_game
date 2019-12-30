@@ -10,7 +10,7 @@ using namespace game_engine;
 
 std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
 {
-    // Position pointers
+    // Position
     auto position = std::make_shared<components::Position_T>();
     position->x = std::make_shared<float>(250);
     position->y = std::make_shared<float>(250);
@@ -49,12 +49,11 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     drawables.push_back(drawableLeft);
     drawables.push_back(drawableRight);
 
-    // Create Movable object
+    // Movable
     auto playerSprite = std::make_shared<components::Sprite>(drawables);
     auto movable = std::make_shared<components::Movable>(position, playerSprite);
-    // auto movable = std::make_shared<components::Movable>(position, drawables);
 
-    // Create Player object
+    // Player
     auto player = std::make_shared<components::Player>(name.c_str(), movable, playerSprite);
     return player;
 }

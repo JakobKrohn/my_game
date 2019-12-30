@@ -17,8 +17,14 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     m_inputEvent = inputEvent;
     m_graphics = graphics;
 
+    // Init logger
+    // std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    // print(std::ctime(&end_time));
+    print("Game initializing");
+
     initializeKeys();
 
+    // Create and add background
     auto background = std::make_unique<components::Drawable_T>();
     background->imagePath = "assets/yellow.png";
     background->width = m_graphics->getWindowWidth();
@@ -26,14 +32,12 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     background->posX = std::make_shared<float>(0);
     background->posY = std::make_shared<float>(0);
     background->angle = std::make_shared<float>(0);
-
     m_background = std::make_shared<components::Drawable>(std::move(background));
     m_graphics->addImage(m_background);
 
+    // Create and add player
     auto player = Factory::createPlayer("Jakob");
-
     m_graphics->addElement(player->getSprite());
-
     {
         using namespace std::placeholders;
         using namespace input_event;

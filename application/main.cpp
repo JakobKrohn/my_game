@@ -15,16 +15,13 @@
 
 int main(int argc, char **argv)
 {
-    Logger::getInstance().setMode(LogMode::TERMINAL);
-    
-    print("Application");
+    log_lib::Logger::getInstance().setMode(log_lib::Mode::FULL);
+
     if (argc > 1)
     {
-        std::cout << argv[1] << "\n";
     }
     else
     {
-        std::cout << "no args\n";
     }
 
     auto inputEvent = std::make_shared<sdl_input_event::SdlInputEvent>();
