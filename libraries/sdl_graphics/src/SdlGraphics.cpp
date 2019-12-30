@@ -1,5 +1,7 @@
 #include "SdlGraphics/SdlGraphics.hpp"
 
+#include <iomanip>
+
 #include "Logger/Logger.hpp"
 
 using namespace sdl_graphics;
@@ -29,6 +31,7 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     m_windowHeight = std::make_shared<uint32_t>(0);
 
     SDL_Color textColor = {0, 0, 0, 255};
+
     m_fpsRenderer = std::make_unique<TextRenderer>(2, 0, textColor, m_renderer);
 
     SDL_AddEventWatch(resizeEvent, m_window->get());
@@ -64,7 +67,7 @@ void SdlGraphics::update()
     }
 
     auto fps = getFramesPerSecond(start);
-    m_fpsRenderer->renderText(std::to_string(fps));
+    drawFPS(fps);
 
     m_renderer->present();
 }
@@ -99,6 +102,14 @@ double SdlGraphics::getFramesPerSecond(uint32_t startTime)
     }
     m_countedFrames++;
     return averageFPS;
+}
+
+void SdlGraphics::drawFPS(double fps)
+{
+    std::ostringstream fpsStream;
+    fpsStream << std::fixed << std::setprecision(2);
+    fpsStream << fps;
+    m_fpsRenderer->renderText(fpsStream.str());
 }
 
 void SdlGraphics::drawFrame(int width, int height) const

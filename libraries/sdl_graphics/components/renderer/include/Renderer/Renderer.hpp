@@ -20,6 +20,8 @@ public:
     void setColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255);
     void clear();
     void present();
+
+    // Get Width & Height of window
     std::tuple<int, int> getWindowSize() const;
 
 private:
