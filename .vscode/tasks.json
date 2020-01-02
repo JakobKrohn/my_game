@@ -18,8 +18,8 @@
             "command": "cmake",
             "args": [
                 ".", 
-                "-Bbuild"
-                // "-GNinja"
+                "-Bbuild",
+                "-GNinja"
             ],
             "problemMatcher": []
         },

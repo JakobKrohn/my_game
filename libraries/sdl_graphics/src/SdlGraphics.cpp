@@ -31,8 +31,12 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     m_windowHeight = std::make_shared<uint32_t>(0);
 
     SDL_Color textColor = {0, 0, 0, 255};
+    SDL_Color backgroundColor = {0, 255, 255, 255};
 
-    m_fpsRenderer = std::make_unique<TextRenderer>(2, 0, textColor, m_renderer);
+    m_fpsRenderer = std::make_unique<TextRenderer>("assets/fonts/OpenSans-Bold.ttf", 20, m_renderer);
+    m_fpsRenderer->setTextColor(textColor);
+    m_fpsRenderer->setLocation(TextLocation::TOP_CENTER);
+    m_fpsRenderer->setBackground(100, 30, backgroundColor);
 
     SDL_AddEventWatch(resizeEvent, m_window->get());
 
@@ -61,14 +65,14 @@ void SdlGraphics::update()
         image.draw();
     }
 
+    auto fps = getFramesPerSecond(start);
+    drawFPS(fps);
+
     for (auto &element : m_elements)
     {
         element.draw();
     }
-
-    auto fps = getFramesPerSecond(start);
-    drawFPS(fps);
-
+    
     m_renderer->present();
 }
 
@@ -109,7 +113,7 @@ void SdlGraphics::drawFPS(double fps)
     std::ostringstream fpsStream;
     fpsStream << std::fixed << std::setprecision(2);
     fpsStream << fps;
-    m_fpsRenderer->renderText(fpsStream.str());
+    m_fpsRenderer->render(fpsStream.str());
 }
 
 void SdlGraphics::drawFrame(int width, int height) const

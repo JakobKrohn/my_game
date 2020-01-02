@@ -2,25 +2,35 @@
 
 using namespace sdl_graphics;
 
-TextRenderer::TextRenderer(uint posX, uint posY, SDL_Color color, std::shared_ptr<Renderer> renderer) : m_posX(posX), m_posY(posY), m_color(color)
+TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer)
+    : m_renderer(renderer),
+      m_location(TextLocation::TOP_LEFT),
+      m_color({255, 255, 255, 255}),
+      m_backgroundColor({0, 0, 0, 255}),
+      m_padding(0),
+      m_drawBackground(false)
 {
-    m_renderer = renderer;
-    m_font = TTF_OpenFont("assets/fonts/OpenSans-Bold.ttf", 20);
+    m_font = TTF_OpenFont(fontPath.c_str(), fontSize);
     if (m_font == NULL)
     {
         throw std::runtime_error(TTF_GetError());
     }
 }
 
-TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer) : m_renderer(renderer)
+void TextRenderer::setBackground(uint width, uint height, SDL_Color color)
 {
-    // Set default members!!
+    auto [x, y] = calculatePosition(width, height);
+    m_background.x = x;
+    m_background.y = y;
+    m_background.w = width;
+    m_background.h = height;
+    m_backgroundColor = color;
+    m_drawBackground = true;
+}
 
-    m_font = TTF_OpenFont("assets/fonts/OpenSans-Bold.ttf", 20);
-    if (m_font == NULL)
-    {
-        throw std::runtime_error(TTF_GetError());
-    }
+void TextRenderer::drawBackground(bool on)
+{
+    m_drawBackground = on;
 }
 
 void TextRenderer::setLocation(TextLocation location)
@@ -43,6 +53,13 @@ void TextRenderer::setPadding(uint8_t padding)
     m_padding = padding;
 }
 
+void TextRenderer::reposition()
+{
+    auto [x, y] = calculatePosition(m_background.w, m_background.h);
+    m_background.x = x;
+    m_background.y = y;
+}
+
 void TextRenderer::render(std::string text)
 {
     SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, text.c_str(), m_color);
@@ -52,7 +69,7 @@ void TextRenderer::render(std::string text)
     }
 
     auto texture = SDL_CreateTextureFromSurface(m_renderer->get(), textSurface);
-    if (texture = nullptr)
+    if (texture == nullptr)
     {
         throw std::runtime_error("Could not create texture from surface");
     }
@@ -60,41 +77,30 @@ void TextRenderer::render(std::string text)
     auto width = textSurface->w;
     auto height = textSurface->h;
 
-    auto pos = calculatePosition(width, height);
+    auto [x, y] = calculatePosition(width, height);
 
-    auto backgroundWidth = width + m_padding;
-    auto backgroundHeight = height + m_padding;
+    SDL_Rect renderQuad = {(int)x, (int)y, width, height};
 
-    SDL_Rect renderQuad = {(int)m_posX, (int)m_posY, width, height};
+    if (m_drawBackground)
+    {
+        reposition();
+
+        m_renderer->setColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
+        SDL_RenderFillRect(m_renderer->get(), &m_background);
+        SDL_RenderDrawRect(m_renderer->get(), &m_background);
+    }
+
+    SDL_RenderCopyEx(m_renderer->get(), texture, NULL, &renderQuad, 0, NULL, SDL_FLIP_NONE);
 
     SDL_FreeSurface(textSurface);
-    SDL_RenderCopyEx(m_renderer->get(), texture, NULL, &renderQuad, 0, NULL, SDL_FLIP_NONE);
-}
-
-void TextRenderer::renderText(std::string text)
-{
-    SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, text.c_str(), m_color);
-    if (textSurface != NULL)
-    {
-        auto texture = SDL_CreateTextureFromSurface(m_renderer->get(), textSurface);
-        if (texture == NULL)
-        {
-            throw std::runtime_error("Could not create texture from surface");
-        }
-
-        auto mWidth = textSurface->w;
-        auto mHeight = textSurface->h;
-
-        SDL_Rect renderQuad = {(int)m_posX, (int)m_posY, mWidth, mHeight};
-
-        SDL_FreeSurface(textSurface);
-        SDL_RenderCopyEx(m_renderer->get(), texture, NULL, &renderQuad, 0, NULL, SDL_FLIP_NONE);
-    }
+    SDL_DestroyTexture(texture);
 }
 
 std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth, uint textHeight)
 {
     auto [wWidth, wHeight] = m_renderer->getWindowSize();
+
+    uint x, y;
 
     switch (m_location)
     {
@@ -102,20 +108,24 @@ std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth, uint text
         return std::make_tuple(0, 0);
         break;
     case TextLocation::TOP_CENTER:
-        // uint x = (wWidth / 2) - (textWidth / 2);
-        // uint y = (wHeight / 2) - (textHeight / 2);
+        x = (wWidth / 2) - (textWidth / 2);
+        y = 0;
         break;
     case TextLocation::TOP_RIGHT:
-        /* code */
+        x = wWidth - textWidth;
+        y = 0;
         break;
     case TextLocation::BOTTOM_LEFT:
-        /* code */
+        x = 0;
+        y = (wHeight - textHeight);
         break;
     case TextLocation::BOTTOM_CENTER:
-        /* code */
+        x = (wWidth / 2) - (textWidth / 2);
+        y = (wHeight - textHeight);
         break;
     case TextLocation::BOTTOM_RIGHT:
-        /* code */
+        x = (wWidth) - (textWidth);
+        y = (wHeight - textHeight);
         break;
     case TextLocation::FLOATING:
         /* code */
@@ -124,4 +134,5 @@ std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth, uint text
     default:
         break;
     }
+    return std::make_tuple(x, y);
 }
