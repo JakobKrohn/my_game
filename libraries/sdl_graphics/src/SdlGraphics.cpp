@@ -30,8 +30,8 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     m_windowWidth = std::make_shared<uint32_t>(0);
     m_windowHeight = std::make_shared<uint32_t>(0);
 
-    SDL_Color textColor = {0, 0, 0, 255};
-    SDL_Color backgroundColor = {0, 255, 255, 255};
+    Color_T textColor = {255, 255, 255, 255};
+    Color_T backgroundColor = {0, 0, 0, 255};
 
     m_fpsRenderer = std::make_unique<TextRenderer>("assets/fonts/OpenSans-Bold.ttf", 20, m_renderer);
     m_fpsRenderer->setTextColor(textColor);
@@ -65,6 +65,11 @@ void SdlGraphics::update()
         image.draw();
     }
 
+    for (auto &text : m_textElements)
+    {
+        text->draw();
+    }
+
     auto fps = getFramesPerSecond(start);
     drawFPS(fps);
 
@@ -84,6 +89,12 @@ void SdlGraphics::addElement(std::shared_ptr<Element_I> element)
 void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 {
     m_images.emplace_back(m_renderer, image);
+}
+
+std::shared_ptr<Text_I> SdlGraphics::createText(const char * fontPath, uint8_t fontSize)
+{
+    m_textElements.emplace_back(std::make_unique<TextRenderer>(fontPath, fontSize, m_renderer));
+    return m_textElements.back();
 }
 
 std::shared_ptr<uint32_t> SdlGraphics::getWindowWidth() const
@@ -113,7 +124,8 @@ void SdlGraphics::drawFPS(double fps)
     std::ostringstream fpsStream;
     fpsStream << std::fixed << std::setprecision(2);
     fpsStream << fps;
-    m_fpsRenderer->render(fpsStream.str());
+    m_fpsRenderer->setText(fpsStream.str().c_str());
+    m_fpsRenderer->draw();
 }
 
 void SdlGraphics::drawFrame(int width, int height) const

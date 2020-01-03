@@ -6,40 +6,29 @@
 
 #include "SDL_ttf.h"
 
+#include "GraphicsInterface/Text_I.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Window/Window.hpp"
 
 namespace sdl_graphics
 {
 
-enum class TextLocation
-{
-    TOP_LEFT,
-    TOP_CENTER,
-    TOP_RIGHT,
-    BOTTOM_LEFT,
-    BOTTOM_CENTER,
-    BOTTOM_RIGHT,
-    FLOATING
-};
-
-class TextRenderer
+class TextRenderer : public Text_I
 {
 public:
-    TextRenderer(uint posX, uint posY, SDL_Color color, std::shared_ptr<Renderer> renderer);
-
     TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer);
+    ~TextRenderer();
 
-    void setBackground(uint width, uint height, SDL_Color color);
-    void drawBackground(bool on);
+    //Text_I
+    void draw();
+    void setText(std::string text);
+    void setTextColor(Color_T color);
     void setLocation(TextLocation location);
-    void setTextColor(SDL_Color color);
-    void setBackgroundColor(SDL_Color color);
-    void setPadding(uint8_t padding);
+    void drawBackground(bool mode);
+    void setBackground(uint16_t width, uint16_t height, Color_T color);
 
+    // In case of resize event
     void reposition();
-
-    void render(std::string text);
 
 private:
     std::shared_ptr<Renderer> m_renderer;
@@ -47,9 +36,11 @@ private:
     TTF_Font *m_font;
     SDL_Color m_color;
     SDL_Color m_backgroundColor;
-    uint8_t m_padding;
     bool m_drawBackground;
     SDL_Rect m_background;
+    SDL_Rect m_textRect;
+    SDL_Texture *m_texture;
+    std::string m_text;
 
     // Calculate Width(X) & Height(Y) position
     std::tuple<uint, uint> calculatePosition(uint textWidth, uint textHeight);

@@ -4,6 +4,8 @@
 #include <memory>
 
 #include "Element_I.hpp"
+#include "Image_I.hpp"
+#include "Text_I.hpp"
 
 /**
  * Interface for graphics libraries
@@ -21,6 +23,9 @@ public:
 
     // Add an image to be drawn and update in update function
     virtual void addImage(std::shared_ptr<Image_I> iamge) = 0;
+
+    // Create a text and return the object
+    virtual std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize) = 0;
 
     // Returns the window width
     virtual std::shared_ptr<uint32_t> getWindowWidth() const = 0;

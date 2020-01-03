@@ -28,3 +28,8 @@ $ sudo apt-get install libsdl2-ttf-dev
 1. https://github.com/tcbrindle/sdl2-cmake-scripts
 2. https://github.com/onqtam/doctest 
 
+### TODO: 
+
+- std::string_view and const char *, no strings
+- Error handling: runtime_error catching
+- Multiline feature for textrenderer

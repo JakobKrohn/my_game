@@ -17,9 +17,6 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     m_inputEvent = inputEvent;
     m_graphics = graphics;
 
-    // Init logger
-    // std::time_t end_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    // print(std::ctime(&end_time));
     print("Game initializing");
 
     initializeKeys();
@@ -47,6 +44,13 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
         m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, player->getMovable(), _1), 2), input_key::UP);
         m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, player->getMovable(), _1), 2), input_key::DOWN);
     }
+
+    // Create some text
+    auto playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 20);
+    
+    playerText->setText("Hello from game engine!");
+    playerText->setTextColor({0, 0, 0, 255});
+    playerText->setLocation(TextLocation::TOP_LEFT);
 }
 
 void GameEngine::start()

@@ -27,6 +27,7 @@ public:
     void update();
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
+    std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;
 
@@ -36,6 +37,7 @@ private:
     std::unique_ptr<TextRenderer> m_fpsRenderer;
     std::vector<Element> m_elements;
     std::vector<Image> m_images;
+    std::vector<std::shared_ptr<TextRenderer>> m_textElements;
     std::shared_ptr<uint32_t> m_windowWidth;
     std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
