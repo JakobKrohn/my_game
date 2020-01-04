@@ -33,24 +33,25 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     m_graphics->addImage(m_background);
 
     // Create and add player
-    auto player = Factory::createPlayer("Jakob");
-    m_graphics->addElement(player->getSprite());
+    m_player = Factory::createPlayer("Jakob");
+    m_graphics->addElement(m_player->getSprite());
+
     {
         using namespace std::placeholders;
         using namespace input_event;
 
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, player->getMovable(), _1), 2), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, player->getMovable(), _1), 2), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, player->getMovable(), _1), 2), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, player->getMovable(), _1), 2), input_key::DOWN);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), 2), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), 2), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), 2), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), 2), input_key::DOWN);
     }
 
     // Create some text
-    auto playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 20);
-    
-    playerText->setText("Hello from game engine!");
-    playerText->setTextColor({0, 0, 0, 255});
-    playerText->setLocation(TextLocation::TOP_LEFT);
+    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 15);
+
+    m_playerText->setText("Hello from game engine!\nnew line!");
+    m_playerText->setTextColor({0, 0, 0, 255});
+    m_playerText->setLocation(TextLocation::TOP_LEFT);
 }
 
 void GameEngine::start()
@@ -61,6 +62,7 @@ void GameEngine::start()
     while (m_active)
     {
         m_inputEvent->check();
+        printPlayerInfo(m_player, m_playerText);
         m_graphics->update();
     }
 }
@@ -73,4 +75,16 @@ void GameEngine::exit()
 void GameEngine::initializeKeys()
 {
     m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
+}
+
+void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text)
+{
+    auto pos = player->getMovable()->getPosition();
+    std::ostringstream stream;
+    stream << player->getName() << "\n";
+    stream << "x:" << static_cast<int>(*pos->x)
+           << " y:" << static_cast<int>(*pos->y)
+           << " deg:" << static_cast<int>(*pos->angle) << "\n";
+    text->setText(stream.str().c_str());
+    text->draw();
 }

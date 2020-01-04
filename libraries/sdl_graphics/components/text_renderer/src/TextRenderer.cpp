@@ -44,7 +44,8 @@ void TextRenderer::setText(std::string text)
         throw std::runtime_error("Text cannot be empty");
 
     m_text = text;
-    SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, m_text.c_str(), m_color);
+    SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(m_font, m_text.c_str(), m_color, 1000);
+    // SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, m_text.c_str(), m_color);
     
     if (textSurface == nullptr)
         throw std::runtime_error("Could not create surface from string");

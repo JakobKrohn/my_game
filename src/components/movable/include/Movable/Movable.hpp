@@ -27,6 +27,7 @@ public:
     Movable(const Movable &) = delete;
 
     void setPosition(uint32_t x, uint32_t y, uint16_t angle);
+    const std::shared_ptr<Position_T> getPosition() const;
 
     void moveForward(int velocity);
     void moveBackward(int velocity);

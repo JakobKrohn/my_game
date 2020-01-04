@@ -18,6 +18,11 @@ void Movable::setPosition(uint32_t x, uint32_t y, uint16_t angle)
     *m_position->angle = angle;
 }
 
+const std::shared_ptr<Position_T> Movable::getPosition() const
+{
+    return m_position;
+}
+
 void Movable::moveForward(int velocity)
 {
     *m_position->x += sin(*m_position->angle * M_PI / 180.0) * velocity;

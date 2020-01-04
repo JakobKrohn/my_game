@@ -33,3 +33,4 @@ $ sudo apt-get install libsdl2-ttf-dev
 - std::string_view and const char *, no strings
 - Error handling: runtime_error catching
 - Multiline feature for textrenderer
+- Resize event should reposition and redraw all elements
