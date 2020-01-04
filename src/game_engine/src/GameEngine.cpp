@@ -29,6 +29,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     background->posX = std::make_shared<float>(0);
     background->posY = std::make_shared<float>(0);
     background->angle = std::make_shared<float>(0);
+    background->imageSize = {50, 50, 500, 500}; // x, y, w, h
     m_background = std::make_shared<components::Drawable>(std::move(background));
     m_graphics->addImage(m_background);
 
@@ -75,6 +76,9 @@ void GameEngine::exit()
 void GameEngine::initializeKeys()
 {
     m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
+    
+    // F11 goes to fullscreen
+    
 }
 
 void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text)

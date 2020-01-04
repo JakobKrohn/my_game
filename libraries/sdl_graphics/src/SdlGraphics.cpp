@@ -10,16 +10,22 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
+        SDL_Quit();
         throw std::runtime_error(SDL_GetError());
     }
 
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
     {
+        IMG_Quit();
+        SDL_Quit();
         throw std::runtime_error(IMG_GetError());
     }
 
     if (TTF_Init() == -1)
     {
+        TTF_Quit();
+        IMG_Quit();
+        SDL_Quit();
         throw std::runtime_error(TTF_GetError());
     }
 
@@ -44,6 +50,16 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     m_renderer->setColor(0x00, 0x00, 0x00);
     m_renderer->clear();
     m_renderer->present();
+
+    print("Sdl Graphics initialized");
+}
+
+SdlGraphics::~SdlGraphics()
+{
+    TTF_Quit();
+    IMG_Quit();
+    SDL_Quit();
+    print("Sdl Graphics destroyed");
 }
 
 void SdlGraphics::update()
@@ -57,9 +73,6 @@ void SdlGraphics::update()
     *m_windowWidth = width;
     *m_windowHeight = height;
 
-    m_renderer->setColor(0x00, 0x00, 0xFF);
-    drawFrame(width, height);
-
     for (auto &image : m_images)
     {
         image.draw();
@@ -70,6 +83,9 @@ void SdlGraphics::update()
         text->draw();
     }
 
+    // m_renderer->setColor(0xFF, 0x00, 0x00);
+    // drawFrame(width, height);
+
     auto fps = getFramesPerSecond(start);
     drawFPS(fps);
 
@@ -77,7 +93,7 @@ void SdlGraphics::update()
     {
         element.draw();
     }
-    
+
     m_renderer->present();
 }
 
@@ -91,7 +107,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
     m_images.emplace_back(m_renderer, image);
 }
 
-std::shared_ptr<Text_I> SdlGraphics::createText(const char * fontPath, uint8_t fontSize)
+std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath, uint8_t fontSize)
 {
     m_textElements.emplace_back(std::make_unique<TextRenderer>(fontPath, fontSize, m_renderer));
     return m_textElements.back();
@@ -130,12 +146,17 @@ void SdlGraphics::drawFPS(double fps)
 
 void SdlGraphics::drawFrame(int width, int height) const
 {
-    // SDL_RenderSetScale(m_renderer->get(), 5, 5);
-    SDL_RenderDrawLine(m_renderer->get(), 0, 0, width, 0);                   // top
-    SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height);                  // left
-    SDL_RenderDrawLine(m_renderer->get(), width - 1, 0, width - 1, height);  // right
-    SDL_RenderDrawLine(m_renderer->get(), 0, height - 1, width, height - 1); // bottom
-    // SDL_RenderSetScale(m_renderer->get(), 1, 1);
+    SDL_RenderSetScale(m_renderer->get(), 10, 10);
+    SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height / 10);                    // Right
+    SDL_RenderDrawLine(m_renderer->get(), width / 10, 0, width / 10, height / 10);  // Left
+    SDL_RenderDrawLine(m_renderer->get(), 0, 0, width / 10, 0);                     // Top
+    SDL_RenderDrawLine(m_renderer->get(), 0, height / 10, width / 10, height / 10); // bottom
+
+    // SDL_RenderDrawLine(m_renderer->get(), 0, 0, width, 0);                   // top
+    // SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height);                  // left
+    // SDL_RenderDrawLine(m_renderer->get(), width - 1, 0, width - 1, height);  // right
+    // SDL_RenderDrawLine(m_renderer->get(), 0, height - 1, width, height - 1); // bottom
+    SDL_RenderSetScale(m_renderer->get(), 1, 1);
 }
 
 int SdlGraphics::resizeEvent(void *data, SDL_Event *event)
@@ -145,6 +166,7 @@ int SdlGraphics::resizeEvent(void *data, SDL_Event *event)
         SDL_Window *win = SDL_GetWindowFromID(event->window.windowID);
         if (win == (SDL_Window *)data)
         {
+            // this->drawFrame(0, 50);
             printf("resizing.....\n");
         }
     }

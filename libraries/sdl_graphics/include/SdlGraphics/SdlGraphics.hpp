@@ -22,6 +22,7 @@ class SdlGraphics : public Graphics_I
 {
 public:
     SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
+    ~SdlGraphics();
 
     // Graphics_I
     void update();
@@ -41,7 +42,6 @@ private:
     std::shared_ptr<uint32_t> m_windowWidth;
     std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
-    TTF_Font *m_font;
 
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);

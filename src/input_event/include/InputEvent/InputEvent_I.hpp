@@ -15,6 +15,7 @@ enum class input_key
     SPACE,
     ESCAPE,
     SHIFT,
+    F11,
     Q,
     W,
     E,

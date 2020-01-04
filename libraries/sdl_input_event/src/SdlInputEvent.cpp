@@ -74,6 +74,8 @@ SDL_Keycode SdlInputEvent::translateKey(input_event::input_key key)
         return SDLK_ESCAPE;
     case input_event::input_key::SHIFT:
         return SDLK_LSHIFT;
+    case input_event::input_key::F11:
+        return SDLK_F11;
     case input_event::input_key::Q:
         return SDLK_q;
     case input_event::input_key::W:

@@ -1,5 +1,7 @@
 #include "TextRenderer/TextRenderer.hpp"
 
+#include "Logger/Logger.hpp"
+
 using namespace sdl_graphics;
 
 TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer)
@@ -19,6 +21,7 @@ TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_p
 TextRenderer::~TextRenderer()
 {
     SDL_DestroyTexture(m_texture);
+    print("Text Renderer destroyed");
 }
 
 void TextRenderer::draw()
@@ -97,6 +100,10 @@ void TextRenderer::setBackground(uint16_t width, uint16_t height, Color_T color)
     m_backgroundColor.g = color.g;
     m_backgroundColor.b = color.b;
     m_backgroundColor.a = color.a;
+
+    // Recreate if text has been set
+    if (m_text.length() != 0)
+        setText(m_text.c_str());
 }
 
 void TextRenderer::drawBackground(bool on)
