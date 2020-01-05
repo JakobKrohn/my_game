@@ -23,6 +23,9 @@ public:
 
     // Get the current image index
     virtual uint getCurrentIndex() = 0;
+
+    // If the window resizes, reposition image to new width/height
+    // virtual void resizeEvent(uint32_t windowWidth, uint32_t windowHeight) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_ELEMENT_HPP

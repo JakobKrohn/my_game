@@ -32,6 +32,7 @@ public:
     uint32_t getPosY() const;
     uint16_t getAngle() const;
     std::optional<ImageSize_T> getSizeToDraw() const;
+    // void resizeEvent(uint32_t windowWidth, uint32_t windowHeight);
 
 private:
     std::unique_ptr<Drawable_T> m_data;

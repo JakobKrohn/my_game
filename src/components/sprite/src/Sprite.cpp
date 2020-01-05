@@ -50,6 +50,11 @@ uint Sprite::getCurrentIndex()
     return (test ? 1 : 2);
 }
 
+// void resizeEvent(uint32_t windowWidth, uint32_t windowHeight)
+// {
+
+// }
+
 void Sprite::setState(sprite_state state)
 {
     m_state = state;

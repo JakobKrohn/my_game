@@ -1,6 +1,7 @@
 #include "SdlGraphics/SdlGraphics.hpp"
 
 #include <iomanip>
+#include <functional>
 
 #include "Logger/Logger.hpp"
 
@@ -44,7 +45,7 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     m_fpsRenderer->setLocation(TextLocation::TOP_CENTER);
     m_fpsRenderer->setBackground(100, 30, backgroundColor);
 
-    SDL_AddEventWatch(resizeEvent, m_window->get());
+    SDL_AddEventWatch(windowEvent, this);
 
     // Clear the window
     m_renderer->setColor(0x00, 0x00, 0x00);
@@ -151,24 +152,21 @@ void SdlGraphics::drawFrame(int width, int height) const
     SDL_RenderDrawLine(m_renderer->get(), width / 10, 0, width / 10, height / 10);  // Left
     SDL_RenderDrawLine(m_renderer->get(), 0, 0, width / 10, 0);                     // Top
     SDL_RenderDrawLine(m_renderer->get(), 0, height / 10, width / 10, height / 10); // bottom
-
-    // SDL_RenderDrawLine(m_renderer->get(), 0, 0, width, 0);                   // top
-    // SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height);                  // left
-    // SDL_RenderDrawLine(m_renderer->get(), width - 1, 0, width - 1, height);  // right
-    // SDL_RenderDrawLine(m_renderer->get(), 0, height - 1, width, height - 1); // bottom
     SDL_RenderSetScale(m_renderer->get(), 1, 1);
 }
 
-int SdlGraphics::resizeEvent(void *data, SDL_Event *event)
+int SdlGraphics::windowEvent(void *data, SDL_Event *event)
 {
     if (event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_RESIZED)
     {
-        SDL_Window *win = SDL_GetWindowFromID(event->window.windowID);
-        if (win == (SDL_Window *)data)
-        {
-            // this->drawFrame(0, 50);
-            printf("resizing.....\n");
-        }
+        auto instance = static_cast<SdlGraphics *>(data);
+        instance->redrawAll();
+        print("Rezise event");
     }
     return 0;
+}
+
+void SdlGraphics::redrawAll()
+{
+    m_fpsRenderer->reposition();
 }

@@ -38,3 +38,4 @@ $ sudo apt-get install libsdl2-ttf-dev
 - Rewrite textrenderer for perfomance
 - Moving background
 - Fix Drawable_T types. 
+- Detect window out of focus - pause game

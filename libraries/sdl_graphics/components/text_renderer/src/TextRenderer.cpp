@@ -31,7 +31,7 @@ void TextRenderer::draw()
     
     if (m_drawBackground)
     {
-        reposition();
+        // reposition();
 
         m_renderer->setColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
         SDL_RenderFillRect(m_renderer->get(), &m_background);

@@ -21,7 +21,7 @@ namespace sdl_graphics
 class SdlGraphics : public Graphics_I
 {
 public:
-    SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
+    explicit SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
     ~SdlGraphics();
 
     // Graphics_I
@@ -46,7 +46,8 @@ private:
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);
     void drawFrame(int width, int height) const;
-    static int resizeEvent(void *data, SDL_Event *event); // todo: not static
+    static int windowEvent(void *data, SDL_Event *event); 
+    void redrawAll();
 };
 
 } // namespace sdl_graphics

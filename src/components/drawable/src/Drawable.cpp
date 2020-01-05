@@ -41,3 +41,8 @@ std::optional<ImageSize_T> Drawable::getSizeToDraw() const
 {
     return m_data->imageSize;
 }
+
+// void Drawable::resizeEvent(uint32_t windowWidth, uint32_t windowHeight)
+// {
+//     // Should the image redraw?
+// }
