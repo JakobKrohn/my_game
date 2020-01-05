@@ -34,6 +34,7 @@ private:
 
     void initializeKeys();
     void printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text);
+    void resizeEventCallback(uint32_t newWidth, uint32_t newHeight);
 };
 
 } // namespace game_engine

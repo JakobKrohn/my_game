@@ -48,11 +48,16 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     }
 
     // Create some text
-    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 15);
-
+    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 14);
+    print("my text: ", m_playerText);
     m_playerText->setText("Hello from game engine!\nnew line!");
     m_playerText->setTextColor({0, 0, 0, 255});
-    m_playerText->setLocation(TextLocation::TOP_LEFT);
+    m_playerText->setBackground(100, 100, {0xFF, 0x00, 0xFF, 0xFF});
+    m_playerText->setLocation(TextLocation::BOTTOM_RIGHT);
+
+    // Set resize event callback
+    using namespace std::placeholders;
+    m_graphics->setResizeEventCallback(std::bind(&GameEngine::resizeEventCallback, this, _1, _2));
 }
 
 void GameEngine::start()
@@ -90,5 +95,14 @@ void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std
            << " y:" << static_cast<int>(*pos->y)
            << " deg:" << static_cast<int>(*pos->angle) << "\n";
     text->setText(stream.str().c_str());
+    // text->setText("testing");
     text->draw();
+}
+
+void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)
+{
+    print("Resize event, new window size: w:", newWidth, " h: ", newHeight);
+
+    auto pos = m_player->getMovable()->getPosition();
+    m_player->getMovable()->setPosition((newWidth / 2), (newHeight / 2), *pos->angle);
 }

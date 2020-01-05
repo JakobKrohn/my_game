@@ -1,6 +1,7 @@
 #ifndef GRAPHICS_INTERFACE_TEXT_HPP
 #define GRAPHICS_INTERFACE_TEXT_HPP
 
+#include <iostream>
 #include <stdint.h>
 #include <string>
 

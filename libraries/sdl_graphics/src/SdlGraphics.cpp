@@ -110,7 +110,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 
 std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath, uint8_t fontSize)
 {
-    m_textElements.emplace_back(std::make_unique<TextRenderer>(fontPath, fontSize, m_renderer));
+    m_textElements.emplace_back(std::make_shared<TextRenderer>(fontPath, fontSize, m_renderer));
     return m_textElements.back();
 }
 
@@ -122,6 +122,11 @@ std::shared_ptr<uint32_t> SdlGraphics::getWindowWidth() const
 std::shared_ptr<uint32_t> SdlGraphics::getWindowHeight() const
 {
     return m_windowHeight;
+}
+
+void SdlGraphics::setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback)
+{
+    m_resizeCallback = callback;
 }
 
 double SdlGraphics::getFramesPerSecond(uint32_t startTime)
@@ -159,14 +164,22 @@ int SdlGraphics::windowEvent(void *data, SDL_Event *event)
 {
     if (event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_RESIZED)
     {
+        print("Rezise event");
         auto instance = static_cast<SdlGraphics *>(data);
         instance->redrawAll();
-        print("Rezise event");
     }
     return 0;
 }
 
 void SdlGraphics::redrawAll()
 {
+    auto [width, height] = m_renderer->getWindowSize();
     m_fpsRenderer->reposition();
+
+    for (auto &text : m_textElements)
+    {
+        text->reposition();
+    }
+
+    m_resizeCallback(width, height);
 }

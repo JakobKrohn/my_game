@@ -17,6 +17,10 @@ class TextRenderer : public Text_I
 {
 public:
     TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer);
+    TextRenderer(const TextRenderer&) = delete;
+    TextRenderer(TextRenderer&&) = delete;
+    TextRenderer& operator=(const TextRenderer&) = delete;
+	TextRenderer& operator=(TextRenderer&&) = delete;
     ~TextRenderer();
 
     //Text_I

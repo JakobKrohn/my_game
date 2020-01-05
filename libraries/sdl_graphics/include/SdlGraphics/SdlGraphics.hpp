@@ -31,6 +31,7 @@ public:
     std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;
+    void setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback);
 
 private:
     std::shared_ptr<Window> m_window;
@@ -42,6 +43,7 @@ private:
     std::shared_ptr<uint32_t> m_windowWidth;
     std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
+    std::function<void(uint32_t width, uint32_t height)> m_resizeCallback;
 
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);

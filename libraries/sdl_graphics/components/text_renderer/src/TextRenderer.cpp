@@ -1,5 +1,7 @@
 #include "TextRenderer/TextRenderer.hpp"
 
+#include <vector>
+
 #include "Logger/Logger.hpp"
 
 using namespace sdl_graphics;
@@ -16,6 +18,7 @@ TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_p
     {
         throw std::runtime_error(TTF_GetError());
     }
+    print("TR ctor: ", this);
 }
 
 TextRenderer::~TextRenderer()
@@ -28,7 +31,7 @@ void TextRenderer::draw()
 {
     if (m_text.length() < 1)
         return;
-    
+
     if (m_drawBackground)
     {
         // reposition();
@@ -38,6 +41,10 @@ void TextRenderer::draw()
         SDL_RenderDrawRect(m_renderer->get(), &m_background);
     }
 
+    // Recreate if text has been set
+    if (m_text.length() != 0)
+        setText(m_text.c_str());
+
     SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_textRect, 0, NULL, SDL_FLIP_NONE);
 }
 
@@ -46,21 +53,31 @@ void TextRenderer::setText(std::string text)
     if (text.length() < 1)
         throw std::runtime_error("Text cannot be empty");
 
+    std::vector<std::string> substrings;
+    std::stringstream ss(text);
+    std::string token;
+    char delim = '\n';
+    uint32_t length = 0;
+    while (std::getline(ss, token, delim)) {
+        substrings.push_back(token);
+        if (token.length() > length) 
+            length = token.length();
+    }
+
     m_text = text;
-    SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(m_font, m_text.c_str(), m_color, 1000);
-    // SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, m_text.c_str(), m_color);
-    
+    SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(m_font, m_text.c_str(), m_color, length*8);
+
     if (textSurface == nullptr)
         throw std::runtime_error("Could not create surface from string");
+
+    auto width = textSurface->w;
+    auto height = textSurface->h;
 
     m_texture = SDL_CreateTextureFromSurface(m_renderer->get(), textSurface);
     SDL_FreeSurface(textSurface);
 
     if (m_texture == nullptr)
         throw std::runtime_error("Could not create texture from surface");
-
-    auto width = textSurface->w;
-    auto height = textSurface->h;
 
     auto [x, y] = calculatePosition(width, height);
 
@@ -113,9 +130,13 @@ void TextRenderer::drawBackground(bool on)
 
 void TextRenderer::reposition()
 {
+    print("Reposition");
     auto [x, y] = calculatePosition(m_background.w, m_background.h);
     m_background.x = x;
     m_background.y = y;
+    // Recreate if text has been set
+    if (m_text.length() != 0)
+        setText(m_text.c_str());
 }
 
 std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth, uint textHeight)

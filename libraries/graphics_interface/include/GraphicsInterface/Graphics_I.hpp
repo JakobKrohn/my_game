@@ -2,6 +2,7 @@
 #define GRAPHICS_INTERFACE_GRAPHICS_HPP
 
 #include <memory>
+#include <functional>
 
 #include "Element_I.hpp"
 #include "Image_I.hpp"
@@ -32,6 +33,9 @@ public:
 
     // Returns the window height
     virtual std::shared_ptr<uint32_t> getWindowHeight() const = 0;
+
+    // Callback for window resize event
+    virtual void setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_GRAPHICS_HPP
