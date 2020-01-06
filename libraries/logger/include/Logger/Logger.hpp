@@ -42,6 +42,8 @@ public:
 
     void setMode(Mode mode);
 
+    const int getNumberOfStartups() const;
+
     template <class... Msg>
     void log(Msg const &... msg)
     {

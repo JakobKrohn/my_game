@@ -18,7 +18,6 @@ TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_p
     {
         throw std::runtime_error(TTF_GetError());
     }
-    print("TR ctor: ", this);
 }
 
 TextRenderer::~TextRenderer()
@@ -130,7 +129,6 @@ void TextRenderer::drawBackground(bool on)
 
 void TextRenderer::reposition()
 {
-    print("Reposition");
     auto [x, y] = calculatePosition(m_background.w, m_background.h);
     m_background.x = x;
     m_background.y = y;

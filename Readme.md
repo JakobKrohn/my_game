@@ -39,3 +39,5 @@ $ sudo apt-get install libsdl2-ttf-dev
 - Moving background
 - Fix Drawable_T types. 
 - Detect window out of focus - pause game
+- Clean up textrenderer class.
+- https://github.com/grimfang4/SDL_FontCache/blob/master/SDL_FontCache.h 

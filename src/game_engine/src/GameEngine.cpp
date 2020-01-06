@@ -47,13 +47,16 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
         m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), 2), input_key::DOWN);
     }
 
-    // Create some text
-    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Bold.ttf", 14);
-    print("my text: ", m_playerText);
+    // Player text top right
+    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14);
     m_playerText->setText("Hello from game engine!\nnew line!");
     m_playerText->setTextColor({0, 0, 0, 255});
-    m_playerText->setBackground(100, 100, {0xFF, 0x00, 0xFF, 0xFF});
-    m_playerText->setLocation(TextLocation::BOTTOM_RIGHT);
+    m_playerText->setLocation(TextLocation::TOP_LEFT);
+
+    // Info text bottom
+    m_infoText = m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14);
+    m_infoText->setTextColor({0x00, 0x00, 0x00, 0xFF});
+    m_infoText->setLocation(TextLocation::BOTTOM_CENTER);
 
     // Set resize event callback
     using namespace std::placeholders;
@@ -69,6 +72,7 @@ void GameEngine::start()
     {
         m_inputEvent->check();
         printPlayerInfo(m_player, m_playerText);
+        printInfo();
         m_graphics->update();
     }
 }
@@ -81,9 +85,8 @@ void GameEngine::exit()
 void GameEngine::initializeKeys()
 {
     m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
-    
+
     // F11 goes to fullscreen
-    
 }
 
 void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text)
@@ -95,8 +98,18 @@ void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std
            << " y:" << static_cast<int>(*pos->y)
            << " deg:" << static_cast<int>(*pos->angle) << "\n";
     text->setText(stream.str().c_str());
-    // text->setText("testing");
     text->draw();
+}
+
+void GameEngine::printInfo() const
+{
+    std::ostringstream stream;
+    stream << "Startups: ";
+    stream << static_cast<int>(log_lib::Logger::getInstance().getNumberOfStartups())
+           << " |  Window width: " << static_cast<int>(*m_graphics->getWindowWidth())
+           << " |  Window height: " << static_cast<int>(*m_graphics->getWindowHeight());
+
+    m_infoText->setText(stream.str().c_str());
 }
 
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)
