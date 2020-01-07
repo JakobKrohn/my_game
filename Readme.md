@@ -32,12 +32,11 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 - std::string_view and const char *, no strings
 - Error handling: runtime_error catching
-- Resize event should reposition and redraw all elements
 - F11 should open fullscreen
-- Draw a bigger frame
 - Rewrite textrenderer for perfomance
 - Moving background
 - Fix Drawable_T types. 
 - Detect window out of focus - pause game
 - Clean up textrenderer class.
 - https://github.com/grimfang4/SDL_FontCache/blob/master/SDL_FontCache.h 
+- game_engine to shared lib with private headers. 

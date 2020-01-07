@@ -8,7 +8,7 @@
 #include "Logger/Logger.hpp"
 #include "Player/Player.hpp"
 #include "Movable/Movable.hpp"
-#include "GameEngine/Factory.hpp"
+#include "GameEngine/internal/Factory.hpp"
 
 using namespace game_engine;
 
