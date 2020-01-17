@@ -4,6 +4,7 @@
 #include <functional>
 #include <thread>
 #include <chrono>
+#include <math.h>
 
 #include "Logger/Logger.hpp"
 #include "Player/Player.hpp"
@@ -41,10 +42,10 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
         using namespace std::placeholders;
         using namespace input_event;
 
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft,    m_player->getMovable(), _1), 5), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight,   m_player->getMovable(), _1), 5), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward,   m_player->getMovable(), _1), 3), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward,  m_player->getMovable(), _1), 3), input_key::DOWN);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), 5), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), 5), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), 3), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), 3), input_key::DOWN);
     }
 
     // Player text top right
@@ -71,6 +72,12 @@ void GameEngine::start()
     while (m_active)
     {
         m_inputEvent->check();
+
+        auto leftSide = *m_graphics->getWindowWidth() / 3;
+        auto rightSide = leftSide * 2;
+        auto topSide = *m_graphics->getWindowHeight() / 3;
+        auto bottomSide = topSide * 2;
+        m_player->getMovable()->setBoundaries({leftSide, topSide, rightSide, bottomSide});
         printPlayerInfo(m_player, m_playerText);
         printInfo();
         updateMap();
@@ -119,28 +126,46 @@ void GameEngine::updateMap()
     auto rightSide = leftSide * 2;
     auto topSide = *m_graphics->getWindowHeight() / 3;
     auto bottomSide = topSide * 2;
-    
+
     if (!m_player->getMovable()->isMoving())
         return;
 
-    if (*m_player->getMovable()->getPosition()->x < leftSide) 
+    if (*m_player->getMovable()->getPosition()->x <= leftSide)
     {
-        print("Left side");
-        m_background->getSizeToDraw()->x--;
+        if (m_background->getSizeToDraw()->x > 0)
+        {
+            int x = m_background->getSizeToDraw()->x;
+            x += sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
+            if (x < 0)
+                x = 0;
+            m_background->getSizeToDraw()->x = x;
+        }
+    }
+    if (*m_player->getMovable()->getPosition()->x >= rightSide)
+    {
+        if (m_background->getSizeToDraw()->x < 650) // TODO find excact
+            m_background->getSizeToDraw()->x += sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
+    }
 
-    }
-    else if (*m_player->getMovable()->getPosition()->x > rightSide)
+    if (*m_player->getMovable()->getPosition()->y <= topSide)
     {
-        m_background->getSizeToDraw()->x++;
-        print("Right side");
+        if (m_background->getSizeToDraw()->y > 0)
+        {
+            int y = m_background->getSizeToDraw()->y;
+
+            y -= cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
+            if (y < 0)
+            {
+                y = 0;
+            }
+            m_background->getSizeToDraw()->y = y;
+        }
     }
-    else if (*m_player->getMovable()->getPosition()->y < topSide)
+
+    if (*m_player->getMovable()->getPosition()->y >= bottomSide)
     {
-        m_background->getSizeToDraw()->y--;
-    }
-    else if (*m_player->getMovable()->getPosition()->y > bottomSide)
-    {
-        m_background->getSizeToDraw()->y++;
+        if (m_background->getSizeToDraw()->y < 650) // TODO find excact
+            m_background->getSizeToDraw()->y -= cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
     }
 }
 
