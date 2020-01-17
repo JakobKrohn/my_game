@@ -37,7 +37,7 @@ uint16_t Drawable::getAngle() const
     return static_cast<uint32_t>(*m_data->angle);
 }
 
-std::optional<ImageSize_T> Drawable::getSizeToDraw() const
+std::optional<ImageSize_T> &Drawable::getSizeToDraw() const
 {
     return m_data->imageSize;
 }

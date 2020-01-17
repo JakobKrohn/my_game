@@ -12,6 +12,10 @@ struct ImageSize_T
     uint32_t y;
     uint32_t w;
     uint32_t h;
+    // std::shared_ptr<uint32_t> x;
+    // std::shared_ptr<uint32_t> y;
+    // std::shared_ptr<uint32_t> w;
+    // std::shared_ptr<uint32_t> h;
 };
 
 class Image_I
@@ -38,7 +42,7 @@ public:
     virtual uint16_t getAngle() const = 0; 
 
     // Get the size of the image to draw
-    virtual std::optional<ImageSize_T> getSizeToDraw() const = 0;
+    virtual std::optional<ImageSize_T> &getSizeToDraw() const = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_IMAGE_HPP

@@ -18,6 +18,11 @@ void Movable::setPosition(uint32_t x, uint32_t y, uint16_t angle)
     *m_position->angle = angle;
 }
 
+bool Movable::isMoving() const
+{
+    return m_sprite->getState() != sprite_state::MOVING ? false : true;
+}
+
 const std::shared_ptr<Position_T> Movable::getPosition() const
 {
     return m_position;

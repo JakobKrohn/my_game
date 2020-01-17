@@ -29,7 +29,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     background->posX = std::make_shared<float>(0);
     background->posY = std::make_shared<float>(0);
     background->angle = std::make_shared<float>(0);
-    background->imageSize = {50, 50, 500, 500}; // x, y, w, h
+    background->imageSize = {250, 250, 500, 500}; // x, y, w, h
     m_background = std::make_shared<components::Drawable>(std::move(background));
     m_graphics->addImage(m_background);
 
@@ -41,10 +41,10 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
         using namespace std::placeholders;
         using namespace input_event;
 
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), 2), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), 2), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), 2), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), 2), input_key::DOWN);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft,    m_player->getMovable(), _1), 5), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight,   m_player->getMovable(), _1), 5), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward,   m_player->getMovable(), _1), 3), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward,  m_player->getMovable(), _1), 3), input_key::DOWN);
     }
 
     // Player text top right
@@ -73,6 +73,7 @@ void GameEngine::start()
         m_inputEvent->check();
         printPlayerInfo(m_player, m_playerText);
         printInfo();
+        updateMap();
         m_graphics->update();
     }
 }
@@ -110,6 +111,37 @@ void GameEngine::printInfo() const
            << " |  Window height: " << static_cast<int>(*m_graphics->getWindowHeight());
 
     m_infoText->setText(stream.str().c_str());
+}
+
+void GameEngine::updateMap()
+{
+    auto leftSide = *m_graphics->getWindowWidth() / 3;
+    auto rightSide = leftSide * 2;
+    auto topSide = *m_graphics->getWindowHeight() / 3;
+    auto bottomSide = topSide * 2;
+    
+    if (!m_player->getMovable()->isMoving())
+        return;
+
+    if (*m_player->getMovable()->getPosition()->x < leftSide) 
+    {
+        print("Left side");
+        m_background->getSizeToDraw()->x--;
+
+    }
+    else if (*m_player->getMovable()->getPosition()->x > rightSide)
+    {
+        m_background->getSizeToDraw()->x++;
+        print("Right side");
+    }
+    else if (*m_player->getMovable()->getPosition()->y < topSide)
+    {
+        m_background->getSizeToDraw()->y--;
+    }
+    else if (*m_player->getMovable()->getPosition()->y > bottomSide)
+    {
+        m_background->getSizeToDraw()->y++;
+    }
 }
 
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)

@@ -22,6 +22,7 @@ public:
 
     // Sprite_I
     void setState(sprite_state state);
+    sprite_state getState() const;
 
 private:
     std::vector<std::shared_ptr<Drawable>> m_drawables;
