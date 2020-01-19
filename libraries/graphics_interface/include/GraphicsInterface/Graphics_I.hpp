@@ -25,6 +25,9 @@ public:
     // Add an image to be drawn and update in update function
     virtual void addImage(std::shared_ptr<Image_I> iamge) = 0;
 
+    // Add tiling background [prototype]
+    virtual void addBackground(const char * imagePath) = 0;
+
     // Create a text and return the object
     virtual std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize) = 0;
 

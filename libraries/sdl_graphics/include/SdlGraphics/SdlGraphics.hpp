@@ -14,6 +14,7 @@
 #include "Image/Image.hpp"
 #include "TextRenderer/TextRenderer.hpp"
 #include "Element/Element.hpp"
+#include "TileMap/TileMap.hpp"
 
 namespace sdl_graphics
 {
@@ -28,6 +29,7 @@ public:
     void update();
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
+    void addBackground(const char * imagePath);
     std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;
@@ -44,6 +46,7 @@ private:
     std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
     std::function<void(uint32_t width, uint32_t height)> m_resizeCallback;
+    std::unique_ptr<TileMap> m_background;
 
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);

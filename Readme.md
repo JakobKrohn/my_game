@@ -30,13 +30,20 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 ### TODO: 
 
+- Tile/TileMap must be implemented!!
+- Texture
+- Surface
+
 - nullptr checking
 - std::string_view and const char *, no strings
 - Error handling: runtime_error catching
 - F11 should open fullscreen
 - Rewrite textrenderer for perfomance
-- Moving background
 - Fix Drawable_T types. 
 - Detect window out of focus - pause game
 - Clean up textrenderer class.
+- Add conan
 - https://github.com/grimfang4/SDL_FontCache/blob/master/SDL_FontCache.h 
+
+### Open art
+- https://opengameart.org/content/backgrounds-topdown-games 
