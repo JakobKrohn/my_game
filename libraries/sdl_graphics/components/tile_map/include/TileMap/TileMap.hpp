@@ -13,12 +13,16 @@ class TileMap
 {
 public:
     TileMap(std::shared_ptr<Renderer> renderer, Tile tile);
+    // TODO destructor
 
     void draw();
 
 private:
     std::shared_ptr<Renderer> m_renderer;
     Tile *m_tile; // todo free
+    unsigned int m_horizontalTiles;
+    unsigned int m_verticalTiles;
+ 
 };
 
 } // namespace sdl_graphics

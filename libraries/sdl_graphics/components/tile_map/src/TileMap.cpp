@@ -1,5 +1,7 @@
 #include "TileMap/TileMap.hpp"
 
+#include <cmath>
+
 #include "Logger/Logger.hpp"
 
 using namespace sdl_graphics;
@@ -13,19 +15,9 @@ TileMap::TileMap(std::shared_ptr<Renderer> renderer, Tile tile)
 
 void TileMap::draw()
 {
-    auto[width, height] = m_renderer->getWindowSize();
+    auto[windowWith, windowHeight] = m_renderer->getWindowSize();
 
     auto[tileWidth, tileHeight] = m_tile->getSize();
-
-    if (tileWidth * 2 < width)
-    {
-        // Needs > 3 tiles 
-    }
-
-    if (tileHeight * 2 < height)
-    {
-        // Needs > 3 tiles
-    }
 
     SDL_Rect windowPos;
     windowPos.x = 0;
@@ -39,28 +31,20 @@ void TileMap::draw()
     tilePos.h = tileHeight;
     tilePos.w = tileWidth;
 
-    // TOP LEFT
+    m_horizontalTiles = ceil( (double)windowWith / (double)tileWidth );
+    m_verticalTiles =   ceil( (double)windowHeight / (double)tileHeight );
 
-    m_tile->draw(tilePos, windowPos);
+    int verticalOffset = ( (tileWidth * m_verticalTiles) - windowWith ) / m_verticalTiles;
+    int horisontalOffset = ( (tileWidth * m_horizontalTiles) - windowWith ) / m_horizontalTiles;
 
-    // TOP RIGHT
+    for (int i = 0; i < m_verticalTiles; i++)
+    {
+        windowPos.y = (tileHeight * i) - verticalOffset;
 
-    windowPos.x = tileWidth;
-    windowPos.y = 0;
-    
-    m_tile->draw(tilePos, windowPos);
-
-    // BOTTOM LEFT
-
-    windowPos.x = 0;
-    windowPos.y = tileHeight;
-
-    m_tile->draw(tilePos, windowPos);
-
-    // BOTTOM RIGHT
-
-    windowPos.x = tileWidth;
-    windowPos.y = tileHeight;
-
-    m_tile->draw(tilePos, windowPos);
+        for (int i = 0; i < m_horizontalTiles; i++)
+        {
+            windowPos.x = (tileWidth * i) - horisontalOffset;
+            m_tile->draw(tilePos, windowPos);
+        }
+    }
 }
