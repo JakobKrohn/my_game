@@ -74,6 +74,8 @@ void SdlGraphics::update()
     *m_windowWidth = width;
     *m_windowHeight = height;
 
+    m_background->draw();
+
     for (auto &image : m_images)
     {
         image.draw();
@@ -112,7 +114,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 void SdlGraphics::addBackground(const char * imagePath)
 {
     Tile tile(m_renderer, imagePath);
-    m_background = std::make_unique<TileMap>(tile);
+    m_background = std::make_unique<TileMap>(m_renderer, tile);
 }
 
 std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath, uint8_t fontSize)

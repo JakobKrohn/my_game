@@ -21,14 +21,20 @@ class Tile
 {
 public:
     Tile(std::shared_ptr<Renderer> renderer, const char *imagePath);
+    Tile(const Tile &tile);
     ~Tile();
 
+    void draw(SDL_Rect tilePos, SDL_Rect windowPos);
+
+    // Get width & height
+    std::tuple<const unsigned int &, const unsigned int &> getSize() const;
+
 private:
+    std::shared_ptr<Texture> m_texture;
+    std::shared_ptr<Renderer> m_renderer;
+
     unsigned int m_width;
     unsigned int m_height;
-
-    std::shared_ptr<Texture> m_texture;
-
 };
 
 } // namespace sdl_graphics
