@@ -9,7 +9,7 @@ using namespace sdl_graphics;
 TileMap::TileMap(std::shared_ptr<Renderer> renderer, Tile tile)
 {
     m_renderer = renderer;
-    m_tile = new Tile(tile);
+    m_tile = new Tile(tile); // TODO - not like this..
     print("TileMap ", this, " created");
 }
 
@@ -34,7 +34,7 @@ void TileMap::draw()
     m_horizontalTiles = ceil( (double)windowWith / (double)tileWidth );
     m_verticalTiles =   ceil( (double)windowHeight / (double)tileHeight );
 
-    int verticalOffset = ( (tileWidth * m_verticalTiles) - windowWith ) / m_verticalTiles;
+    long verticalOffset = ( (tileWidth * m_verticalTiles) - windowHeight ) / m_verticalTiles;
     int horisontalOffset = ( (tileWidth * m_horizontalTiles) - windowWith ) / m_horizontalTiles;
 
     for (int i = 0; i < m_verticalTiles; i++)
