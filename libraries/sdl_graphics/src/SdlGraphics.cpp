@@ -111,10 +111,11 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 }
 
 // TODO: Rename -> setBackground
-void SdlGraphics::addBackground(const char * imagePath)
+std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char * imagePath)
 {
     Tile tile(m_renderer, imagePath);
-    m_background = std::make_unique<TileMap>(m_renderer, tile);
+    m_background = std::make_shared<TileMap>(m_renderer, tile);
+    return m_background;
 }
 
 std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath, uint8_t fontSize)

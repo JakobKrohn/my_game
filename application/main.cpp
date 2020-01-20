@@ -13,6 +13,9 @@
 #include "SdlInputEvent/SdlInputEvent.hpp"
 #include "SdlGraphics/SdlGraphics.hpp"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 int main(int argc, char **argv)
 {
     log_lib::Logger::getInstance().setMode(log_lib::Mode::FULL);
@@ -33,3 +36,5 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+#pragma GCC diagnostic pop

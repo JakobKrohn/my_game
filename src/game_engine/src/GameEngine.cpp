@@ -22,21 +22,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     initializeKeys();
 
-    // Create and add background
-    auto background = std::make_unique<components::Drawable_T>();
-    // background->imagePath = "assets/backgrounds/backgrounddetailed1_edit.png";
-    background->imagePath = "assets/yellow.png";
-    background->width = m_graphics->getWindowWidth();
-    background->height = m_graphics->getWindowHeight();
-    background->posX = std::make_shared<float>(0);
-    background->posY = std::make_shared<float>(0);
-    background->angle = std::make_shared<float>(0);
-    // background->imageSize = std::nullopt;
-    background->imageSize = {250, 250, 500, 500}; // x, y, w, h
-    m_background = std::make_shared<components::Drawable>(std::move(background));
-    // m_graphics->addImage(m_background);
-
-    m_graphics->addBackground("assets/backgrounds/backgrounddetailed1_edit.png");
+    m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1_edit.png");
 
     // Create and add player
     m_player = Factory::createPlayer("Jakob");
@@ -115,11 +101,14 @@ void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std
 
 void GameEngine::printInfo() const
 {
+    auto [hor, ver] = m_background->getNumberOfTiles();
     std::ostringstream stream;
     stream << "Startups: ";
     stream << static_cast<int>(log_lib::Logger::getInstance().getNumberOfStartups())
            << " |  Window width: " << static_cast<int>(*m_graphics->getWindowWidth())
-           << " |  Window height: " << static_cast<int>(*m_graphics->getWindowHeight());
+           << " |  Window height: " << static_cast<int>(*m_graphics->getWindowHeight())
+           << " |  Horizontal tiles: " << hor
+           << " |  Vertical tiles: " << ver;
 
     m_infoText->setText(stream.str().c_str());
 }
@@ -136,40 +125,21 @@ void GameEngine::updateMap()
 
     if (*m_player->getMovable()->getPosition()->x <= leftSide)
     {
-        if (m_background->getSizeToDraw()->x > 0)
-        {
-            int x = m_background->getSizeToDraw()->x;
-            x += sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
-            if (x < 0)
-                x = 0;
-            m_background->getSizeToDraw()->x = x;
-        }
+        m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
     }
     if (*m_player->getMovable()->getPosition()->x >= rightSide)
     {
-        if (m_background->getSizeToDraw()->x < 650) // TODO find excact
-            m_background->getSizeToDraw()->x += sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
+        m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
     }
 
     if (*m_player->getMovable()->getPosition()->y <= topSide)
     {
-        if (m_background->getSizeToDraw()->y > 0)
-        {
-            int y = m_background->getSizeToDraw()->y;
-
-            y -= cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
-            if (y < 0)
-            {
-                y = 0;
-            }
-            m_background->getSizeToDraw()->y = y;
-        }
+        m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
     }
 
     if (*m_player->getMovable()->getPosition()->y >= bottomSide)
     {
-        if (m_background->getSizeToDraw()->y < 650) // TODO find excact
-            m_background->getSizeToDraw()->y -= cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
+            m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * 3;
     }
 }
 

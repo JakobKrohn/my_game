@@ -7,21 +7,26 @@
 using namespace sdl_graphics;
 
 TileMap::TileMap(std::shared_ptr<Renderer> renderer, Tile tile)
+    : m_renderer(renderer),
+      m_tile(nullptr),
+      m_horizontalTiles(0),
+      m_verticalTiles(0),
+      m_horizontalGround(0),
+      m_verticalGround(0)
 {
-    m_renderer = renderer;
     m_tile = new Tile(tile); // TODO - not like this..
     print("TileMap ", this, " created");
 }
 
 void TileMap::draw()
 {
-    auto[windowWith, windowHeight] = m_renderer->getWindowSize();
+    auto [windowWith, windowHeight] = m_renderer->getWindowSize();
 
-    auto[tileWidth, tileHeight] = m_tile->getSize();
+    auto [tileWidth, tileHeight] = m_tile->getSize();
 
     SDL_Rect windowPos;
-    windowPos.x = 0;
-    windowPos.y = 0;
+    windowPos.x = m_horizontalGround;
+    windowPos.y = m_verticalGround;
     windowPos.h = tileHeight;
     windowPos.w = tileWidth;
 
@@ -31,20 +36,39 @@ void TileMap::draw()
     tilePos.h = tileHeight;
     tilePos.w = tileWidth;
 
-    m_horizontalTiles = ceil( (double)windowWith / (double)tileWidth );
-    m_verticalTiles =   ceil( (double)windowHeight / (double)tileHeight );
+    m_horizontalTiles = ceil((double)windowWith / (double)tileWidth);
+    m_verticalTiles = ceil((double)windowHeight / (double)tileHeight);
 
-    long verticalOffset = ( (tileWidth * m_verticalTiles) - windowHeight ) / m_verticalTiles;
-    int horisontalOffset = ( (tileWidth * m_horizontalTiles) - windowWith ) / m_horizontalTiles;
+    int verticalOffset = ((tileHeight * m_verticalTiles) - windowHeight) / (m_verticalTiles - (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
+    int horizontalOffset = ((tileWidth * m_horizontalTiles) - windowWith) / (m_horizontalTiles - (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
 
-    for (int i = 0; i < m_verticalTiles; i++)
+    std::cout << m_horizontalGround << "\n";
+
+    for (unsigned int i = 0; i < m_verticalTiles; i++)
     {
-        windowPos.y = (tileHeight * i) - verticalOffset;
+        windowPos.y = m_verticalGround;
+        windowPos.y += (tileHeight * i) - verticalOffset;
 
-        for (int i = 0; i < m_horizontalTiles; i++)
+        for (unsigned int i = 0; i < m_horizontalTiles; i++)
         {
-            windowPos.x = (tileWidth * i) - horisontalOffset;
+            windowPos.x = m_horizontalGround;
+            windowPos.x += (tileWidth * i) - horizontalOffset;
             m_tile->draw(tilePos, windowPos);
         }
     }
+}
+
+std::tuple<const unsigned int &, const unsigned int &> TileMap::getNumberOfTiles() const
+{
+    return std::forward_as_tuple(m_horizontalTiles, m_verticalTiles);
+}
+
+int &TileMap::getHorizontalGround()
+{
+    return m_horizontalGround;
+}
+
+int &TileMap::getVerticalGround()
+{
+    return m_verticalGround;
 }
