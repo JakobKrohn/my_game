@@ -14,15 +14,18 @@ class TileMap_I
 public:
     virtual ~TileMap_I() {}
 
+    // TODO: Pass width and height
+    virtual void resizeEvent(uint32_t &width, uint32_t &height) = 0;
+
     // Draw tilemap
     virtual void draw() = 0;
 
     // Get number of tiles on screen [horizontal, vertical]
     virtual std::tuple<const unsigned int &, const unsigned int &> getNumberOfTiles() const = 0;
 
-    virtual int& getHorizontalGround() = 0;
+    virtual int &getHorizontalGround() = 0;
 
-    virtual int& getVerticalGround() = 0;
+    virtual int &getVerticalGround() = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_TILE_MAP_HPP

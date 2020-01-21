@@ -149,4 +149,5 @@ void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)
 
     auto pos = m_player->getMovable()->getPosition();
     m_player->getMovable()->setPosition((newWidth / 2), (newHeight / 2), *pos->angle);
+    m_background->resizeEvent(newWidth, newHeight);
 }

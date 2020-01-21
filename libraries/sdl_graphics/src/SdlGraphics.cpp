@@ -114,7 +114,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char * imagePath)
 {
     Tile tile(m_renderer, imagePath);
-    m_background = std::make_shared<TileMap>(m_renderer, tile);
+    m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, tile);
     return m_background;
 }
 

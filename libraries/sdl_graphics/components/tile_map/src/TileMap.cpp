@@ -6,54 +6,92 @@
 
 using namespace sdl_graphics;
 
-TileMap::TileMap(std::shared_ptr<Renderer> renderer, Tile tile)
-    : m_renderer(renderer),
-      m_tile(nullptr),
+TileMap::TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile tile)
+    : m_tile(nullptr),
       m_horizontalTiles(0),
       m_verticalTiles(0),
       m_horizontalGround(0),
-      m_verticalGround(0)
+      m_verticalGround(0),
+      m_verticalOffset(0),
+      m_horizontalOffset(0), 
+      m_windowWidth(windowWidth), 
+      m_windowHeight(windowHeight)
 {
     m_tile = new Tile(tile); // TODO - not like this..
     print("TileMap ", this, " created");
+    resizeEvent(windowWidth, windowHeight);
+}
+
+void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
+{
+    m_windowWidth = width;
+    m_windowHeight = height;
+    print("TileMap resize event");
+    auto [tileWidth, tileHeight] = m_tile->getSize();
+
+    m_windowPos.x = m_horizontalGround;
+    m_windowPos.y = m_verticalGround;
+    m_windowPos.h = tileHeight;
+    m_windowPos.w = tileWidth;
+
+    m_tilePos.x = 0;
+    m_tilePos.y = 0;
+    m_tilePos.h = tileHeight;
+    m_tilePos.w = tileWidth;
+
+    m_horizontalTiles = ceil((double)width / (double)tileWidth);
+    m_verticalTiles = ceil((double)height / (double)tileHeight);
+
+    m_verticalOffset = ((tileHeight * m_verticalTiles) - height) / (m_verticalTiles - (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
+    m_horizontalOffset = ((tileWidth * m_horizontalTiles) - width) / (m_horizontalTiles - (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
 }
 
 void TileMap::draw()
 {
-    auto [windowWith, windowHeight] = m_renderer->getWindowSize();
+    // Check left add
+    if (m_horizontalGround > m_horizontalOffset)
+    {
+        std::cout << "horizontal: " << m_horizontalOffset << "\n";
+        m_horizontalTiles++;
+        m_horizontalOffset += m_tilePos.w;
+    }
 
-    auto [tileWidth, tileHeight] = m_tile->getSize();
+    // Check right remove
+    if ((m_horizontalTiles * m_tilePos.w) - m_tilePos.w * 2 > m_windowWidth)
+    {
+        m_horizontalTiles--;
+    }
 
-    SDL_Rect windowPos;
-    windowPos.x = m_horizontalGround;
-    windowPos.y = m_verticalGround;
-    windowPos.h = tileHeight;
-    windowPos.w = tileWidth;
+    // Check right add 
 
-    SDL_Rect tilePos;
-    tilePos.x = 0;
-    tilePos.y = 0;
-    tilePos.h = tileHeight;
-    tilePos.w = tileWidth;
 
-    m_horizontalTiles = ceil((double)windowWith / (double)tileWidth);
-    m_verticalTiles = ceil((double)windowHeight / (double)tileHeight);
+    // if (m_horizontalGround < -horizontalOffset)
+    {
+        // std::cout << "break hor right\n";
+    }
 
-    int verticalOffset = ((tileHeight * m_verticalTiles) - windowHeight) / (m_verticalTiles - (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
-    int horizontalOffset = ((tileWidth * m_horizontalTiles) - windowWith) / (m_horizontalTiles - (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
+    // if (m_verticalGround > verticalOffset)
+    {
+        // std::cout << "break ver top\n";
+    }
 
-    std::cout << m_horizontalGround << "\n";
+    // if (m_verticalGround < -verticalOffset)
+    {
+        // std::cout << "break ver bottom\n";
+    }
 
     for (unsigned int i = 0; i < m_verticalTiles; i++)
     {
-        windowPos.y = m_verticalGround;
-        windowPos.y += (tileHeight * i) - verticalOffset;
+        m_windowPos.y = m_verticalGround;
+        m_windowPos.y += (m_tilePos.h * i) - m_verticalOffset;
+        // m_windowPos.y += (tileHeight * i) - m_verticalOffset;
 
         for (unsigned int i = 0; i < m_horizontalTiles; i++)
         {
-            windowPos.x = m_horizontalGround;
-            windowPos.x += (tileWidth * i) - horizontalOffset;
-            m_tile->draw(tilePos, windowPos);
+            m_windowPos.x = m_horizontalGround;
+            m_windowPos.x += (m_tilePos.w * i) - m_horizontalOffset;
+
+            m_tile->draw(m_tilePos, m_windowPos);
         }
     }
 }
@@ -71,4 +109,16 @@ int &TileMap::getHorizontalGround()
 int &TileMap::getVerticalGround()
 {
     return m_verticalGround;
+}
+
+void TileMap::checkTile(SDL_Rect pos)
+{
+    // Left side
+    if (pos.x < 0 &&
+        pos.y < 0 &&
+        pos.x + pos.h < 0 &&
+        pos.y + pos.w < 0)
+    {
+        std::cout << "outside left\n";
+    }
 }
