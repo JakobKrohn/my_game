@@ -51,7 +51,6 @@ void TileMap::draw()
     // Check left add
     if (m_horizontalGround > m_horizontalOffset)
     {
-        std::cout << "horizontal: " << m_horizontalOffset << "\n";
         m_horizontalTiles++;
         m_horizontalOffset += m_tilePos.w;
     }
@@ -62,29 +61,40 @@ void TileMap::draw()
         m_horizontalTiles--;
     }
 
-    // Check right add 
-
-
-    // if (m_horizontalGround < -horizontalOffset)
+    // Check right add right
+    auto check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + m_horizontalGround;
+    if (check < m_windowWidth)
     {
-        // std::cout << "break hor right\n";
+        m_horizontalTiles++;
+        m_horizontalOffset -= m_tilePos.w;
     }
 
-    // if (m_verticalGround > verticalOffset)
+    // Check top add
+    if (m_verticalGround > m_verticalOffset)
     {
-        // std::cout << "break ver top\n";
+        m_verticalTiles++;
+        m_verticalOffset += m_tilePos.h;
     }
 
-    // if (m_verticalGround < -verticalOffset)
+    // Check bottom remove
+    if ((m_verticalTiles * m_tilePos.h) - m_tilePos.h * 2 > m_windowHeight)
     {
-        // std::cout << "break ver bottom\n";
+        m_verticalTiles--;
     }
 
+    // Check bottom add
+    check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + m_verticalGround;
+    if (check < m_windowHeight)
+    {
+        m_verticalTiles++;
+        m_verticalOffset -= m_tilePos.h;
+    }
+
+    // Draw
     for (unsigned int i = 0; i < m_verticalTiles; i++)
     {
         m_windowPos.y = m_verticalGround;
         m_windowPos.y += (m_tilePos.h * i) - m_verticalOffset;
-        // m_windowPos.y += (tileHeight * i) - m_verticalOffset;
 
         for (unsigned int i = 0; i < m_horizontalTiles; i++)
         {
