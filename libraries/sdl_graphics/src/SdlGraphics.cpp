@@ -97,6 +97,22 @@ void SdlGraphics::update()
         element.draw();
     }
 
+    // Debug rectangle
+    auto leftSide = *m_windowWidth / 3;
+    auto rightSide = leftSide * 2;
+    auto topSide = *m_windowHeight / 3;
+    auto bottomSide = topSide * 2;
+
+    SDL_Rect frame;
+    frame.x = leftSide;
+    frame.y = topSide;
+    frame.w = rightSide - leftSide;
+    frame.h = bottomSide - topSide;
+
+    SDL_SetRenderDrawColor(m_renderer->get(), 0, 0, 255, 40);
+    SDL_SetRenderDrawBlendMode(m_renderer->get(), SDL_BLENDMODE_BLEND);
+    SDL_RenderFillRect(m_renderer->get(), &frame);
+
     m_renderer->present();
 }
 

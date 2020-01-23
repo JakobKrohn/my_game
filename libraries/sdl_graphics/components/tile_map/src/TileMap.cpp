@@ -29,8 +29,8 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     print("TileMap resize event");
     auto [tileWidth, tileHeight] = m_tile->getSize();
 
-    m_windowPos.x = m_horizontalGround;
-    m_windowPos.y = m_verticalGround;
+    m_windowPos.x = (int)m_horizontalGround;
+    m_windowPos.y = (int)m_verticalGround;
     m_windowPos.h = tileHeight;
     m_windowPos.w = tileWidth;
 
@@ -62,7 +62,7 @@ void TileMap::draw()
     }
 
     // Check right add right
-    auto check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + m_horizontalGround;
+    int check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + (int)m_horizontalGround; // TODO Possibly ceil
     if (check < m_windowWidth)
     {
         m_horizontalTiles++;
@@ -83,7 +83,7 @@ void TileMap::draw()
     }
 
     // Check bottom add
-    check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + m_verticalGround;
+    check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + (int)m_verticalGround;
     if (check < m_windowHeight)
     {
         m_verticalTiles++;
@@ -111,16 +111,17 @@ std::tuple<const unsigned int &, const unsigned int &> TileMap::getNumberOfTiles
     return std::forward_as_tuple(m_horizontalTiles, m_verticalTiles);
 }
 
-int &TileMap::getHorizontalGround()
+float &TileMap::getHorizontalGround()
 {
     return m_horizontalGround;
 }
 
-int &TileMap::getVerticalGround()
+float &TileMap::getVerticalGround()
 {
     return m_verticalGround;
 }
 
+// TODO: obsolete
 void TileMap::checkTile(SDL_Rect pos)
 {
     // Left side

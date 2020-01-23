@@ -23,9 +23,9 @@ public:
     // Get number of tiles on screen [horizontal, vertical]
     virtual std::tuple<const unsigned int &, const unsigned int &> getNumberOfTiles() const = 0;
 
-    virtual int &getHorizontalGround() = 0;
+    virtual float &getHorizontalGround() = 0;
 
-    virtual int &getVerticalGround() = 0;
+    virtual float &getVerticalGround() = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_TILE_MAP_HPP

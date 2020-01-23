@@ -30,7 +30,7 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 ### TODO: 
 
-- Tile/TileMap must be implemented!!
+- TileMap, Rezise event not working correctly
 - Texture
 - Surface
 

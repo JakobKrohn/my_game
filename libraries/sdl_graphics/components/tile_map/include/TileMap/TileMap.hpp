@@ -22,16 +22,16 @@ public:
 
     std::tuple<const unsigned int &, const unsigned int &> getNumberOfTiles() const;
 
-    int& getHorizontalGround();
+    float& getHorizontalGround();
 
-    int& getVerticalGround();
+    float& getVerticalGround();
 
 private:
     Tile *m_tile; // todo free
     unsigned int m_horizontalTiles;
     unsigned int m_verticalTiles;
-    int m_horizontalGround;
-    int m_verticalGround;
+    float m_horizontalGround;
+    float m_verticalGround;
     int m_verticalOffset;
     int m_horizontalOffset;
     uint32_t m_windowWidth;
