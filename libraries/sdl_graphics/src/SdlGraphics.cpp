@@ -97,22 +97,6 @@ void SdlGraphics::update()
         element.draw();
     }
 
-    // Debug rectangle
-    auto leftSide = *m_windowWidth / 10;
-    auto rightSide = leftSide * 9;
-    auto topSide = *m_windowHeight / 10;
-    auto bottomSide = topSide * 9;
-
-    SDL_Rect frame;
-    frame.x = leftSide;
-    frame.y = topSide;
-    frame.w = rightSide - leftSide;
-    frame.h = bottomSide - topSide;
-
-    SDL_SetRenderDrawColor(m_renderer->get(), 0, 0, 255, 40);
-    SDL_SetRenderDrawBlendMode(m_renderer->get(), SDL_BLENDMODE_BLEND);
-    SDL_RenderFillRect(m_renderer->get(), &frame);
-
     m_renderer->present();
 }
 
@@ -129,9 +113,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 // TODO: Rename -> setBackground
 std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char * imagePath)
 {
-    // Tile tile(m_renderer, imagePath);
     m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, std::move(Tile(m_renderer, imagePath)));
-    // m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, tile);
     return m_background;
 }
 

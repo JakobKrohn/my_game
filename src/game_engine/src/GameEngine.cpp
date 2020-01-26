@@ -22,6 +22,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     print("Game initializing");
 
+
     initializeKeys();
 
     m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1_edit.png");
