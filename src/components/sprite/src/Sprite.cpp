@@ -26,10 +26,6 @@ std::vector<std::shared_ptr<Image_I>> Sprite::getAllImages()
     return data;
 }
 
-std::shared_ptr<Image_I> Sprite::getCurrentImage()
-{
-}
-
 uint Sprite::getCurrentIndex()
 {
     if (m_state == sprite_state::STILL)

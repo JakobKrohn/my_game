@@ -18,9 +18,6 @@ public:
     // Get all images such that these can be loaded on startup
     virtual std::vector<std::shared_ptr<Image_I>> getAllImages() = 0;
 
-    // Get the current image
-    virtual std::shared_ptr<Image_I> getCurrentImage() = 0;
-
     // Get the current image index
     virtual uint getCurrentIndex() = 0;
 

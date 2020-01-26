@@ -16,7 +16,6 @@ public:
 
     // Element_I
     std::vector<std::shared_ptr<Image_I>> getAllImages();
-    std::shared_ptr<Image_I> getCurrentImage();
     uint getCurrentIndex();
     // void resizeEvent(uint32_t windowWidth, uint32_t windowHeight);
 
