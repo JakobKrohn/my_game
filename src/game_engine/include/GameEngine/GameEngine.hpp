@@ -33,7 +33,6 @@ private:
     std::shared_ptr<Text_I> m_playerText;
     std::shared_ptr<Text_I> m_infoText;
     bool m_active;
-    uint8_t m_movementSpeed;
 
     void initializeKeys();
     void printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text);

@@ -10,12 +10,12 @@
 #include "Player/Player.hpp"
 #include "Movable/Movable.hpp"
 #include "GameEngine/internal/Factory.hpp"
+#include "GameEngine/internal/Settings.hpp"
 
 using namespace game_engine;
 
 GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics)
-    : m_active(false),
-      m_movementSpeed(5)
+    : m_active(false)
 {
     m_inputEvent = inputEvent;
     m_graphics = graphics;
@@ -34,10 +34,10 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
         using namespace std::placeholders;
         using namespace input_event;
 
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), 5), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), 5), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), m_movementSpeed), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), m_movementSpeed), input_key::DOWN);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), PLAYER_ROTATE_SPEED), input_key::LEFT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), PLAYER_ROTATE_SPEED), input_key::RIGHT);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::UP);
+        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::DOWN);
     }
 
     // Player text top right
@@ -61,6 +61,8 @@ void GameEngine::start()
     print("Starting game ...");
     m_active = true;
 
+    // m_player->getMovable()->rotateRight(180);
+
     while (m_active)
     {
         m_inputEvent->check();
@@ -74,6 +76,7 @@ void GameEngine::start()
         printInfo();
         updateMap();
         m_graphics->update();
+        // m_player->getMovable()->moveForward(1);
     }
 }
 
@@ -126,20 +129,20 @@ void GameEngine::updateMap()
         return;
 
     
-    m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
-    // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
+    // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+    // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+    m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
+    m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
 
     if (*m_player->getMovable()->getPosition()->x <= leftSide || *m_player->getMovable()->getPosition()->x >= rightSide)
     {
-        m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+        // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
         // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
     }
 
     if (*m_player->getMovable()->getPosition()->y <= topSide || *m_player->getMovable()->getPosition()->y >= bottomSide)
     {
-        m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+        // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
         // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
     }
 }

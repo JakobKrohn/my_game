@@ -28,8 +28,11 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     m_windowHeight = height;
     auto [tileWidth, tileHeight] = m_tile.getSize();
 
-    m_windowPos.x = (int)m_horizontalGround;
-    m_windowPos.y = (int)m_verticalGround;
+    m_verticalGround = 0;
+    m_horizontalGround = 0;
+
+    m_windowPos.x = (int)m_horizontalGround; 
+    m_windowPos.y = (int)m_verticalGround;  
     m_windowPos.h = tileHeight;
     m_windowPos.w = tileWidth;
 
@@ -47,6 +50,8 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
 
 void TileMap::draw()
 {
+    m_windowPos.y = m_verticalGround;
+    m_windowPos.x = m_horizontalGround;
     handleNumberOfTiles();
 
     for (unsigned int i = 0; i < m_verticalTiles; i++)
@@ -86,43 +91,58 @@ void TileMap::handleNumberOfTiles()
 
 void TileMap::addHorizontalTiles()
 {
-    if (m_horizontalGround > m_horizontalOffset)
-    {
-        m_horizontalTiles++;
-        m_horizontalOffset += m_tilePos.w;
-    }
-
+    /**
+     * The first time adding a horizontal tile, when moving to the left, 
+     * this first check will set m_horizontalOffset to -478. This will result in one frame with wrong tile positions. 
+     * 
+     */
     unsigned int check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + (int)m_horizontalGround; // TODO Possibly ceil
-    if (check < m_windowWidth)
+    if (check <= m_windowWidth)
     {
         m_horizontalTiles++;
         m_horizontalOffset -= m_tilePos.w;
+    }
+
+    /**
+     * This check will set the m_horizontalOffset back to correct. 
+     */
+    if (m_horizontalGround >= m_horizontalOffset)
+    {
+        m_horizontalTiles++;
+        m_horizontalOffset += m_tilePos.w;
     }
 }
 
 void TileMap::addVerticalTiles()
 {
-    if (m_verticalGround > m_verticalOffset)
-    {
-        m_verticalTiles++;
-        m_verticalOffset += m_tilePos.h;
-    }
-
+    /**
+     * See comment in addHorizontalTiles() function. 
+     * Same applies here. 
+     */
     unsigned int check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + (int)m_verticalGround;
     if (check < m_windowHeight)
     {
         m_verticalTiles++;
         m_verticalOffset -= m_tilePos.h;
     }
+
+    if (m_verticalGround > m_verticalOffset)
+    {
+        m_verticalTiles++;
+        m_verticalOffset += m_tilePos.h;
+    }
 }
 
 void TileMap::removeTiles()
 {
+    
+    // Right
     if ((m_horizontalTiles * m_tilePos.w) - m_tilePos.w * 2 > m_windowWidth)
     {
         m_horizontalTiles--;
     }
 
+    // Bottom
     if ((m_verticalTiles * m_tilePos.h) - m_tilePos.h * 2 > m_windowHeight)
     {
         m_verticalTiles--;
