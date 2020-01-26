@@ -10,6 +10,12 @@ using namespace components;
 Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite)
     : m_position(position), m_sprite(sprite)
 {
+    print("Movable [", this, "] created");
+}
+
+Movable::~Movable()
+{
+    print("Movable [", this, "] destroyed");
 }
 
 void Movable::setBoundaries(Rectangle_T boundaries)
@@ -37,18 +43,23 @@ const std::shared_ptr<Position_T> Movable::getPosition() const
 
 void Movable::moveForward(int velocity)
 {
-    *m_position->x += sin(*m_position->angle * M_PI / 180.0) * velocity;
-    *m_position->y -= cos(*m_position->angle * M_PI / 180.0) * velocity;
     m_sprite->setState(sprite_state::MOVING);
-    handleBoundaries();
+    auto x = *m_position->x + sin(*m_position->angle * M_PI / 180.0) * velocity;
+    auto y = *m_position->y - cos(*m_position->angle * M_PI / 180.0) * velocity;
+    if (isInsideBoundaries(x, y))
+    {
+        *m_position->x = x;
+        *m_position->y = y;
+    }
+    // *m_position->x += sin(*m_position->angle * M_PI / 180.0) * velocity;
+    // *m_position->y -= cos(*m_position->angle * M_PI / 180.0) * velocity;
 }
 
 void Movable::moveBackward(int velocity)
 {
+    m_sprite->setState(sprite_state::MOVING);
     *m_position->x -= sin(*m_position->angle * M_PI / 180) * velocity;
     *m_position->y += cos(*m_position->angle * M_PI / 180) * velocity;
-    m_sprite->setState(sprite_state::MOVING);
-    handleBoundaries();
 }
 
 void Movable::rotateRight(int velocity)
@@ -74,14 +85,15 @@ void Movable::updateAngle(int angle)
     }
 }
 
-void Movable::handleBoundaries()
+bool Movable::isInsideBoundaries(int x, int y) const
 {
-    if (*m_position->x < m_boundaries.minHorizontal)
-        *m_position->x = m_boundaries.minHorizontal;
-    if (*m_position->x > m_boundaries.maxHorizantal)
-        *m_position->x = m_boundaries.maxHorizantal;
-    if (*m_position->y < m_boundaries.minVertical)
-        *m_position->y = m_boundaries.minVertical;
-    if (*m_position->y > m_boundaries.maxVertical)
-        *m_position->y = m_boundaries.maxVertical;
+    if (x < (int)m_boundaries.minHorizontal)
+        return false;
+    if (x > (int)m_boundaries.maxHorizantal)
+        return false;
+    if (y < (int)m_boundaries.minVertical)
+        return false;
+    if (y > (int)m_boundaries.maxVertical)
+        return false;
+    return true;
 }

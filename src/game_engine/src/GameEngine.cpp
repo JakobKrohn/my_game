@@ -13,9 +13,9 @@
 
 using namespace game_engine;
 
-GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics) 
-    : m_active(false), 
-    m_movementSpeed(10)
+GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics)
+    : m_active(false),
+      m_movementSpeed(5)
 {
     m_inputEvent = inputEvent;
     m_graphics = graphics;
@@ -65,10 +65,10 @@ void GameEngine::start()
     {
         m_inputEvent->check();
 
-        auto leftSide = *m_graphics->getWindowWidth() / 3;
-        auto rightSide = leftSide * 2;
-        auto topSide = *m_graphics->getWindowHeight() / 3;
-        auto bottomSide = topSide * 2;
+        auto leftSide = *m_graphics->getWindowWidth() / 10;
+        auto rightSide = leftSide * 9;
+        auto topSide = *m_graphics->getWindowHeight() / 10;
+        auto bottomSide = topSide * 9;
         m_player->getMovable()->setBoundaries({leftSide, topSide, rightSide, bottomSide});
         printPlayerInfo(m_player, m_playerText);
         printInfo();
@@ -117,47 +117,31 @@ void GameEngine::printInfo() const
 
 void GameEngine::updateMap()
 {
-    auto leftSide = *m_graphics->getWindowWidth() / 3;
-    auto rightSide = leftSide * 2;
-    auto topSide = *m_graphics->getWindowHeight() / 3;
-    auto bottomSide = topSide * 2;
+    auto leftSide = *m_graphics->getWindowWidth() / 10;
+    auto rightSide = leftSide * 9;
+    auto topSide = *m_graphics->getWindowHeight() / 10;
+    auto bottomSide = topSide * 9;
 
     if (!m_player->getMovable()->isMoving())
         return;
 
-    // This should be float!!
-    m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
-
-    m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
+    
+    m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+    m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+    // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
+    // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
 
     if (*m_player->getMovable()->getPosition()->x <= leftSide || *m_player->getMovable()->getPosition()->x >= rightSide)
     {
-        m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
+        m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+        // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
     }
 
     if (*m_player->getMovable()->getPosition()->y <= topSide || *m_player->getMovable()->getPosition()->y >= bottomSide)
     {
-        m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
+        m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
+        // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
     }
-
-    // if (*m_player->getMovable()->getPosition()->x <= leftSide)
-    // {
-    //     m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // }
-    // if (*m_player->getMovable()->getPosition()->x >= rightSide)
-    // {
-    //     m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // }
-
-    // if (*m_player->getMovable()->getPosition()->y <= topSide)
-    // {
-    //     m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // }
-
-    // if (*m_player->getMovable()->getPosition()->y >= bottomSide)
-    // {
-    //         m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // }
 }
 
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)

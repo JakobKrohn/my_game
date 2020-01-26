@@ -98,10 +98,10 @@ void SdlGraphics::update()
     }
 
     // Debug rectangle
-    auto leftSide = *m_windowWidth / 3;
-    auto rightSide = leftSide * 2;
-    auto topSide = *m_windowHeight / 3;
-    auto bottomSide = topSide * 2;
+    auto leftSide = *m_windowWidth / 10;
+    auto rightSide = leftSide * 9;
+    auto topSide = *m_windowHeight / 10;
+    auto bottomSide = topSide * 9;
 
     SDL_Rect frame;
     frame.x = leftSide;
@@ -129,8 +129,9 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 // TODO: Rename -> setBackground
 std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char * imagePath)
 {
-    Tile tile(m_renderer, imagePath);
-    m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, tile);
+    // Tile tile(m_renderer, imagePath);
+    m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, std::move(Tile(m_renderer, imagePath)));
+    // m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, tile);
     return m_background;
 }
 

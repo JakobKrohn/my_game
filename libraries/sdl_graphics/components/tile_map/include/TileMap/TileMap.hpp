@@ -5,7 +5,6 @@
 
 #include "GraphicsInterface/TileMap_I.hpp"
 #include "Tile/Tile.hpp"
-#include "Renderer/Renderer.hpp"
 
 namespace sdl_graphics
 {
@@ -13,8 +12,7 @@ namespace sdl_graphics
 class TileMap : public TileMap_I
 {
 public:
-    TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile tile);     // TODO: No need for renderer!
-    // TODO destructor
+    TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile &&tile);
 
     void resizeEvent(uint32_t &width, uint32_t &height);
 
@@ -22,12 +20,12 @@ public:
 
     std::tuple<const unsigned int &, const unsigned int &> getNumberOfTiles() const;
 
-    float& getHorizontalGround();
+    float &getHorizontalGround();
 
-    float& getVerticalGround();
+    float &getVerticalGround();
 
 private:
-    Tile *m_tile; // todo free
+    Tile m_tile; 
     unsigned int m_horizontalTiles;
     unsigned int m_verticalTiles;
     float m_horizontalGround;
@@ -40,7 +38,10 @@ private:
     SDL_Rect m_windowPos;
     SDL_Rect m_tilePos;
 
-    void checkTile(SDL_Rect pos);
+    void handleNumberOfTiles();
+    void addHorizontalTiles();
+    void addVerticalTiles();
+    void removeTiles();
 };
 
 } // namespace sdl_graphics

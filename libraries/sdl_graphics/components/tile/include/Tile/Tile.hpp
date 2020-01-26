@@ -21,7 +21,8 @@ class Tile
 {
 public:
     Tile(std::shared_ptr<Renderer> renderer, const char *imagePath);
-    Tile(const Tile &tile);
+    Tile(const Tile &tile); 
+    Tile(Tile &&tile);
     ~Tile();
 
     void draw(SDL_Rect tilePos, SDL_Rect windowPos);

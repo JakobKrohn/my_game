@@ -11,7 +11,8 @@ TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_p
       m_location(TextLocation::FLOATING),
       m_color({255, 255, 255, 255}),
       m_backgroundColor({0, 0, 0, 255}),
-      m_drawBackground(false)
+      m_drawBackground(false), 
+      m_texture(nullptr)
 {
     m_font = TTF_OpenFont(fontPath.c_str(), fontSize);
     if (m_font == NULL)
@@ -51,6 +52,9 @@ void TextRenderer::setText(std::string text)
 {
     if (text.length() < 1)
         throw std::runtime_error("Text cannot be empty");
+
+    if (m_texture != nullptr)
+        SDL_DestroyTexture(m_texture);
 
     std::vector<std::string> substrings;
     std::stringstream ss(text);

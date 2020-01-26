@@ -16,7 +16,7 @@ Tile::Tile(std::shared_ptr<Renderer> renderer, const char *imagePath)
     m_width = m_texture->getWidth();
     m_height = m_texture->getHeight();
 
-    print("Tile '", this, "' created.", "\n\tPath: ", imagePath, " \n\tWidth: ", m_width, ", height: ", m_height);
+    print("Tile [", this, "] created.", "\n\tPath: ", imagePath, " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Tile::Tile(const Tile &tile)
@@ -29,7 +29,16 @@ Tile::Tile(const Tile &tile)
     m_texture = tile.m_texture;
     m_width = m_texture->getWidth();
     m_height = m_texture->getHeight();
-    print("Tile '", this, "' copied.", " \n\tWidth: ", m_width, ", height: ", m_height);
+    print("Tile [", this, "] copied.", " \n\tWidth: ", m_width, ", height: ", m_height);
+}
+
+Tile::Tile(Tile &&tile)
+    : m_texture(tile.m_texture),
+      m_renderer(tile.m_renderer),
+      m_width(tile.m_texture->getWidth()),
+      m_height(tile.m_texture->getHeight())
+{
+    print("Tile [", this, "] moved.", " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Tile::~Tile()

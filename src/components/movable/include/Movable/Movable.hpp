@@ -34,6 +34,7 @@ class Movable
 public:
     explicit Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite);
     Movable(const Movable &) = delete;
+    ~Movable();
 
     bool isMoving() const;
 
@@ -54,6 +55,7 @@ private:
     Rectangle_T m_boundaries;
 
     void updateAngle(int angle);
+    bool isInsideBoundaries(int x, int y) const;
     void handleBoundaries();
 };
 

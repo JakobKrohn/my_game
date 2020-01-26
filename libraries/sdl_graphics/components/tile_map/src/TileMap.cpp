@@ -6,28 +6,27 @@
 
 using namespace sdl_graphics;
 
-TileMap::TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile tile)
-    : m_tile(nullptr),
+TileMap::TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile &&tile)
+    : m_tile(std::move(tile)),
       m_horizontalTiles(0),
       m_verticalTiles(0),
       m_horizontalGround(0),
       m_verticalGround(0),
       m_verticalOffset(0),
-      m_horizontalOffset(0), 
-      m_windowWidth(windowWidth), 
+      m_horizontalOffset(0),
+      m_windowWidth(windowWidth),
       m_windowHeight(windowHeight)
 {
-    m_tile = new Tile(tile); // TODO - not like this..
     print("TileMap ", this, " created");
     resizeEvent(windowWidth, windowHeight);
 }
 
 void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
 {
+    print("TileMap resize event");
     m_windowWidth = width;
     m_windowHeight = height;
-    print("TileMap resize event");
-    auto [tileWidth, tileHeight] = m_tile->getSize();
+    auto [tileWidth, tileHeight] = m_tile.getSize();
 
     m_windowPos.x = (int)m_horizontalGround;
     m_windowPos.y = (int)m_verticalGround;
@@ -48,60 +47,17 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
 
 void TileMap::draw()
 {
-    // Check left add
-    if (m_horizontalGround > m_horizontalOffset)
-    {
-        m_horizontalTiles++;
-        m_horizontalOffset += m_tilePos.w;
-    }
+    handleNumberOfTiles();
 
-    // Check right remove
-    if ((m_horizontalTiles * m_tilePos.w) - m_tilePos.w * 2 > m_windowWidth)
-    {
-        m_horizontalTiles--;
-    }
-
-    // Check right add right
-    int check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + (int)m_horizontalGround; // TODO Possibly ceil
-    if (check < m_windowWidth)
-    {
-        m_horizontalTiles++;
-        m_horizontalOffset -= m_tilePos.w;
-    }
-
-    // Check top add
-    if (m_verticalGround > m_verticalOffset)
-    {
-        m_verticalTiles++;
-        m_verticalOffset += m_tilePos.h;
-    }
-
-    // Check bottom remove
-    if ((m_verticalTiles * m_tilePos.h) - m_tilePos.h * 2 > m_windowHeight)
-    {
-        m_verticalTiles--;
-    }
-
-    // Check bottom add
-    check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + (int)m_verticalGround;
-    if (check < m_windowHeight)
-    {
-        m_verticalTiles++;
-        m_verticalOffset -= m_tilePos.h;
-    }
-
-    // Draw
     for (unsigned int i = 0; i < m_verticalTiles; i++)
     {
         m_windowPos.y = m_verticalGround;
         m_windowPos.y += (m_tilePos.h * i) - m_verticalOffset;
-
         for (unsigned int i = 0; i < m_horizontalTiles; i++)
         {
             m_windowPos.x = m_horizontalGround;
             m_windowPos.x += (m_tilePos.w * i) - m_horizontalOffset;
-
-            m_tile->draw(m_tilePos, m_windowPos);
+            m_tile.draw(m_tilePos, m_windowPos);
         }
     }
 }
@@ -121,15 +77,54 @@ float &TileMap::getVerticalGround()
     return m_verticalGround;
 }
 
-// TODO: obsolete
-void TileMap::checkTile(SDL_Rect pos)
+void TileMap::handleNumberOfTiles()
 {
-    // Left side
-    if (pos.x < 0 &&
-        pos.y < 0 &&
-        pos.x + pos.h < 0 &&
-        pos.y + pos.w < 0)
+    addHorizontalTiles();
+    addVerticalTiles();
+    removeTiles();   
+}
+
+void TileMap::addHorizontalTiles()
+{
+    if (m_horizontalGround > m_horizontalOffset)
     {
-        std::cout << "outside left\n";
+        m_horizontalTiles++;
+        m_horizontalOffset += m_tilePos.w;
+    }
+
+    unsigned int check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + (int)m_horizontalGround; // TODO Possibly ceil
+    if (check < m_windowWidth)
+    {
+        m_horizontalTiles++;
+        m_horizontalOffset -= m_tilePos.w;
+    }
+}
+
+void TileMap::addVerticalTiles()
+{
+    if (m_verticalGround > m_verticalOffset)
+    {
+        m_verticalTiles++;
+        m_verticalOffset += m_tilePos.h;
+    }
+
+    unsigned int check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + (int)m_verticalGround;
+    if (check < m_windowHeight)
+    {
+        m_verticalTiles++;
+        m_verticalOffset -= m_tilePos.h;
+    }
+}
+
+void TileMap::removeTiles()
+{
+    if ((m_horizontalTiles * m_tilePos.w) - m_tilePos.w * 2 > m_windowWidth)
+    {
+        m_horizontalTiles--;
+    }
+
+    if ((m_verticalTiles * m_tilePos.h) - m_tilePos.h * 2 > m_windowHeight)
+    {
+        m_verticalTiles--;
     }
 }
