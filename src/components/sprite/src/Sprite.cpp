@@ -26,10 +26,6 @@ std::vector<std::shared_ptr<Image_I>> Sprite::getAllImages()
     return data;
 }
 
-std::shared_ptr<Image_I> Sprite::getCurrentImage()
-{
-}
-
 uint Sprite::getCurrentIndex()
 {
     if (m_state == sprite_state::STILL)
@@ -53,4 +49,9 @@ uint Sprite::getCurrentIndex()
 void Sprite::setState(sprite_state state)
 {
     m_state = state;
+}
+
+sprite_state Sprite::getState() const
+{
+    return m_state;
 }

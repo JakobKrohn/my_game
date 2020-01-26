@@ -39,5 +39,15 @@ void Image::draw()
     m_rect.w = m_drawable->getWidth();
     m_rect.x = m_drawable->getPosX();
     m_rect.y = m_drawable->getPosY();
-    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
+    auto size = m_drawable->getSizeToDraw();
+    SDL_Rect *sizeRect = nullptr; 
+    if (size.has_value())
+    {
+        sizeRect = new SDL_Rect; // Delete me after!!
+        sizeRect->h = size->h;
+        sizeRect->w = size->w;
+        sizeRect->x = size->x;
+        sizeRect->y = size->y;
+    }
+    SDL_RenderCopyEx(m_renderer->get(), m_texture, sizeRect, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
 }

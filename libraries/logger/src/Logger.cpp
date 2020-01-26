@@ -14,6 +14,11 @@ void Logger::setMode(Mode mode)
     m_mode = mode;
 }
 
+int Logger::getNumberOfStartups() const
+{
+    return m_numberOfRuns;
+}
+
 // Private
 Logger::Logger() : m_mode(Mode::NONE)
 {

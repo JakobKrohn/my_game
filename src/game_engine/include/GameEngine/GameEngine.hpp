@@ -9,7 +9,9 @@
 
 #include "InputEvent/InputEvent_I.hpp"
 #include "GraphicsInterface/Graphics_I.hpp"
-#include "Player/Player_I.hpp"
+#include "GraphicsInterface/Text_I.hpp"
+#include "GraphicsInterface/TileMap_I.hpp"
+#include "Player/Player.hpp"
 #include "Drawable/Drawable.hpp"
 
 namespace game_engine
@@ -26,11 +28,17 @@ public:
 private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<Graphics_I> m_graphics;
-    std::vector<components::Player_I> m_players;
-    std::shared_ptr<components::Drawable> m_background;
+    std::shared_ptr<components::Player> m_player; // TODO: interface?
+    std::shared_ptr<TileMap_I> m_background;
+    std::shared_ptr<Text_I> m_playerText;
+    std::shared_ptr<Text_I> m_infoText;
     bool m_active;
 
     void initializeKeys();
+    void printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text);
+    void printInfo() const;
+    void updateMap();
+    void resizeEventCallback(uint32_t newWidth, uint32_t newHeight);
 };
 
 } // namespace game_engine

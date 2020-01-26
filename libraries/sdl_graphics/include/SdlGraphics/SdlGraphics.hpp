@@ -14,6 +14,7 @@
 #include "Image/Image.hpp"
 #include "TextRenderer/TextRenderer.hpp"
 #include "Element/Element.hpp"
+#include "TileMap/TileMap.hpp"
 
 namespace sdl_graphics
 {
@@ -21,14 +22,18 @@ namespace sdl_graphics
 class SdlGraphics : public Graphics_I
 {
 public:
-    SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
+    explicit SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
+    ~SdlGraphics();
 
     // Graphics_I
     void update();
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
+    std::shared_ptr<TileMap_I> createTileMap(const char * imagePath);
+    std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;
+    void setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback);
 
 private:
     std::shared_ptr<Window> m_window;
@@ -36,15 +41,18 @@ private:
     std::unique_ptr<TextRenderer> m_fpsRenderer;
     std::vector<Element> m_elements;
     std::vector<Image> m_images;
+    std::vector<std::shared_ptr<TextRenderer>> m_textElements;
     std::shared_ptr<uint32_t> m_windowWidth;
     std::shared_ptr<uint32_t> m_windowHeight;
     uint32_t m_countedFrames;
-    TTF_Font *m_font;
+    std::function<void(uint32_t width, uint32_t height)> m_resizeCallback;
+    std::shared_ptr<TileMap> m_background;
 
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);
     void drawFrame(int width, int height) const;
-    static int resizeEvent(void *data, SDL_Event *event); // todo: not static
+    static int windowEvent(void *data, SDL_Event *event); 
+    void redrawAll();
 };
 
 } // namespace sdl_graphics

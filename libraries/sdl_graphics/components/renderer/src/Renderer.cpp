@@ -38,6 +38,7 @@ void Renderer::present()
     SDL_RenderPresent(m_renderer);
 }
 
+// TODO reference, this is called alot!
 std::tuple<int, int> Renderer::getWindowSize() const
 {
     int w, h = 0;

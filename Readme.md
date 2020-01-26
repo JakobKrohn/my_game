@@ -9,19 +9,17 @@ $ git clone --recursive <url/ssh>
 - Ninja
 - SDL2
 - SDL2 image
+- SDL2 ttf
 
 #### Install Cmake
 Download cmake from https://cmake.org/download/
 Version 3.15 or higher. 
 
-#### Install Ninja
-$ apt install ninja-build
-
 ### Install SDL2 
-$ apt install libsdl2-dev 
+$ sudo apt install libsdl2-dev 
 
 ### Install SDL2 image
-$ apt-get install libsdl2-image-dev
+$ sudo apt-get install libsdl2-image-dev
 
 ### Install SDL2 TTF
 $ sudo apt-get install libsdl2-ttf-dev
@@ -29,3 +27,23 @@ $ sudo apt-get install libsdl2-ttf-dev
 ### Modules
 1. https://github.com/tcbrindle/sdl2-cmake-scripts
 2. https://github.com/onqtam/doctest 
+
+### TODO: 
+
+- TileMap, Rezise event not working correctly
+- Texture
+- Surface
+
+- nullptr checking
+- std::string_view and const char *, no strings
+- Error handling: runtime_error catching
+- F11 should open fullscreen
+- Rewrite textrenderer for perfomance
+- Fix Drawable_T types. 
+- Detect window out of focus - pause game
+- Clean up textrenderer class.
+- Add conan
+- https://github.com/grimfang4/SDL_FontCache/blob/master/SDL_FontCache.h 
+
+### Open art
+- https://opengameart.org/content/backgrounds-topdown-games 

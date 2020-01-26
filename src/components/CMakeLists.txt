@@ -13,6 +13,7 @@ add_subdirectory(sprite)
 
 target_link_libraries(${PROJECT_NAME}
     INTERFACE
+        ${LIBRARY_NAME}::drawable
         ${LIBRARY_NAME}::player
         ${LIBRARY_NAME}::movable
         ${LIBRARY_NAME}::sprite

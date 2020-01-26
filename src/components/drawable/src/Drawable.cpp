@@ -36,3 +36,13 @@ uint16_t Drawable::getAngle() const
 {
     return static_cast<uint32_t>(*m_data->angle);
 }
+
+std::optional<ImageSize_T> &Drawable::getSizeToDraw() const
+{
+    return m_data->imageSize;
+}
+
+// void Drawable::resizeEvent(uint32_t windowWidth, uint32_t windowHeight)
+// {
+//     // Should the image redraw?
+// }

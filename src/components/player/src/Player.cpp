@@ -15,6 +15,11 @@ Player::~Player()
     print("Player destroyed");
 }
 
+const char * Player::getName() const
+{
+    return m_name.c_str();
+}
+
 std::shared_ptr<Movable> Player::getMovable() const
 {
     return m_movable;

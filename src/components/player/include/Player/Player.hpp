@@ -19,6 +19,7 @@ public:
     Player() = delete;
     ~Player();
 
+    const char * getName() const;
     std::shared_ptr<Movable> getMovable() const;
     std::shared_ptr<Sprite> getSprite() const;
 

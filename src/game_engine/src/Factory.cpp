@@ -1,4 +1,4 @@
-#include "GameEngine/Factory.hpp"
+#include "GameEngine/internal/Factory.hpp"
 
 #include <vector>
 

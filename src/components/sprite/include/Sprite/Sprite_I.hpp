@@ -14,6 +14,7 @@ class Sprite_I
 {
 public:
     virtual void setState(sprite_state state) = 0;
+    virtual sprite_state getState() const = 0;
 };
 
 } // namespace components
