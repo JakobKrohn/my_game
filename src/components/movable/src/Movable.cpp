@@ -8,7 +8,9 @@
 using namespace components;
 
 Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite)
-    : m_position(position), m_sprite(sprite)
+    : m_position(position),
+      m_sprite(sprite),
+      m_boundaries({0, 0, 5000, 5000})
 {
     print("Movable [", this, "] created");
 }

@@ -12,6 +12,7 @@
 namespace components
 {
 
+// TODO: interface
 class Player
 {
 public:

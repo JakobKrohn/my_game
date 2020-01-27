@@ -8,6 +8,7 @@ Player::Player(std::string name, std::shared_ptr<Movable> movable, std::shared_p
 {
     m_movable = movable;
     m_sprite = sprite;
+    print("Player ", name, " created");
 }
 
 Player::~Player()

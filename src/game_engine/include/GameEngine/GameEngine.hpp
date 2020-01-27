@@ -20,7 +20,7 @@ namespace game_engine
 class GameEngine
 {
 public:
-    GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics);
+    GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics, uint8_t numberOfPlayers);
 
     void start();
     void exit();
@@ -28,12 +28,15 @@ public:
 private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<Graphics_I> m_graphics;
-    std::shared_ptr<components::Player> m_player; // TODO: interface?
+    // std::shared_ptr<components::Player> m_player; 
+    std::vector<std::shared_ptr<components::Player>> m_players;
+    std::vector<std::shared_ptr<Text_I>> m_playerText;
     std::shared_ptr<TileMap_I> m_background;
-    std::shared_ptr<Text_I> m_playerText;
+    // std::shared_ptr<Text_I> m_playerText;
     std::shared_ptr<Text_I> m_infoText;
     bool m_active;
 
+    void createPlayers(uint8_t numberOfPlayers);
     void initializeKeys();
     void printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text);
     void printInfo() const;

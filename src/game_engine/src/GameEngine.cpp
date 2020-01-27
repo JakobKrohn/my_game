@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <functional>
+#include <tuple>
 #include <thread>
 #include <chrono>
 #include <math.h>
@@ -14,7 +15,7 @@
 
 using namespace game_engine;
 
-GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics)
+GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, std::shared_ptr<Graphics_I> graphics, uint8_t numberOfPlayers)
     : m_active(false)
 {
     m_inputEvent = inputEvent;
@@ -22,30 +23,22 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
 
     print("Game initializing");
 
+    m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
+
+    createPlayers(numberOfPlayers);
 
     initializeKeys();
 
     m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1_edit.png");
 
-    // Create and add player
-    m_player = Factory::createPlayer("Jakob");
-    m_graphics->addElement(m_player->getSprite());
-
-    {
-        using namespace std::placeholders;
-        using namespace input_event;
-
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft, m_player->getMovable(), _1), PLAYER_ROTATE_SPEED), input_key::LEFT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, m_player->getMovable(), _1), PLAYER_ROTATE_SPEED), input_key::RIGHT);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, m_player->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::UP);
-        m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_player->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::DOWN);
-    }
-
     // Player text top right
-    m_playerText = m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14);
-    m_playerText->setText("Hello from game engine!\nnew line!");
-    m_playerText->setTextColor({0, 0, 0, 255});
-    m_playerText->setLocation(TextLocation::TOP_LEFT);
+    m_playerText.emplace_back(m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14));
+    m_playerText.front()->setTextColor({0, 0, 0, 255});
+    m_playerText.front()->setLocation(TextLocation::TOP_LEFT);
+
+    m_playerText.emplace_back(m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14));
+    m_playerText.back()->setTextColor({0, 0, 0, 255});
+    m_playerText.back()->setLocation(TextLocation::TOP_RIGHT);
 
     // Info text bottom
     m_infoText = m_graphics->createText("assets/fonts/OpenSans-Light.ttf", 14);
@@ -72,8 +65,9 @@ void GameEngine::start()
         auto rightSide = leftSide * 9;
         auto topSide = *m_graphics->getWindowHeight() / 10;
         auto bottomSide = topSide * 9;
-        m_player->getMovable()->setBoundaries({leftSide, topSide, rightSide, bottomSide});
-        printPlayerInfo(m_player, m_playerText);
+        m_players.at(0)->getMovable()->setBoundaries({leftSide, topSide, rightSide, bottomSide});
+        printPlayerInfo(m_players.at(0), m_playerText.front());
+        printPlayerInfo(m_players.at(1), m_playerText.back());
         printInfo();
         updateMap();
         m_graphics->update();
@@ -86,11 +80,44 @@ void GameEngine::exit()
     m_active = false;
 }
 
+void GameEngine::createPlayers(uint8_t numberOfPlayers)
+{
+    std::string defaultName = "Player";
+    for (uint8_t i = 0; i < numberOfPlayers; i++)
+    {
+        std::string index = std::to_string(i);
+        m_players.emplace_back(Factory::createPlayer(defaultName + index));
+        m_graphics->addElement(m_players.at(i)->getSprite());
+    }
+}
+
 void GameEngine::initializeKeys()
 {
-    m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
+    using namespace std::placeholders;
+    using namespace input_event;
 
-    // F11 goes to fullscreen
+    // for (auto [it, end, i] = std::tuple{m_players.begin(), m_players.end(), 0};
+    //      it != end; ++it, ++i)
+    // {
+    //     it->get()->getMovable();
+    //     m_inputEvent->registerCallback(std::bind(
+    //                                        std::bind(&components::Movable::rotateLeft, it->get()->getMovable(), _1), PLAYER_ROTATE_SPEED),
+    //                                    input_key::LEFT);
+
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight, it->get()->getMovable(), _1), PLAYER_ROTATE_SPEED), input_key::RIGHT);
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward, it->get()->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::UP);
+    //     m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, it->get()->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::DOWN);
+    // }
+
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft,   m_players.at(0)->getMovable(), _1), PLAYER_ROTATE_SPEED),   input_key::LEFT);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight,  m_players.at(0)->getMovable(), _1), PLAYER_ROTATE_SPEED),   input_key::RIGHT);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward,  m_players.at(0)->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::UP);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_players.at(0)->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::DOWN);
+
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateLeft,   m_players.at(1)->getMovable(), _1), PLAYER_ROTATE_SPEED),   input_key::A);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::rotateRight,  m_players.at(1)->getMovable(), _1), PLAYER_ROTATE_SPEED),   input_key::D);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveForward,  m_players.at(1)->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::W);
+    m_inputEvent->registerCallback(std::bind(std::bind(&components::Movable::moveBackward, m_players.at(1)->getMovable(), _1), PLAYER_MOVEMENT_SPEED), input_key::S);
 }
 
 void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player, std::shared_ptr<Text_I> text)
@@ -126,33 +153,18 @@ void GameEngine::updateMap()
     auto topSide = *m_graphics->getWindowHeight() / 10;
     auto bottomSide = topSide * 9;
 
-    if (!m_player->getMovable()->isMoving())
+    if (!m_players.at(0)->getMovable()->isMoving())
         return;
 
-    
-    // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-    m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
-    m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
-
-    if (*m_player->getMovable()->getPosition()->x <= leftSide || *m_player->getMovable()->getPosition()->x >= rightSide)
-    {
-        // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-        // m_background->getHorizontalGround() -= sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
-    }
-
-    if (*m_player->getMovable()->getPosition()->y <= topSide || *m_player->getMovable()->getPosition()->y >= bottomSide)
-    {
-        // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * m_movementSpeed;
-        // m_background->getVerticalGround() += cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) * (m_movementSpeed / 2);
-    }
+    m_background->getHorizontalGround() -= sin(*m_players.at(0)->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
+    m_background->getVerticalGround() += cos(*m_players.at(0)->getMovable()->getPosition()->angle * M_PI / 180.0) * (MAP_MOVEMENT_SPEED);
 }
 
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)
 {
     print("Resize event, new window size: w:", newWidth, " h: ", newHeight);
 
-    auto pos = m_player->getMovable()->getPosition();
-    m_player->getMovable()->setPosition((newWidth / 2), (newHeight / 2), *pos->angle);
+    auto pos = m_players.at(0)->getMovable()->getPosition();
+    m_players.at(0)->getMovable()->setPosition((newWidth / 2), (newHeight / 2), *pos->angle);
     m_background->resizeEvent(newWidth, newHeight);
 }
