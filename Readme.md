@@ -47,3 +47,8 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 ### Open art
 - https://opengameart.org/content/backgrounds-topdown-games 
+
+https://opengameart.org/content/2d-topdown-city-survival
+https://opengameart.org/content/animated-top-down-survivor-player
+https://opengameart.org/content/top-down-runner
+https://opengameart.org/content/top-down-animated-zombie-set
