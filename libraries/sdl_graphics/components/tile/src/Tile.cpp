@@ -49,7 +49,6 @@ Tile::~Tile()
 void Tile::draw(SDL_Rect tilePos, SDL_Rect windowPos)
 {
     SDL_RenderCopyEx(m_renderer->get(), m_texture->get(), &tilePos, &windowPos, 0, NULL, SDL_FLIP_NONE);
-
 }
 
 std::tuple<const unsigned int &, const unsigned int &> Tile::getSize() const

@@ -28,7 +28,8 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent, st
     m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1_edit.png");
 
     // Create and add player
-    m_player = Factory::createPlayer("Jakob");
+    // m_player = Factory::createPlayer("Jakob");
+    m_player = Factory::createSurvivor("Jakob");
     m_graphics->addElement(m_player->getSprite());
 
     {

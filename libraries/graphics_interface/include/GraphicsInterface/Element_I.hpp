@@ -18,6 +18,12 @@ public:
     // Get all images such that these can be loaded on startup
     virtual std::vector<std::shared_ptr<Image_I>> getAllImages() = 0;
 
+    // Same as above
+    virtual std::vector<const char *> getAllAssets() const = 0;
+
+    // Get the constant to crop assets to size, based on each images size
+    virtual double getSizeConstant() const = 0;
+
     // Get the current image index
     virtual uint getCurrentIndex() = 0;
 

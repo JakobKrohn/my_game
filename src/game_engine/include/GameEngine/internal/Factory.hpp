@@ -12,6 +12,7 @@ class Factory
 {
 public:
     static std::shared_ptr<components::Player> createPlayer(std::string name);
+    static std::shared_ptr<components::Player> createSurvivor(std::string name);
 
 private:
 };

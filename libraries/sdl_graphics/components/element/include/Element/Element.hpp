@@ -5,14 +5,15 @@
 #include <memory>
 
 #include "GraphicsInterface/Element_I.hpp"
-#include "Image/Image.hpp"
+#include "Tile/Tile.hpp"
+// #include "Image/Image.hpp"
 #include "Renderer/Renderer.hpp"
 
 namespace sdl_graphics
 {
 
 /**
- *  A new name to Element or Element_I????
+ *  TODO: A new name to Element or Element_I????
  */
 class Element
 {
@@ -23,7 +24,8 @@ public:
 private:
     std::shared_ptr<Element_I> m_element;
     std::shared_ptr<Renderer> m_renderer;
-    std::vector<Image> m_images;
+    std::vector<Tile> m_images;
+    // std::vector<Image> m_images;
 };
 
 } // namespace sdl_graphics

@@ -4,6 +4,7 @@ using namespace sdl_graphics;
 
 Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable)
 {
+    std::cout << "Image: " << drawable->getImagePath() << "\n";
     m_renderer = renderer;
     m_drawable = drawable;
     SDL_Surface *loadedSurface = IMG_Load(m_drawable->getImagePath().c_str());
@@ -13,6 +14,7 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawab
         throw std::runtime_error(IMG_GetError());
     }
 
+    // TODO: Use new surface
     m_texture = SDL_CreateTextureFromSurface(m_renderer->get(), loadedSurface);
 
     SDL_FreeSurface(loadedSurface);
