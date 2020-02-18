@@ -10,13 +10,10 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic -Wnull-dereference")
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
 
-######### TEST #########
-include(CTest)
-add_subdirectory(external/doctest)
-include(external/doctest/scripts/cmake/doctest.cmake)
+# include(CTest)
 
+add_subdirectory(test)
 add_subdirectory(external)
 add_subdirectory(libraries)
 add_subdirectory(src)
-add_subdirectory(test)
 add_subdirectory(application)

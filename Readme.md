@@ -7,6 +7,7 @@ $ git clone --recursive <url/ssh>
 ## Prerequisite
 - Cmake
 - Ninja
+- Conan <br> pip3 install conan
 - SDL2
 - SDL2 image
 - SDL2 ttf

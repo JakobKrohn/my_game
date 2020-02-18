@@ -18,8 +18,7 @@
             "command": "cmake",
             "args": [
                 ".", 
-                "-Bbuild",
-                "-GNinja"
+                "-Bbuild"
             ],
             "problemMatcher": []
         },
@@ -38,11 +37,13 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "cmake",
+            "command": "make",
             "args": [
-                "--build",
-                "build"
+                "-j4"
             ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
             "problemMatcher": []
         },
         // ========================= CPP CHECK
@@ -83,10 +84,10 @@
         {
             "label": "run tests",
             "type": "shell",
-            "command": "./my_gameTest",
+            "command": "./example",
             // "command": "ctest",
             "args": [
-                "--abort-after=1"
+                // "--abort-after=1"
                 // "--progress"
                 // "--verbose"
                 // "--output-on-failure"
