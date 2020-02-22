@@ -10,10 +10,13 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic -Wnull-dereference")
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
 
-# include(CTest)
+file(GLOB_RECURSE include_dirs LIST_DIRECTORIES true
+    RELATIVE ${CMAKE_SOURCE_DIR} "include")
+    
+enable_testing()
 
-add_subdirectory(test)
 add_subdirectory(external)
 add_subdirectory(libraries)
 add_subdirectory(src)
 add_subdirectory(application)
+add_subdirectory(test)
