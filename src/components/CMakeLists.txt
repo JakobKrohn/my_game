@@ -18,3 +18,9 @@ target_link_libraries(${PROJECT_NAME}
         ${LIBRARY_NAME}::movable
         ${LIBRARY_NAME}::sprite
 )
+
+SET(COMPONENTS_TESTS
+    "${CMAKE_CURRENT_SOURCE_DIR}/player/test/PlayerTest.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/movable/test/MovableTest.cpp"
+)
+set_property(GLOBAL PROPERTY source_list_property "${COMPONENTS_TESTS}")
