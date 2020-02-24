@@ -84,8 +84,8 @@
         {
             "label": "run tests",
             "type": "shell",
-            // "command": "./example",
-            "command": "ctest",
+            "command": "./example",
+            // "command": "ctest",
             "args": [
                 // "--abort-after=1"
                 // "--progress"

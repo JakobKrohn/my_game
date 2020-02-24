@@ -19,7 +19,9 @@ target_link_libraries(${PROJECT_NAME}
         ${LIBRARY_NAME}::sprite
 )
 
+get_property(TEST_SOURCES GLOBAL PROPERTY source_list_property)
 SET(COMPONENTS_TESTS
+    ${TEST_SOURCES}
     "${CMAKE_CURRENT_SOURCE_DIR}/player/test/PlayerTest.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/movable/test/MovableTest.cpp"
 )

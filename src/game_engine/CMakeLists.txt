@@ -25,8 +25,9 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/internal>
 )
 
-# target_include_directories(${PROJECT_NAME}
-#     PUBLIC
-#         $<INSTALL_INTERFACE:include>
-#         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-# )
+get_property(TEST_SOURCES GLOBAL PROPERTY source_list_property)
+SET(ENGINE_TESTS
+    ${TEST_SOURCES}
+    "${CMAKE_CURRENT_SOURCE_DIR}/test/GameEngineTest.cpp"
+)
+set_property(GLOBAL PROPERTY source_list_property "${ENGINE_TESTS}")

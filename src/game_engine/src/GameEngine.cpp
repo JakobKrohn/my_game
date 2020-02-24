@@ -86,7 +86,7 @@ void GameEngine::start()
 
     // m_player->getMovable()->rotateRight(180);
 
-    while (m_active)
+    while (m_active.load())
     {
         m_inputEvent->check();
 

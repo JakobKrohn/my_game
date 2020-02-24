@@ -38,11 +38,15 @@ endif()
 include(GoogleTest)
 
 get_property(COMPONENTS_TESTS GLOBAL PROPERTY source_list_property)
-message(WARNING "Add tests: ${COMPONENTS_TESTS}")
-add_executable(example main.cpp 
-	${COMPONENTS_TESTS}
- )
+get_property(ENGINE_TEST GLOBAL PROPERTY source_list_property)
 
-target_link_libraries(example gtest_main)
+
+message(WARNING "Add tests: ${COMPONENTS_TESTS} ${ENGINE_TESTS}")
+add_executable(example main.cpp 
+    ${COMPONENTS_TESTS}
+    ${ENGINE_TESTS}
+)
+
+target_link_libraries(example gtest_main gmock_main game::game)
 
 gtest_discover_tests(example)

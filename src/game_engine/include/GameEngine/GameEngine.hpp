@@ -6,6 +6,7 @@
  */
 
 #include <memory>
+#include <atomic>
 
 #include "Drawable/Drawable.hpp"
 #include "GraphicsInterface/Graphics_I.hpp"
@@ -33,7 +34,7 @@ class GameEngine
     std::shared_ptr<TileMap_I> m_background;
     std::shared_ptr<Text_I> m_playerText;
     std::shared_ptr<Text_I> m_infoText;
-    bool m_active;
+    std::atomic<bool> m_active;
 
     void initializeKeys();
     void printPlayerInfo(std::shared_ptr<components::Player> player,
