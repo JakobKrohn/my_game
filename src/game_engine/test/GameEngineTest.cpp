@@ -55,56 +55,60 @@ class GameEngineTest : public ::testing::Test
   protected:
     GameEngineTest()
     {
-        // You can do set-up work for each test here.
         _input = std::make_shared<MockInputEvent>();
         _graphics = std::make_shared<MockGraphics>();
+        _text = std::make_shared<MockText>();
         log_lib::Logger::getInstance().setMode(log_lib::Mode::NONE);
     }
 
     std::shared_ptr<MockInputEvent> _input;
     std::shared_ptr<MockGraphics> _graphics;
+    std::shared_ptr<MockText> _text;
+
+    void constructorTests()
+    {
+        // Set escape exit
+        EXPECT_CALL(*_input, setExitCallback(_)).Times(1);
+        // Create background
+        EXPECT_CALL(*_graphics, createTileMap(_)).Times(1);
+        // Add player
+        EXPECT_CALL(*_graphics, addElement(_)).Times(1);
+        // Player movement
+        EXPECT_CALL(*_input, registerCallback(_, _)).Times(AtLeast(1));
+        // Create text
+        EXPECT_CALL(*_graphics, createText(_, _))
+            .Times(AtMost(2))
+            .WillRepeatedly(Return(_text));
+        // Text object calls
+        EXPECT_CALL(*_text, setText(_)).Times(AtLeast(1));
+        EXPECT_CALL(*_text, setTextColor(_)).Times(AtLeast(1));
+        EXPECT_CALL(*_text, setLocation(_)).Times(AtLeast(1));
+        // Resize event cb
+        EXPECT_CALL(*_graphics, setResizeEventCallback(_)).Times(AtMost(1));
+    }
 };
 
-// Tests that Foo does Xyz.
-TEST_F(GameEngineTest, Setup)
+TEST_F(GameEngineTest, Constructor)
 {
-    auto _text = std::make_shared<MockText>();
-    // Set escape exit
-    EXPECT_CALL(*_input, setExitCallback(_)).Times(1);
-    // Create background
-    EXPECT_CALL(*_graphics, createTileMap(_)).Times(1);
-    // Add player
-    EXPECT_CALL(*_graphics, addElement(_)).Times(1);
-    // Player movement
-    EXPECT_CALL(*_input, registerCallback(_, _)).Times(AtLeast(1));
-    // Create text
-    EXPECT_CALL(*_graphics, createText(_, _))
-        .Times(AtMost(2))
-        .WillRepeatedly(Return(_text));
-    // Text object calls
-    EXPECT_CALL(*_text, setText(_)).Times(AtLeast(1));
-    EXPECT_CALL(*_text, setTextColor(_)).Times(AtLeast(1));
-    EXPECT_CALL(*_text, setLocation(_)).Times(AtLeast(1));
-    // Resize event cb
-    EXPECT_CALL(*_graphics, setResizeEventCallback(_)).Times(AtMost(1));
-
+    constructorTests();
     game_engine::GameEngine engine(_input, _graphics);
 }
 
 TEST_F(GameEngineTest, StartStop)
 {
-    // game_engine::GameEngine engine(_input, _graphics);
+    constructorTests();
+    game_engine::GameEngine engine(_input, _graphics);
 
-    // EXPECT_CALL(*_graphics, update())
-    //     .Times(testing::AtLeast(1));
-    // EXPECT_CALL(*_input, check())
-    //     .Times(testing::AtLeast(1));
+    EXPECT_CALL(*_graphics, update()).Times(AtLeast(1));
+    EXPECT_CALL(*_input, check()).Times(AtLeast(1));
+    // Expect text to be drawn atleast one time
+    EXPECT_CALL(*_text, draw()).Times(AtLeast(1));
 
-    // auto handle = std::async(&game_engine::GameEngine::start, &engine);
+    auto handle = std::async(&game_engine::GameEngine::start, &engine);
 
-    // using namespace std::chrono_literals;
-    // std::this_thread::sleep_for(1s);
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(1s);
 
-    // engine.exit();
-    // handle.get();
+    engine.exit();
+    handle.get();
 }

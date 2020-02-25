@@ -64,15 +64,10 @@ void GameEngine::start()
     {
         m_inputEvent->check();
 
-        auto leftSide = *m_graphics->getWindowWidth() / 10;
-        auto rightSide = leftSide * 9;
-        auto topSide = *m_graphics->getWindowHeight() / 10;
-        auto bottomSide = topSide * 9;
-        m_player->getMovable()->setBoundaries(
-            {leftSide, topSide, rightSide, bottomSide});
         printPlayerInfo(m_player, m_playerText);
         printInfo();
         updateMap();
+
         m_graphics->update();
     }
 }
@@ -165,6 +160,14 @@ void GameEngine::updateMap()
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)
 {
     print("Resize event, new window size: w:", newWidth, " h: ", newHeight);
+
+    // TODO: This is not a good solution for keeping the player on the map. 
+    auto leftSide = newWidth / 10;
+        auto rightSide = leftSide * 9;
+        auto topSide = newHeight / 10;
+        auto bottomSide = topSide * 9;
+        m_player->getMovable()->setBoundaries(
+            {leftSide, topSide, rightSide, bottomSide});
 
     auto pos = m_player->getMovable()->getPosition();
     m_player->getMovable()->setPosition((newWidth / 2), (newHeight / 2),
