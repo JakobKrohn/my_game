@@ -44,11 +44,20 @@ enum class input_key
     M
 };
 
+struct PlayerControls_T
+{
+    input_key left;
+    input_key right;
+    input_key up;
+    input_key down;
+    input_key shoot;
+};
+
 class InputEvent_I
 {
   public:
     virtual void registerCallback(std::function<void()> callback,
-                                  input_event::input_key key) = 0;
+                                  input_key key) = 0;
     virtual void setExitCallback(std::function<void()> callback) = 0;
 
     virtual void check() = 0;

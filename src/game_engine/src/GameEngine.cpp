@@ -12,6 +12,11 @@
 #include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
 
+input_event::PlayerControls_T defaultPlayerOneControls = {
+    input_event::input_key::LEFT, input_event::input_key::RIGHT,
+    input_event::input_key::UP, input_event::input_key::DOWN,
+    input_event::input_key::SPACE};
+
 using namespace game_engine;
 
 GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
@@ -23,8 +28,6 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
 
     print("Game initializing");
 
-    initializeKeys();
-
     m_background = m_graphics->createTileMap(
         "assets/backgrounds/backgrounddetailed1_edit.png");
 
@@ -32,34 +35,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
     m_player = Factory::createPlayer("Jakob");
     m_graphics->addElement(m_player->getSprite());
 
-    {
-        using namespace std::placeholders;
-        using namespace input_event;
-
-        m_inputEvent->registerCallback(
-            std::bind(std::bind(&components::Movable::rotateLeft,
-                                m_player->getMovable(), _1),
-                      PLAYER_ROTATE_SPEED),
-            input_key::LEFT);
-
-        m_inputEvent->registerCallback(
-            std::bind(std::bind(&components::Movable::rotateRight,
-                                m_player->getMovable(), _1),
-                      PLAYER_ROTATE_SPEED),
-            input_key::RIGHT);
-
-        m_inputEvent->registerCallback(
-            std::bind(std::bind(&components::Movable::moveForward,
-                                m_player->getMovable(), _1),
-                      PLAYER_MOVEMENT_SPEED),
-            input_key::UP);
-
-        m_inputEvent->registerCallback(
-            std::bind(std::bind(&components::Movable::moveBackward,
-                                m_player->getMovable(), _1),
-                      PLAYER_MOVEMENT_SPEED),
-            input_key::DOWN);
-    }
+    initializeKeys();
 
     // Player text top right
     m_playerText =
@@ -84,8 +60,6 @@ void GameEngine::start()
     print("Starting game ...");
     m_active = true;
 
-    // m_player->getMovable()->rotateRight(180);
-
     while (m_active.load())
     {
         m_inputEvent->check();
@@ -100,7 +74,6 @@ void GameEngine::start()
         printInfo();
         updateMap();
         m_graphics->update();
-        // m_player->getMovable()->moveForward(1);
     }
 }
 
@@ -112,8 +85,39 @@ void GameEngine::exit()
 void GameEngine::initializeKeys()
 {
     m_inputEvent->setExitCallback(std::bind(&GameEngine::exit, this));
+    setPlayerKeys(m_player, defaultPlayerOneControls);
+    // TODO: F11 should go to fullscreen
+}
 
-    // F11 goes to fullscreen
+void GameEngine::setPlayerKeys(std::shared_ptr<components::Player> player,
+                               input_event::PlayerControls_T controls)
+{
+    using namespace std::placeholders;
+    using namespace input_event;
+
+    m_inputEvent->registerCallback(
+        std::bind(std::bind(&components::Movable::rotateLeft,
+                            player->getMovable(), _1),
+                  PLAYER_ROTATE_SPEED),
+        controls.left);
+
+    m_inputEvent->registerCallback(
+        std::bind(std::bind(&components::Movable::rotateRight,
+                            player->getMovable(), _1),
+                  PLAYER_ROTATE_SPEED),
+        controls.right);
+
+    m_inputEvent->registerCallback(
+        std::bind(std::bind(&components::Movable::moveForward,
+                            player->getMovable(), _1),
+                  PLAYER_MOVEMENT_SPEED),
+        controls.up);
+
+    m_inputEvent->registerCallback(
+        std::bind(std::bind(&components::Movable::moveBackward,
+                            player->getMovable(), _1),
+                  PLAYER_MOVEMENT_SPEED),
+        controls.down);
 }
 
 void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player,
@@ -147,45 +151,15 @@ void GameEngine::printInfo() const
 
 void GameEngine::updateMap()
 {
-    auto leftSide = *m_graphics->getWindowWidth() / 10;
-    auto rightSide = leftSide * 9;
-    auto topSide = *m_graphics->getWindowHeight() / 10;
-    auto bottomSide = topSide * 9;
-
     if (!m_player->getMovable()->isMoving())
         return;
 
-    // m_background->getHorizontalGround() -=
-    // sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-    // m_movementSpeed; m_background->getVerticalGround() +=
-    // cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-    // m_movementSpeed;
     m_background->getHorizontalGround() -=
         sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
         (MAP_MOVEMENT_SPEED);
     m_background->getVerticalGround() +=
         cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
         (MAP_MOVEMENT_SPEED);
-
-    if (*m_player->getMovable()->getPosition()->x <= leftSide ||
-        *m_player->getMovable()->getPosition()->x >= rightSide)
-    {
-        // m_background->getHorizontalGround() -=
-        // sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-        // m_movementSpeed; m_background->getHorizontalGround() -=
-        // sin(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-        // (m_movementSpeed / 2);
-    }
-
-    if (*m_player->getMovable()->getPosition()->y <= topSide ||
-        *m_player->getMovable()->getPosition()->y >= bottomSide)
-    {
-        // m_background->getVerticalGround() +=
-        // cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-        // m_movementSpeed; m_background->getVerticalGround() +=
-        // cos(*m_player->getMovable()->getPosition()->angle * M_PI / 180.0) *
-        // (m_movementSpeed / 2);
-    }
 }
 
 void GameEngine::resizeEventCallback(uint32_t newWidth, uint32_t newHeight)

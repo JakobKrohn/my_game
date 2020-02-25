@@ -30,14 +30,15 @@ class GameEngine
   private:
     std::shared_ptr<input_event::InputEvent_I> m_inputEvent;
     std::shared_ptr<Graphics_I> m_graphics;
-    std::shared_ptr<components::Player> m_player; // TODO: interface?
+    std::shared_ptr<components::Player> m_player; // TODO: interface
     std::shared_ptr<TileMap_I> m_background;
     std::shared_ptr<Text_I> m_playerText;
     std::shared_ptr<Text_I> m_infoText;
     std::atomic<bool> m_active;
 
     void initializeKeys();
-    void setPlayerKeys(std::shared_ptr<components::Player> player);
+    void setPlayerKeys(std::shared_ptr<components::Player> player,
+                       input_event::PlayerControls_T controls);
 
     void printPlayerInfo(std::shared_ptr<components::Player> player,
                          std::shared_ptr<Text_I> text);

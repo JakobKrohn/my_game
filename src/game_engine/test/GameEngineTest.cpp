@@ -50,13 +50,9 @@ class MockText : public Text_I
     MOCK_METHOD(void, setBackground, (uint16_t, uint16_t, Color_T), (override));
 };
 
-// The fixture for testing class Foo.
 class GameEngineTest : public ::testing::Test
 {
   protected:
-    // You can remove any or all of the following functions if their bodies
-    // would be empty.
-
     GameEngineTest()
     {
         // You can do set-up work for each test here.
@@ -65,17 +61,8 @@ class GameEngineTest : public ::testing::Test
         log_lib::Logger::getInstance().setMode(log_lib::Mode::NONE);
     }
 
-    ~GameEngineTest() override
-    {
-        // You can do clean-up work that doesn't throw exceptions here.
-    }
-
     std::shared_ptr<MockInputEvent> _input;
     std::shared_ptr<MockGraphics> _graphics;
-    // std::unique_ptr<game_engine::GameEngine> _engine;
-    // game_engine::GameEngine *_engine;
-    // game_engine::GameEngine engine = game_engine::GameEngine(nullptr,
-    // nullptr);
 };
 
 // Tests that Foo does Xyz.

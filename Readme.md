@@ -40,3 +40,6 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 ### Open art
 - https://opengameart.org/content/backgrounds-topdown-games 
+
+### Format all
+    find src/ libraries/ test/ application/ -iname *.hpp -o -iname *.cpp | xargs clang-format -i
