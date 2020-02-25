@@ -2,7 +2,8 @@
 
 using namespace sdl_input_event;
 
-void SdlInputEvent::registerCallback(std::function<void()> callback, input_event::input_key key)
+void SdlInputEvent::registerCallback(std::function<void()> callback,
+                                     input_event::input_key key)
 {
     m_callbacks.emplace(std::make_pair(translateToScancode(key), callback));
 }
@@ -52,7 +53,8 @@ void SdlInputEvent::executeCallback(std::function<void()> callback)
     catch (std::exception &e)
     {
         throw std::runtime_error(e.what());
-        // print("Callback excepetion: " + std::string("") + std::string(e.what()));
+        // print("Callback excepetion: " + std::string("") +
+        // std::string(e.what()));
     }
 }
 

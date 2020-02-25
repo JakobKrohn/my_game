@@ -1,14 +1,12 @@
 #include "Texture/Texture.hpp"
 
-#include "Surface/Surface.hpp"
 #include "Logger/Logger.hpp"
+#include "Surface/Surface.hpp"
 
 using namespace sdl_graphics;
 
 Texture::Texture(std::shared_ptr<Renderer> renderer, const char *imagePath)
-    : m_texture(nullptr),
-      m_width(0),
-      m_height(0)
+    : m_texture(nullptr), m_width(0), m_height(0)
 {
     Surface surface(imagePath);
     surface.getSize(m_width, m_height);
@@ -19,7 +17,8 @@ Texture::Texture(std::shared_ptr<Renderer> renderer, const char *imagePath)
         throw std::runtime_error(IMG_GetError());
     }
 
-    print("Texture '", this, "' created.", "\n\tPath: ", imagePath, " \n\tWidth: ", m_width, ", height: ", m_height);
+    print("Texture '", this, "' created.", "\n\tPath: ", imagePath,
+          " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Texture::~Texture()

@@ -3,15 +3,15 @@
 
 #include "SDL.h"
 
-#include "Surface/Surface.hpp"
 #include "Renderer/Renderer.hpp"
+#include "Surface/Surface.hpp"
 
 namespace sdl_graphics
 {
 
 class Texture
 {
-public:
+  public:
     Texture(std::shared_ptr<Renderer> renderer, const char *imagePath);
     ~Texture();
 
@@ -20,7 +20,7 @@ public:
     const unsigned int &getWidth() const;
     const unsigned int &getHeight() const;
 
-private:
+  private:
     SDL_Texture *m_texture;
 
     unsigned int m_width;

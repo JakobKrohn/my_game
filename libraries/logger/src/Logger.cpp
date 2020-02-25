@@ -58,7 +58,8 @@ void Logger::logNumberOfRuns()
 
 void Logger::openFile()
 {
-    m_file.open("log.txt", std::fstream::out | std::fstream::app | std::fstream::in);
+    m_file.open("log.txt",
+                std::fstream::out | std::fstream::app | std::fstream::in);
     if (!m_file.is_open())
     {
         std::cout << "File could not be opened\n";
@@ -97,8 +98,10 @@ std::string Logger::readLastLogLine()
             found = false; // Stop at the current position.
         }
         else
-        {                                        // If the data was neither a newline nor at the 0 byte
-            m_file.seekg(-2, std::fstream::cur); // Move to the front of that data, then to the front of the data before it
+        { // If the data was neither a newline nor at the 0 byte
+            m_file.seekg(
+                -2, std::fstream::cur); // Move to the front of that data, then
+                                        // to the front of the data before it
         }
     }
 
@@ -110,7 +113,8 @@ std::string Logger::readLastLogLine()
 
 void Logger::createHeader()
 {
-    std::time_t time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::time_t time =
+        std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     m_file << "\n=====================================================\n";
     std::cout << "=====================================================\n";
 

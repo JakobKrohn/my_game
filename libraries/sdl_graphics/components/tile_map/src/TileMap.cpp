@@ -7,14 +7,9 @@
 using namespace sdl_graphics;
 
 TileMap::TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile &&tile)
-    : m_tile(std::move(tile)),
-      m_horizontalTiles(0),
-      m_verticalTiles(0),
-      m_horizontalGround(0),
-      m_verticalGround(0),
-      m_verticalOffset(0),
-      m_horizontalOffset(0),
-      m_windowWidth(windowWidth),
+    : m_tile(std::move(tile)), m_horizontalTiles(0), m_verticalTiles(0),
+      m_horizontalGround(0), m_verticalGround(0), m_verticalOffset(0),
+      m_horizontalOffset(0), m_windowWidth(windowWidth),
       m_windowHeight(windowHeight)
 {
     print("TileMap ", this, " created");
@@ -31,8 +26,8 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     m_verticalGround = 0;
     m_horizontalGround = 0;
 
-    m_windowPos.x = (int)m_horizontalGround; 
-    m_windowPos.y = (int)m_verticalGround;  
+    m_windowPos.x = (int)m_horizontalGround;
+    m_windowPos.y = (int)m_verticalGround;
     m_windowPos.h = tileHeight;
     m_windowPos.w = tileWidth;
 
@@ -44,8 +39,13 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     m_horizontalTiles = ceil((double)width / (double)tileWidth);
     m_verticalTiles = ceil((double)height / (double)tileHeight);
 
-    m_verticalOffset = ((tileHeight * m_verticalTiles) - height) / (m_verticalTiles - (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
-    m_horizontalOffset = ((tileWidth * m_horizontalTiles) - width) / (m_horizontalTiles - (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
+    m_verticalOffset = ((tileHeight * m_verticalTiles) - height) /
+                       (m_verticalTiles -
+                        (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
+    m_horizontalOffset =
+        ((tileWidth * m_horizontalTiles) - width) /
+        (m_horizontalTiles -
+         (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
 }
 
 void TileMap::draw()
@@ -67,7 +67,8 @@ void TileMap::draw()
     }
 }
 
-std::tuple<const unsigned int &, const unsigned int &> TileMap::getNumberOfTiles() const
+std::tuple<const unsigned int &, const unsigned int &>
+TileMap::getNumberOfTiles() const
 {
     return std::forward_as_tuple(m_horizontalTiles, m_verticalTiles);
 }
@@ -86,17 +87,20 @@ void TileMap::handleNumberOfTiles()
 {
     addHorizontalTiles();
     addVerticalTiles();
-    removeTiles();   
+    removeTiles();
 }
 
 void TileMap::addHorizontalTiles()
 {
     /**
-     * The first time adding a horizontal tile, when moving to the left, 
-     * this first check will set m_horizontalOffset to -478. This will result in one frame with wrong tile positions. 
-     * 
+     * The first time adding a horizontal tile, when moving to the left,
+     * this first check will set m_horizontalOffset to -478. This will result in
+     * one frame with wrong tile positions.
+     *
      */
-    unsigned int check = (m_horizontalTiles * m_tilePos.w) - m_horizontalOffset + (int)m_horizontalGround; // TODO Possibly ceil
+    unsigned int check = (m_horizontalTiles * m_tilePos.w) -
+                         m_horizontalOffset +
+                         (int)m_horizontalGround; // TODO Possibly ceil
     if (check <= m_windowWidth)
     {
         m_horizontalTiles++;
@@ -104,7 +108,7 @@ void TileMap::addHorizontalTiles()
     }
 
     /**
-     * This check will set the m_horizontalOffset back to correct. 
+     * This check will set the m_horizontalOffset back to correct.
      */
     if (m_horizontalGround >= m_horizontalOffset)
     {
@@ -116,10 +120,11 @@ void TileMap::addHorizontalTiles()
 void TileMap::addVerticalTiles()
 {
     /**
-     * See comment in addHorizontalTiles() function. 
-     * Same applies here. 
+     * See comment in addHorizontalTiles() function.
+     * Same applies here.
      */
-    unsigned int check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset + (int)m_verticalGround;
+    unsigned int check = (m_verticalTiles * m_tilePos.h) - m_verticalOffset +
+                         (int)m_verticalGround;
     if (check < m_windowHeight)
     {
         m_verticalTiles++;
@@ -135,7 +140,7 @@ void TileMap::addVerticalTiles()
 
 void TileMap::removeTiles()
 {
-    
+
     // Right
     if ((m_horizontalTiles * m_tilePos.w) - m_tilePos.w * 2 > m_windowWidth)
     {

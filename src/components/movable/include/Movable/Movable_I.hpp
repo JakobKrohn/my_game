@@ -5,8 +5,8 @@ namespace components
 {
 class Movable_I
 {
-public:
-private:
+  public:
+  private:
 };
 } // namespace components
 

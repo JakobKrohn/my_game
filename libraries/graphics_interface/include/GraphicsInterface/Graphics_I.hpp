@@ -1,8 +1,8 @@
 #ifndef GRAPHICS_INTERFACE_GRAPHICS_HPP
 #define GRAPHICS_INTERFACE_GRAPHICS_HPP
 
-#include <memory>
 #include <functional>
+#include <memory>
 
 #include "Element_I.hpp"
 #include "Image_I.hpp"
@@ -14,8 +14,10 @@
  */
 class Graphics_I
 {
-public:
-    virtual ~Graphics_I() {}
+  public:
+    virtual ~Graphics_I()
+    {
+    }
 
     // Render objects and update window
     virtual void update() = 0;
@@ -27,10 +29,11 @@ public:
     virtual void addImage(std::shared_ptr<Image_I> iamge) = 0;
 
     // Create and return a tilemap, used as background
-    virtual std::shared_ptr<TileMap_I> createTileMap(const char * imagePath) = 0;
+    virtual std::shared_ptr<TileMap_I> createTileMap(const char *imagePath) = 0;
 
     // Create a text and return the object
-    virtual std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize) = 0;
+    virtual std::shared_ptr<Text_I> createText(const char *fontPath,
+                                               uint8_t fontSize) = 0;
 
     // Returns the window width
     virtual std::shared_ptr<uint32_t> getWindowWidth() const = 0;
@@ -39,7 +42,8 @@ public:
     virtual std::shared_ptr<uint32_t> getWindowHeight() const = 0;
 
     // Callback for window resize event
-    virtual void setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback) = 0;
+    virtual void setResizeEventCallback(
+        std::function<void(uint32_t width, uint32_t height)> callback) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_GRAPHICS_HPP

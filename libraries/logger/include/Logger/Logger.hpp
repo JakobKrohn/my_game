@@ -3,17 +3,18 @@
 
 #include <chrono>
 #include <cstring>
-#include <iostream>
-#include <sstream>
 #include <fstream>
-#include <string>
+#include <iostream>
 #include <memory>
+#include <sstream>
+#include <string>
 
-#define __FILENAME__ \
+#define __FILENAME__                                                           \
     (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define print(...) \
-    log_lib::Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ", __VA_ARGS__)
+#define print(...)                                                             \
+    log_lib::Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ",     \
+                                       __VA_ARGS__)
 
 namespace log_lib
 {
@@ -28,7 +29,7 @@ enum class Mode
 
 class Logger
 {
-public:
+  public:
     static Logger &getInstance()
     {
         static Logger instance;
@@ -44,8 +45,7 @@ public:
 
     int getNumberOfStartups() const;
 
-    template <class... Msg>
-    void log(Msg const &... msg)
+    template <class... Msg> void log(Msg const &... msg)
     {
         if (m_mode == Mode::NONE)
             return;
@@ -57,7 +57,7 @@ public:
         writeLog(stream.str());
     }
 
-private:
+  private:
     Mode m_mode;
     std::fstream m_file;
     int m_numberOfRuns;

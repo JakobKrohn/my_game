@@ -1,13 +1,14 @@
 #include "Movable/Movable.hpp"
 
-#include <math.h>
 #include <chrono>
+#include <math.h>
 
 #include "Logger/Logger.hpp"
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite)
+Movable::Movable(std::shared_ptr<Position_T> position,
+                 std::shared_ptr<Sprite_I> sprite)
     : m_position(position), m_sprite(sprite)
 {
     print("Movable [", this, "] created");

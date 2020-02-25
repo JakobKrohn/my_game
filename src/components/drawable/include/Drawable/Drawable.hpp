@@ -21,7 +21,7 @@ struct Drawable_T
 
 class Drawable : public Image_I
 {
-public:
+  public:
     explicit Drawable(std::unique_ptr<Drawable_T> data);
 
     // Image_I
@@ -34,7 +34,7 @@ public:
     std::optional<ImageSize_T> &getSizeToDraw() const;
     // void resizeEvent(uint32_t windowWidth, uint32_t windowHeight);
 
-private:
+  private:
     std::unique_ptr<Drawable_T> m_data;
 };
 

@@ -4,7 +4,9 @@
 
 using namespace components;
 
-Player::Player(std::string name, std::shared_ptr<Movable> movable, std::shared_ptr<Sprite> sprite) : m_name(name)
+Player::Player(std::string name, std::shared_ptr<Movable> movable,
+               std::shared_ptr<Sprite> sprite)
+    : m_name(name)
 {
     m_movable = movable;
     m_sprite = sprite;
@@ -15,7 +17,7 @@ Player::~Player()
     print("Player destroyed");
 }
 
-const char * Player::getName() const
+const char *Player::getName() const
 {
     return m_name.c_str();
 }

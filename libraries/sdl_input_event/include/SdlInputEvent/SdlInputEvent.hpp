@@ -12,13 +12,14 @@ namespace sdl_input_event
 {
 class SdlInputEvent : public input_event::InputEvent_I
 {
-public:
-    void registerCallback(std::function<void()> callback, input_event::input_key key);
+  public:
+    void registerCallback(std::function<void()> callback,
+                          input_event::input_key key);
     void setExitCallback(std::function<void()> callback);
 
     void check();
 
-private:
+  private:
     SDL_Event m_event;
     std::function<void()> m_exitCallback;
     // std::map<SDL_Keycode, std::function<void()>> m_callbacks;

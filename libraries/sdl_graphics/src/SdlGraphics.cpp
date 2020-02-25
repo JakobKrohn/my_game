@@ -1,13 +1,14 @@
 #include "SdlGraphics/SdlGraphics.hpp"
 
-#include <iomanip>
 #include <functional>
+#include <iomanip>
 
 #include "Logger/Logger.hpp"
 
 using namespace sdl_graphics;
 
-SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_countedFrames(0)
+SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY)
+    : m_countedFrames(0)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -30,9 +31,12 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
         throw std::runtime_error(TTF_GetError());
     }
 
-    m_window = std::make_shared<Window>(windowPosX, windowPosY, 640, 580, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    m_window =
+        std::make_shared<Window>(windowPosX, windowPosY, 640, 580,
+                                 SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
-    m_renderer = std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
+    m_renderer =
+        std::make_shared<Renderer>(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
 
     m_windowWidth = std::make_shared<uint32_t>(0);
     m_windowHeight = std::make_shared<uint32_t>(0);
@@ -40,7 +44,8 @@ SdlGraphics::SdlGraphics(unsigned int windowPosX, unsigned int windowPosY) : m_c
     Color_T textColor = {255, 255, 255, 255};
     Color_T backgroundColor = {0, 0, 0, 255};
 
-    m_fpsRenderer = std::make_unique<TextRenderer>("assets/fonts/OpenSans-Bold.ttf", 20, m_renderer);
+    m_fpsRenderer = std::make_unique<TextRenderer>(
+        "assets/fonts/OpenSans-Bold.ttf", 20, m_renderer);
     m_fpsRenderer->setTextColor(textColor);
     m_fpsRenderer->setLocation(TextLocation::TOP_CENTER);
     m_fpsRenderer->setBackground(100, 30, backgroundColor);
@@ -111,15 +116,19 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 }
 
 // TODO: Rename -> setBackground
-std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char * imagePath)
+std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath)
 {
-    m_background = std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight, std::move(Tile(m_renderer, imagePath)));
+    m_background =
+        std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight,
+                                  std::move(Tile(m_renderer, imagePath)));
     return m_background;
 }
 
-std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath, uint8_t fontSize)
+std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath,
+                                                uint8_t fontSize)
 {
-    m_textElements.emplace_back(std::make_shared<TextRenderer>(fontPath, fontSize, m_renderer));
+    m_textElements.emplace_back(
+        std::make_shared<TextRenderer>(fontPath, fontSize, m_renderer));
     return m_textElements.back();
 }
 
@@ -133,7 +142,8 @@ std::shared_ptr<uint32_t> SdlGraphics::getWindowHeight() const
     return m_windowHeight;
 }
 
-void SdlGraphics::setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback)
+void SdlGraphics::setResizeEventCallback(
+    std::function<void(uint32_t width, uint32_t height)> callback)
 {
     m_resizeCallback = callback;
 }
@@ -162,16 +172,19 @@ void SdlGraphics::drawFPS(double fps)
 void SdlGraphics::drawFrame(int width, int height) const
 {
     SDL_RenderSetScale(m_renderer->get(), 10, 10);
-    SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height / 10);                    // Right
-    SDL_RenderDrawLine(m_renderer->get(), width / 10, 0, width / 10, height / 10);  // Left
-    SDL_RenderDrawLine(m_renderer->get(), 0, 0, width / 10, 0);                     // Top
-    SDL_RenderDrawLine(m_renderer->get(), 0, height / 10, width / 10, height / 10); // bottom
+    SDL_RenderDrawLine(m_renderer->get(), 0, 0, 0, height / 10); // Right
+    SDL_RenderDrawLine(m_renderer->get(), width / 10, 0, width / 10,
+                       height / 10);                            // Left
+    SDL_RenderDrawLine(m_renderer->get(), 0, 0, width / 10, 0); // Top
+    SDL_RenderDrawLine(m_renderer->get(), 0, height / 10, width / 10,
+                       height / 10); // bottom
     SDL_RenderSetScale(m_renderer->get(), 1, 1);
 }
 
 int SdlGraphics::windowEvent(void *data, SDL_Event *event)
 {
-    if (event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_RESIZED)
+    if (event->type == SDL_WINDOWEVENT &&
+        event->window.event == SDL_WINDOWEVENT_RESIZED)
     {
         print("Rezise event");
         auto instance = static_cast<SdlGraphics *>(data);

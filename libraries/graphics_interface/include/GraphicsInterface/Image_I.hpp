@@ -1,9 +1,9 @@
 #ifndef GRAPHICS_INTERFACE_IMAGE_HPP
 #define GRAPHICS_INTERFACE_IMAGE_HPP
 
-#include <string>
 #include <memory>
 #include <optional>
+#include <string>
 
 // X, Y, W, H
 struct ImageSize_T
@@ -20,8 +20,10 @@ struct ImageSize_T
 
 class Image_I
 {
-public:
-    virtual ~Image_I() {}
+  public:
+    virtual ~Image_I()
+    {
+    }
 
     // Get image asset path
     virtual const std::string getImagePath() const = 0;
@@ -39,7 +41,7 @@ public:
     virtual uint32_t getPosY() const = 0; // ImageSize_T
 
     // Get the angle for the image
-    virtual uint16_t getAngle() const = 0; 
+    virtual uint16_t getAngle() const = 0;
 
     // Get the size of the image to draw
     virtual std::optional<ImageSize_T> &getSizeToDraw() const = 0;

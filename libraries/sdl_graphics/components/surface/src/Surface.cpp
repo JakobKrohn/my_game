@@ -17,7 +17,8 @@ Surface::Surface(const char *imagePath)
     m_width = m_surface->w;
     m_height = m_surface->h;
 
-    print("Surface '", this, "' created.", "\n\tPath: ", imagePath, " \n\tWidth: ", m_width, ", height: ", m_height);
+    print("Surface '", this, "' created.", "\n\tPath: ", imagePath,
+          " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Surface::~Surface()

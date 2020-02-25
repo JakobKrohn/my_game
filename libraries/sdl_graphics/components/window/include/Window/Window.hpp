@@ -26,13 +26,14 @@ struct WindowSize
 
 class Window
 {
-public:
-    Window(uint16_t positionX, uint16_t positionY, uint16_t width, uint16_t height, uint32_t flag);
+  public:
+    Window(uint16_t positionX, uint16_t positionY, uint16_t width,
+           uint16_t height, uint32_t flag);
     ~Window();
 
     SDL_Window *get() const;
 
-private:
+  private:
     SDL_Window *m_window;
     WindowPosition m_position;
 };

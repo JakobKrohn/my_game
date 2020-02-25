@@ -1,8 +1,8 @@
 #ifndef SDL_GRAPHICS_TEXT_RENDERER_HPP
 #define SDL_GRAPHICS_TEXT_RENDERER_HPP
 
-#include <string>
 #include <memory>
+#include <string>
 
 #include "SDL_ttf.h"
 
@@ -15,15 +15,16 @@ namespace sdl_graphics
 
 class TextRenderer : public Text_I
 {
-public:
-    TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer);
-    TextRenderer(const TextRenderer&) = delete;
-    TextRenderer(TextRenderer&&) = delete;
-    TextRenderer& operator=(const TextRenderer&) = delete;
-	TextRenderer& operator=(TextRenderer&&) = delete;
+  public:
+    TextRenderer(std::string fontPath, uint8_t fontSize,
+                 std::shared_ptr<Renderer> renderer);
+    TextRenderer(const TextRenderer &) = delete;
+    TextRenderer(TextRenderer &&) = delete;
+    TextRenderer &operator=(const TextRenderer &) = delete;
+    TextRenderer &operator=(TextRenderer &&) = delete;
     ~TextRenderer();
 
-    //Text_I
+    // Text_I
     void draw();
     void setText(std::string text);
     void setTextColor(Color_T color);
@@ -34,7 +35,7 @@ public:
     // In case of resize event
     void reposition();
 
-private:
+  private:
     std::shared_ptr<Renderer> m_renderer;
     TextLocation m_location;
     TTF_Font *m_font;
