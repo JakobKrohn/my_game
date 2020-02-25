@@ -2,5 +2,5 @@
 
 TEST(Movable, Initial)
 {
-  EXPECT_EQ(2, 1 + 1);
+    EXPECT_EQ(2, 1 + 1);
 }

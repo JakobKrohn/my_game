@@ -109,6 +109,26 @@
                 "configure"
             ],
             "problemMatcher": []
+        },
+        // ========================= FORMAT ALL
+        {
+            "label": "Format all",
+            "type": "shell",
+            "command": "find src/ libraries/ test/ application/ -iname *.hpp -o -iname *.cpp | xargs clang-format -i",
+            // "command": "ctest",
+            "args": [
+                // "--abort-after=1"
+                // "--progress"
+                // "--verbose"
+                // "--output-on-failure"
+            ],
+            "problemMatcher": [],
+            "dependsOn": [
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
     ]
 }
