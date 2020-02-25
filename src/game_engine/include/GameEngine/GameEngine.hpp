@@ -5,14 +5,14 @@
  * Holds all vital objects for the game to run
  */
 
-#include <memory>
 #include <atomic>
+#include <memory>
 
 #include "Drawable/Drawable.hpp"
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "GraphicsInterface/Text_I.hpp"
 #include "GraphicsInterface/TileMap_I.hpp"
-#include "InputEvent/InputEvent_I.hpp"
+#include "InputEventInterface/InputEvent_I.hpp"
 #include "Player/Player.hpp"
 
 namespace game_engine
@@ -37,6 +37,8 @@ class GameEngine
     std::atomic<bool> m_active;
 
     void initializeKeys();
+    void setPlayerKeys(std::shared_ptr<components::Player> player);
+
     void printPlayerInfo(std::shared_ptr<components::Player> player,
                          std::shared_ptr<Text_I> text);
     void printInfo() const;

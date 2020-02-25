@@ -4,7 +4,7 @@
 #include <functional>
 #include <map>
 
-#include "InputEvent/InputEvent_I.hpp"
+#include "InputEventInterface/InputEvent_I.hpp"
 
 #include "SDL.h"
 

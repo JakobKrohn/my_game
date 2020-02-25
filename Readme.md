@@ -1,13 +1,7 @@
 # Box Head
 
-## Clone repo with submodules
-$ git clone --recursive <url/ssh>
-<br>
-
 ## Prerequisite
 - Cmake
-- Ninja
-- Conan <br> pip3 install conan
 - SDL2
 - SDL2 image
 - SDL2 ttf
@@ -27,7 +21,6 @@ $ sudo apt-get install libsdl2-ttf-dev
 
 ### Modules
 1. https://github.com/tcbrindle/sdl2-cmake-scripts
-2. https://github.com/onqtam/doctest 
 
 ### TODO: 
 
@@ -43,7 +36,6 @@ $ sudo apt-get install libsdl2-ttf-dev
 - Fix Drawable_T types. 
 - Detect window out of focus - pause game
 - Clean up textrenderer class.
-- Add conan
 - https://github.com/grimfang4/SDL_FontCache/blob/master/SDL_FontCache.h 
 
 ### Open art

@@ -6,7 +6,7 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         sdl_lib::sdl_lib
-        input_event::input_event
+        input_event_interface::input_event_interface
 )
 
 target_sources(${PROJECT_NAME}

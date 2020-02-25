@@ -6,8 +6,8 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         graphics_interface::graphics_interface
+        input_event_interface::input_event_interface
         components::components
-        input_event::input_event    # Remove after implemented as graphics_interface
 )
 
 target_sources(${PROJECT_NAME}

@@ -5,9 +5,6 @@
 #include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
 
-#include "GraphicsInterface/Graphics_I.hpp"
-#include "InputEvent/InputEvent_I.hpp"
-
 #include "GameEngine/GameEngine.hpp"
 
 #include "SdlGraphics/SdlGraphics.hpp"

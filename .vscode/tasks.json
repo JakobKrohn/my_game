@@ -37,13 +37,13 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "make",
+            "command": "cmake",
             "args": [
-                "-j4"
+                "--build", 
+                "build", 
+                "--",
+                "-j8"
             ],
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            },
             "problemMatcher": []
         },
         // ========================= CPP CHECK

@@ -6,7 +6,6 @@ Logger::~Logger()
 {
     logNumberOfRuns();
     closeFile();
-    std::cout << "Logger destroyed\n";
 }
 
 void Logger::setMode(Mode mode)
@@ -62,7 +61,7 @@ void Logger::openFile()
                 std::fstream::out | std::fstream::app | std::fstream::in);
     if (!m_file.is_open())
     {
-        std::cout << "File could not be opened\n";
+        std::cout << "Warning: Log file could not be opened\n";
         m_file.close();
         return;
     }
@@ -116,14 +115,18 @@ void Logger::createHeader()
     std::time_t time =
         std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     m_file << "\n=====================================================\n";
-    std::cout << "=====================================================\n";
 
     m_file << std::ctime(&time);
-    std::cout << std::ctime(&time);
 
     m_file << "Number of runs: " << m_numberOfRuns << "\n";
-    std::cout << "Number of runs: " << m_numberOfRuns << "\n";
 
     m_file << "=====================================================\n";
-    std::cout << "=====================================================\n";
+
+    if (m_mode == Mode::FULL || m_mode == Mode::TERMINAL)
+    {
+        std::cout << "=====================================================\n";
+        std::cout << std::ctime(&time);
+        std::cout << "Number of runs: " << m_numberOfRuns << "\n";
+        std::cout << "=====================================================\n";
+    }
 }
