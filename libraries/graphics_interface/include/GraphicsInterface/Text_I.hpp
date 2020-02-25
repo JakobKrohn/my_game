@@ -29,8 +29,10 @@ struct Color_T
  */
 class Text_I
 {
-public:
-    virtual ~Text_I() {}
+  public:
+    virtual ~Text_I()
+    {
+    }
 
     virtual void draw() = 0;
 
@@ -47,7 +49,8 @@ public:
     virtual void drawBackground(bool mode) = 0;
 
     // Set the text background size and color
-    virtual void setBackground(uint16_t width, uint16_t height, Color_T color) = 0;
+    virtual void setBackground(uint16_t width, uint16_t height,
+                               Color_T color) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_TEXT_HPP

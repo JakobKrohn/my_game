@@ -2,10 +2,11 @@
 #define SDL_TILE_HPP
 
 /**
- * 
- * This class will take one image (more in the future) and create a tilemap from it. 
- * 
-*/
+ *
+ * This class will take one image (more in the future) and create a tilemap from
+ * it.
+ *
+ */
 
 #include "SDL_image.h"
 
@@ -19,9 +20,9 @@ namespace sdl_graphics
 
 class Tile
 {
-public:
+  public:
     Tile(std::shared_ptr<Renderer> renderer, const char *imagePath);
-    Tile(const Tile &tile); 
+    Tile(const Tile &tile);
     Tile(Tile &&tile);
     ~Tile();
 
@@ -30,7 +31,7 @@ public:
     // Get width & height
     std::tuple<const unsigned int &, const unsigned int &> getSize() const;
 
-private:
+  private:
     std::shared_ptr<Texture> m_texture;
     std::shared_ptr<Renderer> m_renderer;
 

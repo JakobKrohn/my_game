@@ -23,7 +23,7 @@ struct Position_T
 // TODO pointers! Should change correctly with screen resize event
 struct Rectangle_T
 {
-    unsigned int minHorizontal; 
+    unsigned int minHorizontal;
     unsigned int minVertical;
     unsigned int maxHorizantal;
     unsigned int maxVertical;
@@ -31,8 +31,9 @@ struct Rectangle_T
 
 class Movable
 {
-public:
-    explicit Movable(std::shared_ptr<Position_T> position, std::shared_ptr<Sprite_I> sprite);
+  public:
+    explicit Movable(std::shared_ptr<Position_T> position,
+                     std::shared_ptr<Sprite_I> sprite);
     Movable(const Movable &) = delete;
     ~Movable();
 
@@ -48,8 +49,8 @@ public:
     void rotateLeft(int velocity);
     void rotateRight(int velocity);
 
-protected:
-private:
+  protected:
+  private:
     std::shared_ptr<Position_T> m_position;
     std::shared_ptr<Sprite_I> m_sprite;
     Rectangle_T m_boundaries;

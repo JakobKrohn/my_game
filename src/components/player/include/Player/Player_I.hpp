@@ -6,8 +6,8 @@ namespace components
 
 class Player_I
 {
-public:
-private:
+  public:
+  private:
 };
 
 } // namespace components

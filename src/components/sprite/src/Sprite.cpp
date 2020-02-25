@@ -6,7 +6,8 @@
 
 using namespace components;
 
-Sprite::Sprite(std::vector<std::shared_ptr<Drawable>> drawables) : m_drawables(drawables), m_state(sprite_state::STILL)
+Sprite::Sprite(std::vector<std::shared_ptr<Drawable>> drawables)
+    : m_drawables(drawables), m_state(sprite_state::STILL)
 {
 }
 
@@ -35,7 +36,8 @@ uint Sprite::getCurrentIndex()
     static bool test = 0;
     static auto t = std::chrono::high_resolution_clock::now();
     auto n = std::chrono::high_resolution_clock::now();
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(n - t).count() > 250)
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(n - t).count() >
+        250)
     {
         t = std::chrono::high_resolution_clock::now();
         test = !test;

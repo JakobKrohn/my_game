@@ -10,10 +10,10 @@ namespace game_engine
 
 class Factory
 {
-public:
+  public:
     static std::shared_ptr<components::Player> createPlayer(std::string name);
 
-private:
+  private:
 };
 
 } // namespace game_engine

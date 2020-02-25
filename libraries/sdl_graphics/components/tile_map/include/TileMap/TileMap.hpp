@@ -11,21 +11,22 @@ namespace sdl_graphics
 
 class TileMap : public TileMap_I
 {
-public:
+  public:
     TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile &&tile);
 
     void resizeEvent(uint32_t &width, uint32_t &height);
 
     void draw();
 
-    std::tuple<const unsigned int &, const unsigned int &> getNumberOfTiles() const;
+    std::tuple<const unsigned int &, const unsigned int &>
+    getNumberOfTiles() const;
 
     float &getHorizontalGround();
 
     float &getVerticalGround();
 
-private:
-    Tile m_tile; 
+  private:
+    Tile m_tile;
     unsigned int m_horizontalTiles;
     unsigned int m_verticalTiles;
     float m_horizontalGround;

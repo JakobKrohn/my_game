@@ -4,10 +4,9 @@
 namespace game_engine
 {
 
-const unsigned short PLAYER_MOVEMENT_SPEED =        1;
-const unsigned short PLAYER_ROTATE_SPEED =          5;
-const unsigned short MAP_MOVEMENT_SPEED =           10;
-
+const unsigned short PLAYER_MOVEMENT_SPEED = 1;
+const unsigned short PLAYER_ROTATE_SPEED = 5;
+const unsigned short MAP_MOVEMENT_SPEED = 10;
 
 } // namespace game_engine
 

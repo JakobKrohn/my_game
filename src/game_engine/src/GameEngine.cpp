@@ -104,7 +104,10 @@ void GameEngine::start()
     }
 }
 
-void GameEngine::exit() { m_active = false; }
+void GameEngine::exit()
+{
+    m_active = false;
+}
 
 void GameEngine::initializeKeys()
 {

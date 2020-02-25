@@ -8,7 +8,7 @@ namespace sdl_graphics
 
 class Surface
 {
-public:
+  public:
     Surface(const char *imagePath);
     ~Surface();
 
@@ -17,7 +17,7 @@ public:
     // Get size width, height
     void getSize(unsigned int &width, unsigned int &height);
 
-private:
+  private:
     SDL_Surface *m_surface;
 
     unsigned int m_width;

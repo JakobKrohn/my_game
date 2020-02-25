@@ -1,41 +1,43 @@
 #ifndef SDL_GRAPHICS_HPP
 #define SDL_GRAPHICS_HPP
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 
-#include "GraphicsInterface/Graphics_I.hpp"
-#include "Window/Window.hpp"
-#include "Renderer/Renderer.hpp"
-#include "Image/Image.hpp"
-#include "TextRenderer/TextRenderer.hpp"
 #include "Element/Element.hpp"
+#include "GraphicsInterface/Graphics_I.hpp"
+#include "Image/Image.hpp"
+#include "Renderer/Renderer.hpp"
+#include "TextRenderer/TextRenderer.hpp"
 #include "TileMap/TileMap.hpp"
+#include "Window/Window.hpp"
 
 namespace sdl_graphics
 {
 
 class SdlGraphics : public Graphics_I
 {
-public:
-    explicit SdlGraphics(unsigned int windowPositionX = 0, unsigned int windowPositionY = 0);
+  public:
+    explicit SdlGraphics(unsigned int windowPositionX = 0,
+                         unsigned int windowPositionY = 0);
     ~SdlGraphics();
 
     // Graphics_I
     void update();
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
-    std::shared_ptr<TileMap_I> createTileMap(const char * imagePath);
-    std::shared_ptr<Text_I> createText(const char * fontPath, uint8_t fontSize);
+    std::shared_ptr<TileMap_I> createTileMap(const char *imagePath);
+    std::shared_ptr<Text_I> createText(const char *fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;
-    void setResizeEventCallback(std::function<void(uint32_t width, uint32_t height)> callback);
+    void setResizeEventCallback(
+        std::function<void(uint32_t width, uint32_t height)> callback);
 
-private:
+  private:
     std::shared_ptr<Window> m_window;
     std::shared_ptr<Renderer> m_renderer;
     std::unique_ptr<TextRenderer> m_fpsRenderer;
@@ -51,7 +53,7 @@ private:
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);
     void drawFrame(int width, int height) const;
-    static int windowEvent(void *data, SDL_Event *event); 
+    static int windowEvent(void *data, SDL_Event *event);
     void redrawAll();
 };
 

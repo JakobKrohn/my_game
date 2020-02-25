@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "Player/Player.hpp"
 #include "Drawable/Drawable.hpp"
+#include "Player/Player.hpp"
 #include "Sprite/Sprite.hpp"
 
 using namespace game_engine;
@@ -24,7 +24,8 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     imageStill->posX = position->x;
     imageStill->posY = position->y;
     imageStill->angle = position->angle;
-    auto drawableStill = std::make_shared<components::Drawable>(std::move(imageStill));
+    auto drawableStill =
+        std::make_shared<components::Drawable>(std::move(imageStill));
 
     auto imageMoveLeft = std::make_unique<components::Drawable_T>();
     imageMoveLeft->imagePath = std::string("assets/player_green_left.png");
@@ -33,7 +34,8 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     imageMoveLeft->posX = position->x;
     imageMoveLeft->posY = position->y;
     imageMoveLeft->angle = position->angle;
-    auto drawableLeft = std::make_shared<components::Drawable>(std::move(imageMoveLeft));
+    auto drawableLeft =
+        std::make_shared<components::Drawable>(std::move(imageMoveLeft));
 
     auto imageMoveRight = std::make_unique<components::Drawable_T>();
     imageMoveRight->imagePath = std::string("assets/player_green_right.png");
@@ -42,7 +44,8 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
     imageMoveRight->posX = position->x;
     imageMoveRight->posY = position->y;
     imageMoveRight->angle = position->angle;
-    auto drawableRight = std::make_shared<components::Drawable>(std::move(imageMoveRight));
+    auto drawableRight =
+        std::make_shared<components::Drawable>(std::move(imageMoveRight));
 
     std::vector<std::shared_ptr<components::Drawable>> drawables;
     drawables.push_back(drawableStill);
@@ -51,9 +54,11 @@ std::shared_ptr<components::Player> Factory::createPlayer(std::string name)
 
     // Movable
     auto playerSprite = std::make_shared<components::Sprite>(drawables);
-    auto movable = std::make_shared<components::Movable>(position, playerSprite);
+    auto movable =
+        std::make_shared<components::Movable>(position, playerSprite);
 
     // Player
-    auto player = std::make_shared<components::Player>(name.c_str(), movable, playerSprite);
+    auto player = std::make_shared<components::Player>(name.c_str(), movable,
+                                                       playerSprite);
     return player;
 }

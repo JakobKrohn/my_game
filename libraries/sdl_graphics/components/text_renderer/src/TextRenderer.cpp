@@ -6,13 +6,11 @@
 
 using namespace sdl_graphics;
 
-TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize, std::shared_ptr<Renderer> renderer)
-    : m_renderer(renderer),
-      m_location(TextLocation::FLOATING),
-      m_color({255, 255, 255, 255}),
-      m_backgroundColor({0, 0, 0, 255}),
-      m_drawBackground(false), 
-      m_texture(nullptr)
+TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize,
+                           std::shared_ptr<Renderer> renderer)
+    : m_renderer(renderer), m_location(TextLocation::FLOATING),
+      m_color({255, 255, 255, 255}), m_backgroundColor({0, 0, 0, 255}),
+      m_drawBackground(false), m_texture(nullptr)
 {
     m_font = TTF_OpenFont(fontPath.c_str(), fontSize);
     if (m_font == NULL)
@@ -36,7 +34,8 @@ void TextRenderer::draw()
     {
         // reposition();
 
-        m_renderer->setColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
+        m_renderer->setColor(m_backgroundColor.r, m_backgroundColor.g,
+                             m_backgroundColor.b, m_backgroundColor.a);
         SDL_RenderFillRect(m_renderer->get(), &m_background);
         SDL_RenderDrawRect(m_renderer->get(), &m_background);
     }
@@ -45,7 +44,8 @@ void TextRenderer::draw()
     if (m_text.length() != 0)
         setText(m_text.c_str());
 
-    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_textRect, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_renderer->get(), m_texture, NULL, &m_textRect, 0, NULL,
+                     SDL_FLIP_NONE);
 }
 
 void TextRenderer::setText(std::string text)
@@ -61,14 +61,16 @@ void TextRenderer::setText(std::string text)
     std::string token;
     char delim = '\n';
     uint32_t length = 0;
-    while (std::getline(ss, token, delim)) {
+    while (std::getline(ss, token, delim))
+    {
         substrings.push_back(token);
-        if (token.length() > length) 
+        if (token.length() > length)
             length = token.length();
     }
 
     m_text = text;
-    SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(m_font, m_text.c_str(), m_color, length*8);
+    SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(
+        m_font, m_text.c_str(), m_color, length * 8);
 
     if (textSurface == nullptr)
         throw std::runtime_error("Could not create surface from string");
@@ -141,7 +143,8 @@ void TextRenderer::reposition()
         setText(m_text.c_str());
 }
 
-std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth, uint textHeight)
+std::tuple<uint, uint> TextRenderer::calculatePosition(uint textWidth,
+                                                       uint textHeight)
 {
     auto [wWidth, wHeight] = m_renderer->getWindowSize();
 

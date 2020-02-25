@@ -2,7 +2,8 @@
 #include <iostream>
 using namespace sdl_graphics;
 
-Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawable)
+Image::Image(std::shared_ptr<Renderer> renderer,
+             std::shared_ptr<Image_I> drawable)
 {
     m_renderer = renderer;
     m_drawable = drawable;
@@ -23,7 +24,8 @@ Image::Image(std::shared_ptr<Renderer> renderer, std::shared_ptr<Image_I> drawab
     }
 }
 
-// Vector calls copy constructor when it grows: https://stackoverflow.com/a/40457433
+// Vector calls copy constructor when it grows:
+// https://stackoverflow.com/a/40457433
 Image::Image(const Image &image) : Image(image.m_renderer, image.m_drawable)
 {
 }
@@ -40,7 +42,7 @@ void Image::draw()
     m_rect.x = m_drawable->getPosX();
     m_rect.y = m_drawable->getPosY();
     auto size = m_drawable->getSizeToDraw();
-    SDL_Rect *sizeRect = nullptr; 
+    SDL_Rect *sizeRect = nullptr;
     if (size.has_value())
     {
         sizeRect = new SDL_Rect; // Delete me after!!
@@ -49,5 +51,6 @@ void Image::draw()
         sizeRect->x = size->x;
         sizeRect->y = size->y;
     }
-    SDL_RenderCopyEx(m_renderer->get(), m_texture, sizeRect, &m_rect, m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_renderer->get(), m_texture, sizeRect, &m_rect,
+                     m_drawable->getAngle(), NULL, SDL_FLIP_NONE);
 }
