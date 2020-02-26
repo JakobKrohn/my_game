@@ -13,23 +13,7 @@
 namespace components
 {
 
-struct Position_T
-{
-    std::shared_ptr<float> x;
-    std::shared_ptr<float> y;
-    std::shared_ptr<float> angle;
-};
-
-// TODO pointers! Should change correctly with screen resize event
-struct Rectangle_T
-{
-    unsigned int minHorizontal;
-    unsigned int minVertical;
-    unsigned int maxHorizantal;
-    unsigned int maxVertical;
-};
-
-class Movable
+class Movable : public Movable_I
 {
   public:
     explicit Movable(std::shared_ptr<Position_T> position,

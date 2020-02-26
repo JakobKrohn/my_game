@@ -92,26 +92,22 @@ void GameEngine::setPlayerKeys(std::shared_ptr<components::Player> player,
     using namespace input_event;
 
     m_inputEvent->registerCallback(
-        std::bind(std::bind(&components::Movable::rotateLeft,
-                            player->getMovable(), _1),
+        std::bind(std::bind(&components::Player::rotateLeft, player, _1),
                   PLAYER_ROTATE_SPEED),
         controls.left);
 
     m_inputEvent->registerCallback(
-        std::bind(std::bind(&components::Movable::rotateRight,
-                            player->getMovable(), _1),
+        std::bind(std::bind(&components::Player::rotateRight, player, _1),
                   PLAYER_ROTATE_SPEED),
         controls.right);
 
     m_inputEvent->registerCallback(
-        std::bind(std::bind(&components::Movable::moveForward,
-                            player->getMovable(), _1),
+        std::bind(std::bind(&components::Player::moveForward, player, _1),
                   PLAYER_MOVEMENT_SPEED),
         controls.up);
 
     m_inputEvent->registerCallback(
-        std::bind(std::bind(&components::Movable::moveBackward,
-                            player->getMovable(), _1),
+        std::bind(std::bind(&components::Player::moveBackward, player, _1),
                   PLAYER_MOVEMENT_SPEED),
         controls.down);
 }

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Drawable/Drawable.hpp"
+#include "Movable/Movable.hpp"
 #include "Player/Player.hpp"
 #include "Sprite/Sprite.hpp"
 

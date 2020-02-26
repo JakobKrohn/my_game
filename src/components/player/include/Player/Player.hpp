@@ -5,7 +5,6 @@
 
 #include <vector>
 
-#include "Movable/Movable.hpp"
 #include "Movable/Movable_I.hpp"
 #include "Sprite/Sprite.hpp"
 
@@ -15,18 +14,23 @@ namespace components
 class Player
 {
   public:
-    explicit Player(std::string name, std::shared_ptr<Movable> movable,
+    explicit Player(std::string name, std::shared_ptr<Movable_I> movable,
                     std::shared_ptr<Sprite> sprite);
     Player() = delete;
     ~Player();
 
+    void moveForward(int velocity);
+    void moveBackward(int velocity);
+    void rotateLeft(int velocity);
+    void rotateRight(int velocity);
+
     const char *getName() const;
-    std::shared_ptr<Movable> getMovable() const;
+    std::shared_ptr<Movable_I> getMovable() const;
     std::shared_ptr<Sprite> getSprite() const;
 
   private:
     const std::string m_name;
-    std::shared_ptr<Movable> m_movable;
+    std::shared_ptr<Movable_I> m_movable;
     std::shared_ptr<Sprite> m_sprite;
 };
 

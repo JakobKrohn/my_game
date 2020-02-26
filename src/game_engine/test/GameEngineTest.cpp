@@ -9,6 +9,7 @@
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "GraphicsInterface/Text_I.hpp"
 #include "InputEventInterface/InputEvent_I.hpp"
+#include "Logger/Logger.hpp"
 
 using namespace testing;
 
@@ -88,7 +89,7 @@ class GameEngineTest : public ::testing::Test
     }
 };
 
-TEST_F(GameEngineTest, Constructor)
+TEST_F(GameEngineTest, Setup)
 {
     constructorTests();
     game_engine::GameEngine engine(_input, _graphics);
