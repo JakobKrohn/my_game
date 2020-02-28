@@ -143,7 +143,7 @@ void GameEngine::printInfo() const
 
 void GameEngine::updateMap()
 {
-    if (!m_player->getMovable()->isMoving())
+    if (!m_player->isMoving())
         return;
 
     m_background->getHorizontalGround() -=

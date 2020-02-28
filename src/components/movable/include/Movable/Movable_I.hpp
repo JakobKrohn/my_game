@@ -28,7 +28,6 @@ class Movable_I
     virtual ~Movable_I()
     {
     }
-    virtual bool isMoving() const = 0;
     virtual void setBoundaries(Rectangle_T boundaries) = 0;
     virtual void setPosition(uint32_t x, uint32_t y, uint16_t angle) = 0;
     virtual const std::shared_ptr<Position_T> getPosition() const = 0;

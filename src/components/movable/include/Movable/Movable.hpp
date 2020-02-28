@@ -16,8 +16,7 @@ namespace components
 class Movable : public Movable_I
 {
   public:
-    explicit Movable(std::shared_ptr<Position_T> position,
-                     std::shared_ptr<Sprite_I> sprite);
+    explicit Movable(std::shared_ptr<Position_T> position);
     Movable(const Movable &) = delete;
     ~Movable();
 
@@ -36,7 +35,6 @@ class Movable : public Movable_I
   protected:
   private:
     std::shared_ptr<Position_T> m_position;
-    std::shared_ptr<Sprite_I> m_sprite;
     Rectangle_T m_boundaries;
 
     void updateAngle(int angle);

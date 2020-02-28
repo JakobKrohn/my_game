@@ -28,6 +28,7 @@ $ sudo apt-get install libsdl2-ttf-dev
 - Texture
 - Surface
 
+- volatile
 - nullptr checking
 - std::string_view and const char *, no strings
 - Error handling: runtime_error catching

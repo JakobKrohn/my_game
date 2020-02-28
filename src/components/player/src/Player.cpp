@@ -19,23 +19,38 @@ Player::~Player()
     print("Player destroyed");
 }
 
+bool Player::isMoving()
+{
+    return sprite_state::STILL != m_sprite->getState();
+}
+
 void Player::moveForward(int velocity)
 {
+    m_sprite->setState(sprite_state::MOVING);
     m_movable->moveForward(velocity);
 }
 
 void Player::moveBackward(int velocity)
 {
-    m_movable->moveBackward(velocity);
+    // TODO: Create a print with timer!
+    /** 
+     * The timer should print the first its called, 
+     * thereafter it should wait for the timer to go out
+     * before printing again. 
+     */
+    // m_sprite->setState(sprite_state::MOVING);
+    // m_movable->moveBackward(velocity);
 }
 
 void Player::rotateLeft(int velocity)
 {
+    m_sprite->setState(sprite_state::MOVING);
     m_movable->rotateLeft(velocity);
 }
 
 void Player::rotateRight(int velocity)
 {
+    m_sprite->setState(sprite_state::MOVING);
     m_movable->rotateRight(velocity);
 }
 

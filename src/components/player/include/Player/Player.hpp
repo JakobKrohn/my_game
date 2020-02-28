@@ -19,6 +19,7 @@ class Player
     Player() = delete;
     ~Player();
 
+    bool isMoving();
     void moveForward(int velocity);
     void moveBackward(int velocity);
     void rotateLeft(int velocity);
