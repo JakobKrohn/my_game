@@ -7,8 +7,7 @@
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position)
-    : m_position(position)
+Movable::Movable(std::shared_ptr<Position_T> position) : m_position(position)
 {
     print("Movable [", this, "] created");
 }
@@ -35,9 +34,8 @@ const std::shared_ptr<Position_T> Movable::getPosition() const
     return m_position;
 }
 
-void Movable::moveForward(int velocity)
+void Movable::move(int velocity)
 {
-    // m_sprite->setState(sprite_state::MOVING);
     auto x = *m_position->x + sin(*m_position->angle * M_PI / 180.0) * velocity;
     auto y = *m_position->y - cos(*m_position->angle * M_PI / 180.0) * velocity;
     if (isInsideBoundaries(x, y))
@@ -45,25 +43,11 @@ void Movable::moveForward(int velocity)
         *m_position->x = x;
         *m_position->y = y;
     }
-    // *m_position->x += sin(*m_position->angle * M_PI / 180.0) * velocity;
-    // *m_position->y -= cos(*m_position->angle * M_PI / 180.0) * velocity;
 }
 
-void Movable::moveBackward(int velocity)
-{
-    // m_sprite->setState(sprite_state::MOVING);
-    *m_position->x -= sin(*m_position->angle * M_PI / 180) * velocity;
-    *m_position->y += cos(*m_position->angle * M_PI / 180) * velocity;
-}
-
-void Movable::rotateRight(int velocity)
+void Movable::rotate(int velocity)
 {
     updateAngle(velocity);
-}
-
-void Movable::rotateLeft(int velocity)
-{
-    updateAngle(-velocity);
 }
 
 void Movable::updateAngle(int angle)

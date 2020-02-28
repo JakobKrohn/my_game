@@ -57,6 +57,7 @@
         "forward_list": "cpp",
         "unordered_set": "cpp",
         "numeric": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "future": "cpp"
     }
 }

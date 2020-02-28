@@ -16,9 +16,9 @@
     log_lib::Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ",     \
                                        __VA_ARGS__)
 
-#define print_limitimed(...)                                                       \
-    log_lib::Logger::getInstance().log_timed(__FILENAME__, " [", __LINE__, "] ",     \
-                                       __VA_ARGS__)
+#define print_limitimed(...)                                                   \
+    log_lib::Logger::getInstance().log_timed(__FILENAME__, " [", __LINE__,     \
+                                             "] ", __VA_ARGS__)
 
 namespace log_lib
 {
@@ -71,12 +71,11 @@ class Logger
         if (m_mode == Mode::NONE)
             return;
 
-        
         std::chrono::duration<double> last_print = now - timer;
 
         if (last_print.count() < m_timeLimit)
             return;
-        
+
         timer = now;
 
         std::ostringstream stream;

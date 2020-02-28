@@ -13,7 +13,6 @@ struct Position_T
     std::shared_ptr<float> angle;
 };
 
-// TODO pointers! Should change correctly with screen resize event
 struct Rectangle_T
 {
     unsigned int minHorizontal;
@@ -28,13 +27,15 @@ class Movable_I
     virtual ~Movable_I()
     {
     }
+    // Set movement boundaries
+    // minHorizontal(x), minVertical(y), maxHorizontal(x), maxVertical(y)
     virtual void setBoundaries(Rectangle_T boundaries) = 0;
     virtual void setPosition(uint32_t x, uint32_t y, uint16_t angle) = 0;
     virtual const std::shared_ptr<Position_T> getPosition() const = 0;
-    virtual void moveForward(int velocity) = 0;
-    virtual void moveBackward(int velocity) = 0;
-    virtual void rotateLeft(int velocity) = 0;
-    virtual void rotateRight(int velocity) = 0;
+    // Move the x,y position 
+    virtual void move(int velocity) = 0;
+    // Rotate angle
+    virtual void rotate(int velocity) = 0;
 };
 
 } // namespace components
