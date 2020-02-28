@@ -38,6 +38,7 @@ void Player::moveBackward(int velocity)
      * thereafter it should wait for the timer to go out
      * before printing again. 
      */
+    print_limitimed("not implemented");
     // m_sprite->setState(sprite_state::MOVING);
     // m_movable->moveBackward(velocity);
 }

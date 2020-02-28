@@ -13,6 +13,11 @@ void Logger::setMode(Mode mode)
     m_mode = mode;
 }
 
+void Logger::setTimeLimit(int limit)
+{
+    m_timeLimit = limit;
+}
+
 int Logger::getNumberOfStartups() const
 {
     return m_numberOfRuns;

@@ -16,6 +16,10 @@
     log_lib::Logger::getInstance().log(__FILENAME__, " [", __LINE__, "] ",     \
                                        __VA_ARGS__)
 
+#define print_limitimed(...)                                                       \
+    log_lib::Logger::getInstance().log_timed(__FILENAME__, " [", __LINE__, "] ",     \
+                                       __VA_ARGS__)
+
 namespace log_lib
 {
 
@@ -42,6 +46,7 @@ class Logger
     ~Logger();
 
     void setMode(Mode mode);
+    void setTimeLimit(int limit);
 
     int getNumberOfStartups() const;
 
@@ -57,10 +62,35 @@ class Logger
         writeLog(stream.str());
     }
 
+    template <class... Msg> void log_timed(Msg const &... msg)
+    {
+        using namespace std::chrono;
+        auto now = system_clock::now();
+        static auto timer = system_clock::from_time_t(0);
+
+        if (m_mode == Mode::NONE)
+            return;
+
+        
+        std::chrono::duration<double> last_print = now - timer;
+
+        if (last_print.count() < m_timeLimit)
+            return;
+        
+        timer = now;
+
+        std::ostringstream stream;
+        using List = int[];
+        (void)List{0, ((void)(stream << msg), 0)...};
+
+        writeLog(stream.str());
+    }
+
   private:
     Mode m_mode;
     std::fstream m_file;
     int m_numberOfRuns;
+    int m_timeLimit = 1;
 
     Logger();
 
