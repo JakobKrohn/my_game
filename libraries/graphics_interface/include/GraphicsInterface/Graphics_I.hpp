@@ -31,7 +31,7 @@ class Graphics_I
     // Create and return a tilemap, used as background
     // TODO: Explain size (its percentage of original size)
     virtual std::shared_ptr<TileMap_I> createTileMap(const char *imagePath,
-                                                     float size) = 0;
+                                                     float size = -1) = 0;
 
     // Create a text and return the object
     virtual std::shared_ptr<Text_I> createText(const char *fontPath,

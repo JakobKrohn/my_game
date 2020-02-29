@@ -116,7 +116,7 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 }
 
 // TODO: Rename -> setBackground
-std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath, float size)
+std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath, float size = -1)
 {
     m_background =
         std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight,

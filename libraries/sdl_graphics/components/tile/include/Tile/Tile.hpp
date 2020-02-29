@@ -22,7 +22,7 @@ namespace sdl_graphics
 class Tile : public Tile_I
 {
   public:
-    Tile(std::shared_ptr<Renderer> renderer, const char *imagePath, float size);
+    Tile(std::shared_ptr<Renderer> renderer, const char *imagePath, float size = -1);
     Tile(const Tile &tile); // Never called (yet)
     Tile(Tile &&tile);
     ~Tile();
