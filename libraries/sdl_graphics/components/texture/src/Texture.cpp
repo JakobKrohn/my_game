@@ -5,10 +5,10 @@
 
 using namespace sdl_graphics;
 
-Texture::Texture(std::shared_ptr<Renderer> renderer, const char *imagePath)
-    : m_texture(nullptr), m_width(0), m_height(0)
+Texture::Texture(std::shared_ptr<Renderer> renderer, const char *imagePath, float sizeFactor)
+    : m_texture(nullptr), m_sizeFactor(sizeFactor), m_width(0), m_height(0)
 {
-    Surface surface(imagePath);
+    Surface surface(imagePath, sizeFactor);
     surface.getSize(m_width, m_height);
 
     m_texture = SDL_CreateTextureFromSurface(renderer->get(), surface.get());
@@ -31,6 +31,11 @@ Texture::~Texture()
 SDL_Texture *Texture::get() const
 {
     return m_texture;
+}
+
+void Texture::resize(uint width, uint height)
+{
+    // m_texture.reset(SDL_CreateTexture)
 }
 
 const unsigned int &Texture::getWidth() const

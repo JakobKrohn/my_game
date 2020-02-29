@@ -1,7 +1,11 @@
 #ifndef SDL_SURFACE_HPP
 #define SDL_SURFACE_HPP
 
+#include <memory>
+
 #include "SDL_image.h"
+
+#include "Window/Window.hpp"
 
 namespace sdl_graphics
 {
@@ -9,7 +13,7 @@ namespace sdl_graphics
 class Surface
 {
   public:
-    Surface(const char *imagePath);
+    Surface(const char *imagePath, float sizeFactor = -1);
     ~Surface();
 
     SDL_Surface *get() const;

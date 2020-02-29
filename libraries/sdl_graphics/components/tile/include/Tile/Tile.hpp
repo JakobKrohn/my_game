@@ -12,31 +12,36 @@
 
 #include "memory"
 
+#include "GraphicsInterface/Tile_I.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Texture/Texture.hpp"
 
 namespace sdl_graphics
 {
 
-class Tile
+class Tile : public Tile_I
 {
   public:
-    Tile(std::shared_ptr<Renderer> renderer, const char *imagePath);
-    Tile(const Tile &tile);
+    Tile(std::shared_ptr<Renderer> renderer, const char *imagePath, float size);
+    Tile(const Tile &tile); // Never called (yet)
     Tile(Tile &&tile);
     ~Tile();
 
-    void draw(SDL_Rect tilePos, SDL_Rect windowPos);
-
-    // Get width & height
-    std::tuple<const unsigned int &, const unsigned int &> getSize() const;
+    // Tile_I
+    void draw(TilePosition_T &position);
+    TileSize_T getSize() const;
+    void setSize(float percent);
 
   private:
     std::shared_ptr<Texture> m_texture;
     std::shared_ptr<Renderer> m_renderer;
+    const char * m_imagePath;
+    float m_sizeFactor;
 
-    unsigned int m_width;
-    unsigned int m_height;
+    TileSize_T m_size;
+
+    SDL_Rect m_tilePos;
+    SDL_Rect m_windowPos;
 };
 
 } // namespace sdl_graphics

@@ -30,7 +30,7 @@ class SdlGraphics : public Graphics_I
     void update();
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
-    std::shared_ptr<TileMap_I> createTileMap(const char *imagePath);
+    std::shared_ptr<TileMap_I> createTileMap(const char *imagePath, float size);
     std::shared_ptr<Text_I> createText(const char *fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;

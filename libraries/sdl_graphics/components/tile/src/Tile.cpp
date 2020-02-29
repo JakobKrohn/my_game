@@ -4,36 +4,35 @@
 
 using namespace sdl_graphics;
 
-Tile::Tile(std::shared_ptr<Renderer> renderer, const char *imagePath)
-    : m_texture(nullptr), m_renderer(nullptr), m_width(0), m_height(0)
+Tile::Tile(std::shared_ptr<Renderer> renderer, const char *imagePath,
+           float sizeFactor)
+    : m_texture(nullptr), m_renderer(nullptr), m_imagePath(imagePath),
+      m_sizeFactor(sizeFactor)
 {
     m_renderer = renderer;
-    m_texture = std::make_shared<Texture>(m_renderer, imagePath);
+    m_texture = std::make_shared<Texture>(m_renderer, imagePath, sizeFactor);
 
-    m_width = m_texture->getWidth();
-    m_height = m_texture->getHeight();
+    m_size.width = m_texture->getWidth();
+    m_size.height = m_texture->getHeight();
 
-    print("Tile [", this, "] created.", "\n\tPath: ", imagePath,
-          " \n\tWidth: ", m_width, ", height: ", m_height);
+    m_tilePos.h = m_size.height;
+    m_tilePos.w = m_size.width;
+    m_tilePos.x = 0;
+    m_tilePos.y = 0;
+
+    m_windowPos.h = m_size.height;
+    m_windowPos.w = m_size.width;
+    m_windowPos.x = 0;
+    m_windowPos.y = 0;
 }
 
 Tile::Tile(const Tile &tile)
-    : m_texture(nullptr), m_renderer(nullptr), m_width(0), m_height(0)
+    : Tile(tile.m_renderer, tile.m_imagePath, tile.m_sizeFactor)
 {
-    m_renderer = tile.m_renderer;
-    m_texture = tile.m_texture;
-    m_width = m_texture->getWidth();
-    m_height = m_texture->getHeight();
-    print("Tile [", this, "] copied.", " \n\tWidth: ", m_width,
-          ", height: ", m_height);
 }
 
-Tile::Tile(Tile &&tile)
-    : m_texture(tile.m_texture), m_renderer(tile.m_renderer),
-      m_width(tile.m_texture->getWidth()), m_height(tile.m_texture->getHeight())
+Tile::Tile(Tile &&tile) : Tile(tile.m_renderer, tile.m_imagePath, tile.m_sizeFactor)
 {
-    print("Tile [", this, "] moved.", " \n\tWidth: ", m_width,
-          ", height: ", m_height);
 }
 
 Tile::~Tile()
@@ -41,13 +40,31 @@ Tile::~Tile()
     print("Tile '", this, "' destroyed");
 }
 
-void Tile::draw(SDL_Rect tilePos, SDL_Rect windowPos)
+void Tile::draw(TilePosition_T &position)
 {
-    SDL_RenderCopyEx(m_renderer->get(), m_texture->get(), &tilePos, &windowPos,
-                     0, NULL, SDL_FLIP_NONE);
+    m_windowPos.x = position.x;
+    m_windowPos.y = position.y;
+
+    SDL_RenderCopyEx(m_renderer->get(), m_texture->get(), &m_tilePos,
+                     &m_windowPos, 0, NULL, SDL_FLIP_NONE);
 }
 
-std::tuple<const unsigned int &, const unsigned int &> Tile::getSize() const
+TileSize_T Tile::getSize() const
 {
-    return std::forward_as_tuple(m_width, m_height);
+    return m_size;
+}
+
+void Tile::setSize(float percent)
+{
+    auto newWidth = m_size.width * percent;
+    auto newHeight = m_size.height * percent;
+
+    m_texture->resize(newWidth, newHeight);
+
+    m_size.height = newHeight;
+    m_size.width = newWidth;
+    m_windowPos.h = m_size.height;
+    m_windowPos.w = m_size.width;
+    m_tilePos.h = m_size.height;
+    m_tilePos.w = m_size.width;
 }

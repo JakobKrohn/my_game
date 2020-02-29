@@ -30,7 +30,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
     print("Game initializing");
 
     m_background = m_graphics->createTileMap(
-        "assets/backgrounds/backgrounddetailed1_edit.png");
+        "assets/backgrounds/backgrounddetailed1_edit.png", 0.5);
 
     // Create and add player
     m_player = Factory::createPlayer("Jakob");

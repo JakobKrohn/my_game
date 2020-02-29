@@ -3,8 +3,6 @@
 
 #include <tuple>
 
-#include "Image_I.hpp"
-
 /**
  * A graphics element to hold one or several images.
  * Images can be shifted for animation.

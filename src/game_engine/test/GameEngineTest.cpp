@@ -28,8 +28,8 @@ class MockGraphics : public Graphics_I
     MOCK_METHOD(void, update, (), (override));
     MOCK_METHOD(void, addElement, (std::shared_ptr<Element_I>), (override));
     MOCK_METHOD(void, addImage, (std::shared_ptr<Image_I>), (override));
-    MOCK_METHOD(std::shared_ptr<TileMap_I>, createTileMap, (const char *),
-                (override));
+    MOCK_METHOD(std::shared_ptr<TileMap_I>, createTileMap,
+                (const char *, float), (override));
     MOCK_METHOD(std::shared_ptr<Text_I>, createText, (const char *, uint8_t),
                 (override));
     MOCK_METHOD(std::shared_ptr<uint32_t>, getWindowWidth, (),
@@ -71,7 +71,7 @@ class GameEngineTest : public ::testing::Test
         // Set escape exit
         EXPECT_CALL(*_input, setExitCallback(_)).Times(1);
         // Create background
-        EXPECT_CALL(*_graphics, createTileMap(_)).Times(1);
+        EXPECT_CALL(*_graphics, createTileMap(_,_)).Times(1);
         // Add player
         EXPECT_CALL(*_graphics, addElement(_)).Times(1);
         // Player movement
