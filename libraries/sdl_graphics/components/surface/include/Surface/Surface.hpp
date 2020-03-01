@@ -13,7 +13,7 @@ namespace sdl_graphics
 class Surface
 {
   public:
-    Surface(const char *imagePath, float sizeFactor = -1);
+    Surface(const char *imagePath);
     ~Surface();
 
     SDL_Surface *get() const;

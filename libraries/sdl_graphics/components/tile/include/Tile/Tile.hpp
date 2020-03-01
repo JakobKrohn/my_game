@@ -23,7 +23,7 @@ class Tile : public Tile_I
 {
   public:
     Tile(std::shared_ptr<Renderer> renderer, const char *imagePath, float size = -1);
-    Tile(const Tile &tile); // Never called (yet)
+    Tile(const Tile &tile); 
     Tile(Tile &&tile);
     ~Tile();
 

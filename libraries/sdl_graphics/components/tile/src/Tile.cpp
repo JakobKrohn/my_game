@@ -10,7 +10,7 @@ Tile::Tile(std::shared_ptr<Renderer> renderer, const char *imagePath,
       m_sizeFactor(sizeFactor)
 {
     m_renderer = renderer;
-    m_texture = std::make_shared<Texture>(m_renderer, imagePath, sizeFactor);
+    m_texture = std::make_shared<Texture>(m_renderer, imagePath);
 
     m_size.width = m_texture->getWidth();
     m_size.height = m_texture->getHeight();
@@ -60,17 +60,8 @@ TileSize_T Tile::getSize() const
 
 void Tile::setSize(float percent)
 {
-    print("Setting size: \n\tOriginal width: ", m_size.width,
-          "\n\tOriginal height: ", m_size.height,
-          "\n\tNew width: ", m_texture->getWidth() * percent,
-          "\n\tNew height: ", m_texture->getHeight() * percent);
     auto newWidth = m_texture->getWidth() * percent;
     auto newHeight = m_texture->getHeight() * percent;
-
-    // m_tilePos.x = m_size.width - newWidth / 2;
-    // m_tilePos.y = m_size.height - newHeight / 2;
-    // m_windowPos.x = m_size.width - newWidth;
-    // m_windowPos.y = m_size.height - newHeight;
 
     m_size.height = newHeight;
     m_size.width = newWidth;
@@ -78,14 +69,9 @@ void Tile::setSize(float percent)
     m_windowPos.h = m_size.height;
     m_windowPos.w = m_size.width;
 
-    m_tilePos.h = m_size.height;
-    m_tilePos.w = m_size.width;
-
-    m_tilePos.x = (m_texture->getWidth() - m_size.width) / 2;
-    m_tilePos.y = (m_texture->getHeight() - m_size.height) / 2;
-    // m_tilePos.x = m_texture->getWidth() - m_size.width * 1.5;
-    // m_tilePos.y = m_texture->getHeight() - m_size.height * 1.5;
-    print("\tX/Y: ", m_tilePos.x, "/", m_tilePos.y);
-    // m_tilePos.x = m_size.width / 2;
-    // m_tilePos.y = m_size.height / 2;
+    // This can be used to crop the tile
+    // m_tilePos.h = m_size.height;
+    // m_tilePos.w = m_size.width;
+    // m_tilePos.x = (m_texture->getWidth() - m_size.width) / 2;
+    // m_tilePos.y = (m_texture->getHeight() - m_size.height) / 2;
 }

@@ -15,19 +15,16 @@ namespace sdl_graphics
 class Texture
 {
   public:
-    Texture(std::shared_ptr<Renderer> renderer, const char *imagePath, float sizeFactor);
+    Texture(std::shared_ptr<Renderer> renderer, const char *imagePath);
     ~Texture();
 
     SDL_Texture *get() const;
-
-    void resize(uint width, uint height);
 
     const unsigned int &getWidth() const;
     const unsigned int &getHeight() const;
 
   private:
     SDL_Texture *m_texture;
-    float m_sizeFactor;
 
     unsigned int m_width;
     unsigned int m_height;
