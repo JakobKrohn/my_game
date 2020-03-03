@@ -20,6 +20,7 @@ struct TilePosition_T
 {
     int x;
     int y;
+    int a = 0;
     // TilePosition_T(std::shared_ptr<float> xpos, std::shared_ptr<float> ypos)
     //     : x(xpos), y(ypos)
     // {
@@ -32,8 +33,19 @@ struct TilePosition_T
 class Tile_I
 {
   public:
+    /**
+     * Render tile at position
+     */
     virtual void draw(TilePosition_T &position) = 0;
+    /**
+     * Get size (width/height) of tile
+     *  Size will be affected is setSize is set
+     */
     virtual TileSize_T getSize() const = 0;
+    /**
+     * Set the size of the tile, based on the original size. 
+     *  e.g. 0.5 == 50% of original size
+     */
     virtual void setSize(float percent) = 0;
 };
 

@@ -124,6 +124,11 @@ std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath, flo
     return m_background;
 }
 
+std::shared_ptr<Sprite_I> SdlGraphics::createSprite(float sizePercentage)
+{
+    std::cout << "create sprite is not implemented!\n";
+}
+
 std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath,
                                                 uint8_t fontSize)
 {

@@ -10,7 +10,7 @@ enum class sprite_state
     STILL,
 };
 
-class Sprite_I
+class Sprite_IX
 {
   public:
     virtual void setState(sprite_state state) = 0;

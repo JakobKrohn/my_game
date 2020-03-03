@@ -30,9 +30,11 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
     print("Game initializing");
 
     m_background = m_graphics->createTileMap(
-        "assets/squares.png", 1.0);
+        "assets/squares.png", 0.5);
+    
     // Create and add player
     m_player = Factory::createPlayer("Jakob");
+
     m_graphics->addElement(m_player->getSprite());
 
     initializeKeys();

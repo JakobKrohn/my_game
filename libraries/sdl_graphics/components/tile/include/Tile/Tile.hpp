@@ -1,13 +1,6 @@
 #ifndef SDL_TILE_HPP
 #define SDL_TILE_HPP
 
-/**
- *
- * This class will take one image (more in the future) and create a tilemap from
- * it.
- *
- */
-
 #include "SDL_image.h"
 
 #include "memory"

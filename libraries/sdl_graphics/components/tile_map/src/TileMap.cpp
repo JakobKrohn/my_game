@@ -14,7 +14,6 @@ TileMap::TileMap(uint32_t &windowWidth, uint32_t &windowHeight, Tile &&tile)
 {
     print("TileMap ", this, " created");
     resizeEvent(windowWidth, windowHeight);
-    // m_tile.setSize(0.5);
 }
 
 void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
@@ -22,7 +21,6 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     print("TileMap resize event");
     m_windowWidth = width;
     m_windowHeight = height;
-    // auto [tileWidth, tileHeight] = m_tile.getSize();
     auto size = m_tile.getSize();
 
     m_verticalGround = 0;
@@ -31,9 +29,7 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
     m_windowPos.x = (int)m_horizontalGround;
     m_windowPos.y = (int)m_verticalGround;
     m_windowPos.h = size.height;
-    // m_windowPos.h = tileHeight;
     m_windowPos.w = size.width;
-    // m_windowPos.w = tileWidth;
 
     m_tilePos.x = 0;
     m_tilePos.y = 0;
@@ -42,23 +38,15 @@ void TileMap::resizeEvent(uint32_t &width, uint32_t &height)
 
     m_horizontalTiles = ceil((double)width / (double)size.width);
     m_verticalTiles = ceil((double)height / (double)size.height);
-    // m_horizontalTiles = ceil((double)width / (double)tileWidth);
-    // m_verticalTiles = ceil((double)height / (double)tileHeight);
 
     m_verticalOffset = ((size.height * m_verticalTiles) - height) /
                        (m_verticalTiles -
                         (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
-    // m_verticalOffset = ((tileHeight * m_verticalTiles) - height) /
-    //                    (m_verticalTiles -
-    //                     (m_verticalTiles > 2 ? floor(m_verticalTiles / 2) : 0));
+
     m_horizontalOffset =
         ((size.width * m_horizontalTiles) - width) /
         (m_horizontalTiles -
          (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
-    // m_horizontalOffset =
-    //     ((tileWidth * m_horizontalTiles) - width) /
-    //     (m_horizontalTiles -
-    //      (m_horizontalTiles > 2 ? floor(m_horizontalTiles / 2) : 0));
 }
 
 void TileMap::draw()

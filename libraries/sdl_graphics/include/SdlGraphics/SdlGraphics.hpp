@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <iostream>
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -31,6 +32,7 @@ class SdlGraphics : public Graphics_I
     void addElement(std::shared_ptr<Element_I> element);
     void addImage(std::shared_ptr<Image_I> image);
     std::shared_ptr<TileMap_I> createTileMap(const char *imagePath, float size);
+    std::shared_ptr<Sprite_I> createSprite(float sizePercentage = -1);
     std::shared_ptr<Text_I> createText(const char *fontPath, uint8_t fontSize);
     std::shared_ptr<uint32_t> getWindowWidth() const;
     std::shared_ptr<uint32_t> getWindowHeight() const;

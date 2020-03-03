@@ -6,6 +6,7 @@
 
 #include "Element_I.hpp"
 #include "Image_I.hpp"
+#include "Sprite_I.hpp"
 #include "Text_I.hpp"
 #include "TileMap_I.hpp"
 
@@ -26,12 +27,16 @@ class Graphics_I
     virtual void addElement(std::shared_ptr<Element_I> element) = 0;
 
     // Add an image to be drawn and update in update function
+    // TODO: Remove - not used
     virtual void addImage(std::shared_ptr<Image_I> iamge) = 0;
 
     // Create and return a tilemap, used as background
     // TODO: Explain size (its percentage of original size)
     virtual std::shared_ptr<TileMap_I> createTileMap(const char *imagePath,
                                                      float size = -1) = 0;
+
+    virtual std::shared_ptr<Sprite_I>
+    createSprite(float sizePercentage = -1) = 0;
 
     // Create a text and return the object
     virtual std::shared_ptr<Text_I> createText(const char *fontPath,

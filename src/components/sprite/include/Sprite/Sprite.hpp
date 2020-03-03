@@ -8,7 +8,7 @@
 namespace components
 {
 
-class Sprite : public Element_I, public Sprite_I
+class Sprite : public Element_I, public Sprite_IX
 {
   public:
     explicit Sprite(std::vector<std::shared_ptr<Drawable>> drawables);

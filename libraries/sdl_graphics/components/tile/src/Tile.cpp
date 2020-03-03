@@ -41,7 +41,6 @@ Tile::Tile(Tile &&tile)
 
 Tile::~Tile()
 {
-    print("Tile '", this, "' destroyed");
 }
 
 void Tile::draw(TilePosition_T &position)
@@ -50,7 +49,7 @@ void Tile::draw(TilePosition_T &position)
     m_windowPos.y = position.y;
 
     SDL_RenderCopyEx(m_renderer->get(), m_texture->get(), &m_tilePos,
-                     &m_windowPos, 0, NULL, SDL_FLIP_NONE);
+                     &m_windowPos, position.a, NULL, SDL_FLIP_NONE);
 }
 
 TileSize_T Tile::getSize() const
@@ -68,10 +67,4 @@ void Tile::setSize(float percent)
 
     m_windowPos.h = m_size.height;
     m_windowPos.w = m_size.width;
-
-    // This can be used to crop the tile
-    // m_tilePos.h = m_size.height;
-    // m_tilePos.w = m_size.width;
-    // m_tilePos.x = (m_texture->getWidth() - m_size.width) / 2;
-    // m_tilePos.y = (m_texture->getHeight() - m_size.height) / 2;
 }
