@@ -8,7 +8,6 @@
 #include <atomic>
 #include <memory>
 
-#include "Drawable/Drawable.hpp"
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "GraphicsInterface/Text_I.hpp"
 #include "GraphicsInterface/TileMap_I.hpp"

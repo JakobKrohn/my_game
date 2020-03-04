@@ -8,7 +8,6 @@ add_library(${LIBRARY_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         logger::logger
-        ${LIBRARY_NAME}::sprite
 )
 
 target_sources(${PROJECT_NAME}

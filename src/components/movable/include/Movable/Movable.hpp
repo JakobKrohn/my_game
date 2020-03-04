@@ -6,9 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "Drawable/Drawable.hpp"
 #include "Logger/Logger.hpp"
-#include "Sprite/Sprite_I.hpp"
 
 namespace components
 {
@@ -16,7 +14,7 @@ namespace components
 class Movable : public Movable_I
 {
   public:
-    explicit Movable(std::shared_ptr<Position_T> position);
+    Movable();
     Movable(const Movable &) = delete;
     ~Movable();
 

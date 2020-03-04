@@ -7,9 +7,12 @@
 
 using namespace components;
 
-Movable::Movable(std::shared_ptr<Position_T> position) : m_position(position)
+Movable::Movable()
 {
-    print("Movable [", this, "] created");
+    m_position = std::make_shared<components::Position_T>();
+    m_position->x = std::make_shared<float>(250);
+    m_position->y = std::make_shared<float>(250);
+    m_position->angle = std::make_shared<float>(0);
 }
 
 Movable::~Movable()

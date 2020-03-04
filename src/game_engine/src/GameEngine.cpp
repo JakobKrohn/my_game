@@ -31,16 +31,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
 
     m_background = m_graphics->createTileMap("assets/squares.png", 0.5);
 
-    // Create and add player
-    m_player = Factory::createPlayer("Jakob");
-
-    // m_graphics->addElement(m_player->getSprite());
-    auto sprite = m_graphics->createSprite();
-    std::vector<const char *> still = {"assets/player_green_still.png"};
-    sprite->addSequence(still);
-    sprite->setPosition(m_player->getMovable()->getPosition()->x,
-                        m_player->getMovable()->getPosition()->y,
-                        m_player->getMovable()->getPosition()->angle);
+    m_player = Factory::createPlayer("Jakob", m_graphics->createSprite());
 
     initializeKeys();
 
