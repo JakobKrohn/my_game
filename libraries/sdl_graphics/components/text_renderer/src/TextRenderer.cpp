@@ -22,7 +22,6 @@ TextRenderer::TextRenderer(std::string fontPath, uint8_t fontSize,
 TextRenderer::~TextRenderer()
 {
     SDL_DestroyTexture(m_texture);
-    print("Text Renderer destroyed");
 }
 
 void TextRenderer::draw()

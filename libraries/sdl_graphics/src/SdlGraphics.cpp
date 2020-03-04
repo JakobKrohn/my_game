@@ -97,9 +97,15 @@ void SdlGraphics::update()
     auto fps = getFramesPerSecond(start);
     drawFPS(fps);
 
-    for (auto &element : m_elements)
+    // for (auto &element : m_elements)
+    // {
+    //     element.draw();
+    // }
+
+    for (auto & sprite : m_sprites)
     {
-        element.draw();
+        sprite->update();
+        sprite->draw();
     }
 
     m_renderer->present();
@@ -116,7 +122,8 @@ void SdlGraphics::addImage(std::shared_ptr<Image_I> image)
 }
 
 // TODO: Rename -> setBackground
-std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath, float size = -1)
+std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath,
+                                                      float size = -1)
 {
     m_background =
         std::make_shared<TileMap>(*m_windowWidth, *m_windowHeight,
@@ -126,7 +133,9 @@ std::shared_ptr<TileMap_I> SdlGraphics::createTileMap(const char *imagePath, flo
 
 std::shared_ptr<Sprite_I> SdlGraphics::createSprite(float sizePercentage)
 {
-    std::cout << "create sprite is not implemented!\n";
+    m_sprites.emplace_back(
+        std::make_shared<Sprite>(m_renderer, sizePercentage));
+    return m_sprites.back();
 }
 
 std::shared_ptr<Text_I> SdlGraphics::createText(const char *fontPath,

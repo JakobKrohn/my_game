@@ -16,16 +16,12 @@ Surface::Surface(const char *imagePath)
 
     m_width = m_surface->w;
     m_height = m_surface->h;
-
-    print("Surface '", this, "' created.", "\n\tPath: ", imagePath,
-          " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Surface::~Surface()
 {
     SDL_FreeSurface(m_surface);
     m_surface = nullptr;
-    print("Surface '", this, "' destroyed");
 }
 
 SDL_Surface *Surface::get() const

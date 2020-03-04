@@ -35,6 +35,12 @@ class Sprite_I
      */
     virtual void setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
                              std::shared_ptr<float> a) = 0;
+    /**
+     * Set the time interval for how long each image will be drawn, 
+     *  before it is shifted. 
+     * TODO: ms or us?
+     */
+    virtual void setTimeInterval(int ms, int sequence = -1) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_SPRITE_HPP

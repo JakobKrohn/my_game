@@ -1,9 +1,9 @@
 #ifndef SDL_GRAPHICS_HPP
 #define SDL_GRAPHICS_HPP
 
+#include <iostream>
 #include <memory>
 #include <vector>
-#include <iostream>
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -13,6 +13,7 @@
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "Image/Image.hpp"
 #include "Renderer/Renderer.hpp"
+#include "Sprite/Sprite2.hpp"
 #include "TextRenderer/TextRenderer.hpp"
 #include "TileMap/TileMap.hpp"
 #include "Window/Window.hpp"
@@ -51,6 +52,7 @@ class SdlGraphics : public Graphics_I
     uint32_t m_countedFrames;
     std::function<void(uint32_t width, uint32_t height)> m_resizeCallback;
     std::shared_ptr<TileMap> m_background;
+    std::vector<std::shared_ptr<Sprite>> m_sprites;
 
     double getFramesPerSecond(uint32_t startTime);
     void drawFPS(double fps);

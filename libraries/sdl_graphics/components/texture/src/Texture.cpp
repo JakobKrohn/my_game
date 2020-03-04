@@ -16,16 +16,12 @@ Texture::Texture(std::shared_ptr<Renderer> renderer, const char *imagePath)
     {
         throw std::runtime_error(IMG_GetError());
     }
-
-    print("Texture '", this, "' created.", "\n\tPath: ", imagePath,
-          " \n\tWidth: ", m_width, ", height: ", m_height);
 }
 
 Texture::~Texture()
 {
     SDL_DestroyTexture(m_texture);
     m_texture = nullptr;
-    print("Texture '", this, "' destroyed");
 }
 
 SDL_Texture *Texture::get() const
