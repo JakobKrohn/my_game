@@ -12,15 +12,68 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
 {
     auto position = m_movable->getPosition();
     m_sprite->setPosition(position->x, position->y, position->angle);
-    std::vector<const char *> still = {"assets/player_green_still.png", 
-    "assets/player_green_left.png", "assets/player_green_right.png"};
-    auto indexStill = m_sprite->addSequence(still);
-    m_sprite->setTimeInterval(500);
+    // clang-format off
+    std::vector<const char *> idle = 
+    {
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_1.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_2.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_3.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_4.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_5.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_6.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_7.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_8.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_9.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_10.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_11.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_12.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_13.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_14.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_15.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_16.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_17.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_18.png",
+        "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_19.png",
+    };
+    std::vector<const char *> move = 
+    {
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_0.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_1.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_2.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_3.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_4.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_5.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_6.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_7.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_8.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_9.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_10.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_11.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_12.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_13.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_14.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_15.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_16.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_17.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_18.png",
+        "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_19.png",
+    };
+    // clang-format on
+    _idleSequence = m_sprite->addSequence(idle);
+    _movingSequence = m_sprite->addSequence(move);
+    m_sprite->setCurrentSequence(_idleSequence);
+    m_sprite->setTimeInterval(5);
 }
 
 Player::~Player()
 {
     print("Player destroyed");
+}
+
+void Player::update()
+{
+    // Update the m_sprite state on timeout
 }
 
 bool Player::isMoving() const
@@ -34,11 +87,13 @@ void Player::moveForward(int velocity)
     // m_sprite->setState(sprite_state::MOVING);
     // m_drawable->
     m_movable->move(velocity);
+    m_sprite->setCurrentSequence(_movingSequence);
 }
 
 void Player::moveBackward(int velocity)
 {
     print_limitimed("not implemented");
+    m_sprite->setCurrentSequence(_idleSequence);
 }
 
 void Player::rotateLeft(int velocity)

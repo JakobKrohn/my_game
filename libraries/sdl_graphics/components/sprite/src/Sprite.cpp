@@ -29,7 +29,10 @@ unsigned int Sprite::addSequence(std::vector<const char *> assets)
 
 void Sprite::setCurrentSequence(unsigned int sequence)
 {
+    if (m_currentSequence == sequence)
+        return;
     m_currentSequence = sequence;
+    m_currentIndex = 0;
 }
 
 void Sprite::setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
@@ -57,7 +60,7 @@ void Sprite::update()
         return;
     
     timer = system_clock::now();
-    std::cout << "Time: " << last_shift.count() << "\t\t" << m_interval << "\n";
+    // std::cout << "Time: " << last_shift.count() << "\t\t" << m_interval << "\n";
     m_currentIndex++;
 }
 
@@ -66,7 +69,7 @@ void Sprite::draw()
     if (m_sequences.size() < 1)
         return;
     
-    if (m_currentIndex  >= m_sequences.at(m_currentSequence).size())
+    if (m_currentIndex >= m_sequences.at(m_currentSequence).size())
         m_currentIndex = 0;
 
     TilePosition_T pos;

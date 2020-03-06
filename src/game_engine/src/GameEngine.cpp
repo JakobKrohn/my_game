@@ -61,6 +61,7 @@ void GameEngine::start()
     while (m_active.load())
     {
         m_inputEvent->check();
+        m_player->update();
 
         printPlayerInfo(m_player, m_playerText);
         printInfo();

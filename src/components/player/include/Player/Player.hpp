@@ -19,6 +19,8 @@ class Player
     Player() = delete;
     ~Player();
 
+    void update();
+
     bool isMoving() const;
     void moveForward(int velocity);
     void moveBackward(int velocity);
@@ -32,6 +34,8 @@ class Player
     const std::string m_name;
     std::shared_ptr<Movable_I> m_movable;
     std::shared_ptr<Sprite_I> m_sprite;
+    unsigned int _idleSequence;
+    unsigned int _movingSequence;
 };
 
 } // namespace components
