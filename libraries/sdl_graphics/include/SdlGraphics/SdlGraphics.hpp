@@ -13,7 +13,7 @@
 #include "GraphicsInterface/Graphics_I.hpp"
 #include "Image/Image.hpp"
 #include "Renderer/Renderer.hpp"
-#include "Sprite/Sprite2.hpp"
+#include "Sprite/Sprite.hpp"
 #include "TextRenderer/TextRenderer.hpp"
 #include "TileMap/TileMap.hpp"
 #include "Window/Window.hpp"

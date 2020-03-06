@@ -36,7 +36,7 @@ class Sprite : public Sprite_I
     std::shared_ptr<float> m_xPosition;
     std::shared_ptr<float> m_yPosition;
     std::shared_ptr<float> m_angle;
-    unsigned int m_interval;
+    double m_interval;
     // std::vector<unsigned int> m_intervals;
 };
 

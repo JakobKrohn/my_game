@@ -12,8 +12,10 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
 {
     auto position = m_movable->getPosition();
     m_sprite->setPosition(position->x, position->y, position->angle);
-    std::vector<const char *> still = {"assets/player_green_still.png"};
+    std::vector<const char *> still = {"assets/player_green_still.png", 
+    "assets/player_green_left.png", "assets/player_green_right.png"};
     auto indexStill = m_sprite->addSequence(still);
+    m_sprite->setTimeInterval(500);
 }
 
 Player::~Player()

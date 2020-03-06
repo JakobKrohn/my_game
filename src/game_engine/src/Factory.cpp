@@ -11,9 +11,6 @@ std::shared_ptr<components::Player>
 Factory::createPlayer(std::string name, std::shared_ptr<Sprite_I> sprite)
 {
     auto movable = std::make_shared<components::Movable>();
-    // auto drawable =
-    //     std::make_shared<components::Drawable>(sprite, movable->getPosition());
-
     return std::make_shared<components::Player>(name.c_str(), movable,
                                                 sprite);
 }

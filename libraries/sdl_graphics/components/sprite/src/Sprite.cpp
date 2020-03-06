@@ -1,13 +1,14 @@
-#include "Sprite/Sprite2.hpp"
+#include "Sprite/Sprite.hpp"
 
 #include <iostream>
+#include <chrono>
 
 using namespace sdl_graphics;
 
 Sprite::Sprite(std::shared_ptr<Renderer> renderer, float sizePercentage)
     : m_renderer(renderer), m_sizePercentage(sizePercentage),
       m_currentSequence(0), m_currentIndex(0), m_xPosition(nullptr),
-      m_yPosition(nullptr), m_angle(nullptr), m_interval(0)
+      m_yPosition(nullptr), m_angle(nullptr), m_interval(1)
 {
 }
 
@@ -42,11 +43,22 @@ void Sprite::setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
 void Sprite::setTimeInterval(int ms, int sequence)
 {
     std::cout << "WARNING: Multiple time intervals is not implemented!\n";
-    m_interval = ms;
+    m_interval = (double) ms / 1000;
 }
 
 void Sprite::update()
 {
+    using namespace std::chrono;
+    static auto timer = system_clock::now();
+
+    std::chrono::duration<double> last_shift = system_clock::now() - timer;
+
+    if (last_shift.count() < m_interval)
+        return;
+    
+    timer = system_clock::now();
+    std::cout << "Time: " << last_shift.count() << "\t\t" << m_interval << "\n";
+    m_currentIndex++;
 }
 
 void Sprite::draw()
@@ -54,7 +66,7 @@ void Sprite::draw()
     if (m_sequences.size() < 1)
         return;
     
-    if (m_currentIndex + 1 >= m_sequences.at(m_currentSequence).size())
+    if (m_currentIndex  >= m_sequences.at(m_currentSequence).size())
         m_currentIndex = 0;
 
     TilePosition_T pos;
