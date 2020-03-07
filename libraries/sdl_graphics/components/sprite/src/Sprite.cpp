@@ -1,7 +1,7 @@
 #include "Sprite/Sprite.hpp"
 
-#include <iostream>
 #include <chrono>
+#include <iostream>
 
 using namespace sdl_graphics;
 
@@ -18,12 +18,11 @@ Sprite::~Sprite()
 
 unsigned int Sprite::addSequence(std::vector<const char *> assets)
 {
+    m_intervals.push_back(m_interval);
     m_sequences.emplace_back(std::vector<Tile>());
     for (const auto &asset : assets)
-    {
         m_sequences.back().emplace_back(
             Tile(m_renderer, asset, m_sizePercentage));
-    }
     return m_sequences.size() - 1;
 }
 
@@ -45,8 +44,19 @@ void Sprite::setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
 
 void Sprite::setTimeInterval(int ms, int sequence)
 {
-    std::cout << "WARNING: Multiple time intervals is not implemented!\n";
-    m_interval = (double) ms / 1000;
+    double interval = (double)ms / 1000;
+    if (sequence < 0)
+    {
+        m_interval = interval;
+        for (int i = 0; i < m_intervals.size(); i++)
+            m_intervals.at(i) = interval;
+        return;
+    }
+
+    if (m_intervals.size() > sequence)
+        std::cout << "\tTime interval not fitting in vector!!!\n";
+
+    m_intervals.at(sequence) = interval;
 }
 
 void Sprite::setAngleOffset(int angle)
@@ -66,11 +76,12 @@ void Sprite::update()
 
     std::chrono::duration<double> last_shift = system_clock::now() - timer;
 
-    if (last_shift.count() < m_interval)
+    if (last_shift.count() < m_intervals.at(m_currentSequence))
         return;
-    
+
     timer = system_clock::now();
-    // std::cout << "Time: " << last_shift.count() << "\t\t" << m_interval << "\n";
+    std::cout << "Time: " << last_shift.count() << "\t\t"
+              << m_intervals.at(m_currentSequence) << "\n";
     m_currentIndex++;
 }
 
@@ -78,7 +89,7 @@ void Sprite::draw()
 {
     if (m_sequences.size() < 1)
         return;
-    
+
     if (m_currentIndex >= m_sequences.at(m_currentSequence).size())
         m_currentIndex = 0;
 

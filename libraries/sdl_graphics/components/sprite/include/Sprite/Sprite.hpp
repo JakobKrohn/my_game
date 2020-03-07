@@ -40,7 +40,7 @@ class Sprite : public Sprite_I
     std::shared_ptr<float> m_angle;
     double m_interval;
     int m_angleOffset;
-    // std::vector<unsigned int> m_intervals;
+    std::vector<double> m_intervals;
 };
 
 } // namespace sdl_graphics

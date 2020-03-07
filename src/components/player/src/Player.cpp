@@ -63,11 +63,15 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_19.png",
     };
     // clang-format on
-    m_sprite->setSizePercentage(0.5);
+    m_sprite->setSizePercentage(0.3);
+    
     m_idleSequence = m_sprite->addSequence(idle);
     m_movingSequence = m_sprite->addSequence(move);
+    
     m_sprite->setCurrentSequence(m_idleSequence);
-    m_sprite->setTimeInterval(5);
+
+    m_sprite->setTimeInterval(80, m_idleSequence);
+    m_sprite->setTimeInterval(1, m_movingSequence);
 }
 
 Player::~Player()
@@ -103,8 +107,8 @@ void Player::moveForward(int velocity)
     // m_drawable->
     m_moveTime = std::chrono::system_clock::now();
     m_isMoving = true;
-    m_movable->move(velocity);
     m_sprite->setCurrentSequence(m_movingSequence);
+    m_movable->move(velocity);
 }
 
 void Player::moveBackward(int velocity)
@@ -115,13 +119,11 @@ void Player::moveBackward(int velocity)
 
 void Player::rotateLeft(int velocity)
 {
-    // m_sprite->setState(sprite_state::MOVING);
     m_movable->rotate(-velocity);
 }
 
 void Player::rotateRight(int velocity)
 {
-    // m_sprite->setState(sprite_state::MOVING);
     m_movable->rotate(velocity);
 }
 
