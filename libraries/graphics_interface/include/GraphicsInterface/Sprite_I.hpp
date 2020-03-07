@@ -38,9 +38,18 @@ class Sprite_I
     /**
      * Set the time interval for how long each image will be drawn, 
      *  before it is shifted. 
-     * TODO: ms or us?
      */
     virtual void setTimeInterval(int ms, int sequence = -1) = 0;
+    /**
+     * Set angle offset for assets loaded
+     *  Used if the images are rotated before they are loaded
+     */
+    virtual void setAngleOffset(int angle) = 0;
+    /**
+     * Set size percentage for all assets (sequences)
+     *  NB: Call this before addings sequences
+     */
+    virtual void setSizePercentage(float sizePercentage) = 0;
 };
 
 #endif // GRAPHICS_INTERFACE_SPRITE_HPP

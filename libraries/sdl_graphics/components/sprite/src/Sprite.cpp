@@ -8,7 +8,7 @@ using namespace sdl_graphics;
 Sprite::Sprite(std::shared_ptr<Renderer> renderer, float sizePercentage)
     : m_renderer(renderer), m_sizePercentage(sizePercentage),
       m_currentSequence(0), m_currentIndex(0), m_xPosition(nullptr),
-      m_yPosition(nullptr), m_angle(nullptr), m_interval(1)
+      m_yPosition(nullptr), m_angle(nullptr), m_interval(1), m_angleOffset(0)
 {
 }
 
@@ -49,6 +49,16 @@ void Sprite::setTimeInterval(int ms, int sequence)
     m_interval = (double) ms / 1000;
 }
 
+void Sprite::setAngleOffset(int angle)
+{
+    m_angleOffset = angle;
+}
+
+void Sprite::setSizePercentage(float sizePercentage)
+{
+    m_sizePercentage = sizePercentage;
+}
+
 void Sprite::update()
 {
     using namespace std::chrono;
@@ -76,5 +86,6 @@ void Sprite::draw()
     pos.x = m_xPosition != nullptr ? *m_xPosition : 0;
     pos.y = m_yPosition != nullptr ? *m_yPosition : 0;
     pos.a = m_angle != nullptr ? *m_angle : 0;
+    pos.a += m_angleOffset;
     m_sequences.at(m_currentSequence).at(m_currentIndex).draw(pos);
 }

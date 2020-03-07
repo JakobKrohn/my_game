@@ -23,6 +23,8 @@ class Sprite : public Sprite_I
     void setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
                      std::shared_ptr<float> a);
     void setTimeInterval(int ms, int sequence = -1);
+    void setAngleOffset(int angle);
+    void setSizePercentage(float sizePercentage);
 
     void update();
     void draw();
@@ -37,6 +39,7 @@ class Sprite : public Sprite_I
     std::shared_ptr<float> m_yPosition;
     std::shared_ptr<float> m_angle;
     double m_interval;
+    int m_angleOffset;
     // std::vector<unsigned int> m_intervals;
 };
 

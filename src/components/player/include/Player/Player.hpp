@@ -3,6 +3,7 @@
 
 #include "Player_I.hpp"
 
+#include <chrono>
 #include <vector>
 
 #include "GraphicsInterface/Sprite_I.hpp"
@@ -34,8 +35,10 @@ class Player
     const std::string m_name;
     std::shared_ptr<Movable_I> m_movable;
     std::shared_ptr<Sprite_I> m_sprite;
-    unsigned int _idleSequence;
-    unsigned int _movingSequence;
+    unsigned int m_idleSequence;
+    unsigned int m_movingSequence;
+    bool m_isMoving;
+    std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> m_moveTime;
 };
 
 } // namespace components

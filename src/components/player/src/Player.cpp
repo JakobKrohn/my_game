@@ -8,9 +8,12 @@ using namespace components;
 
 Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
                std::shared_ptr<Sprite_I> sprite)
-    : m_name(name), m_movable(movable), m_sprite(sprite)
+    : m_name(name), m_movable(movable), m_sprite(sprite), m_isMoving(false)
 {
+    m_moveTime = std::chrono::system_clock::now();
     auto position = m_movable->getPosition();
+
+    m_sprite->setAngleOffset(270);
     m_sprite->setPosition(position->x, position->y, position->angle);
     // clang-format off
     std::vector<const char *> idle = 
@@ -60,9 +63,10 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_19.png",
     };
     // clang-format on
-    _idleSequence = m_sprite->addSequence(idle);
-    _movingSequence = m_sprite->addSequence(move);
-    m_sprite->setCurrentSequence(_idleSequence);
+    m_sprite->setSizePercentage(0.5);
+    m_idleSequence = m_sprite->addSequence(idle);
+    m_movingSequence = m_sprite->addSequence(move);
+    m_sprite->setCurrentSequence(m_idleSequence);
     m_sprite->setTimeInterval(5);
 }
 
@@ -73,12 +77,23 @@ Player::~Player()
 
 void Player::update()
 {
-    // Update the m_sprite state on timeout
+    if (!m_isMoving)
+        return;
+    using namespace std::chrono;
+
+    std::chrono::duration<double> move_time = system_clock::now() - m_moveTime;
+
+    if (move_time.count() > 0.05)
+    {
+        m_isMoving = false;
+        m_sprite->setCurrentSequence(m_idleSequence);
+        std::cout << "reset\n";
+    }
 }
 
 bool Player::isMoving() const
 {
-    return false;
+    return m_isMoving;
     // return sprite_state::STILL != m_sprite->getState();
 }
 
@@ -86,14 +101,16 @@ void Player::moveForward(int velocity)
 {
     // m_sprite->setState(sprite_state::MOVING);
     // m_drawable->
+    m_moveTime = std::chrono::system_clock::now();
+    m_isMoving = true;
     m_movable->move(velocity);
-    m_sprite->setCurrentSequence(_movingSequence);
+    m_sprite->setCurrentSequence(m_movingSequence);
 }
 
 void Player::moveBackward(int velocity)
 {
     print_limitimed("not implemented");
-    m_sprite->setCurrentSequence(_idleSequence);
+    m_sprite->setCurrentSequence(m_idleSequence);
 }
 
 void Player::rotateLeft(int velocity)

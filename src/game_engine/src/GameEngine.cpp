@@ -29,7 +29,7 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
 
     print("Game initializing");
 
-    m_background = m_graphics->createTileMap("assets/squares.png", 0.5);
+    m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1.png", 1);
 
     m_player = Factory::createPlayer("Jakob", m_graphics->createSprite());
 
@@ -61,6 +61,7 @@ void GameEngine::start()
     while (m_active.load())
     {
         m_inputEvent->check();
+        
         m_player->update();
 
         printPlayerInfo(m_player, m_playerText);
