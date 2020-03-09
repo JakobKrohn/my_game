@@ -16,7 +16,7 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
     m_sprite->setAngleOffset(270);
     m_sprite->setPosition(position->x, position->y, position->angle);
     // clang-format off
-    std::vector<const char *> idle = 
+    std::vector<const char *> gunIdle = 
     {
         "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png",
         "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_1.png",
@@ -39,7 +39,7 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
         "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_18.png",
         "assets/Top_Down_Survivor/handgun/idle/survivor-idle_handgun_19.png",
     };
-    std::vector<const char *> move = 
+    std::vector<const char *> gunMove = 
     {
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_0.png",
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_1.png",
@@ -62,16 +62,24 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_18.png",
         "assets/Top_Down_Survivor/handgun/move/survivor-move_handgun_19.png",
     };
+    std::vector<const char *> gunShoot = 
+    {
+        "assets/Top_Down_Survivor/handgun/shoot/survivor-shoot_handgun_0.png",
+        "assets/Top_Down_Survivor/handgun/shoot/survivor-shoot_handgun_1.png",
+        "assets/Top_Down_Survivor/handgun/shoot/survivor-shoot_handgun_2.png",
+    };
     // clang-format on
-    m_sprite->setSizePercentage(0.3);
-    
-    m_idleSequence = m_sprite->addSequence(idle);
-    m_movingSequence = m_sprite->addSequence(move);
-    
+    m_sprite->setSizePercentage(1);
+
+    m_idleSequence = m_sprite->addSequence(gunIdle);
+    m_movingSequence = m_sprite->addSequence(gunMove);
+    m_shootSequence = m_sprite->addSequence(gunShoot, true);
+
     m_sprite->setCurrentSequence(m_idleSequence);
 
     m_sprite->setTimeInterval(80, m_idleSequence);
     m_sprite->setTimeInterval(1, m_movingSequence);
+    m_sprite->setTimeInterval(50, m_shootSequence);
 }
 
 Player::~Player()
@@ -98,13 +106,16 @@ void Player::update()
 bool Player::isMoving() const
 {
     return m_isMoving;
-    // return sprite_state::STILL != m_sprite->getState();
+}
+
+void Player::shoot()
+{
+    // std::cout << "shoot\n";
+    m_sprite->setCurrentSequence(m_shootSequence);
 }
 
 void Player::moveForward(int velocity)
 {
-    // m_sprite->setState(sprite_state::MOVING);
-    // m_drawable->
     m_moveTime = std::chrono::system_clock::now();
     m_isMoving = true;
     m_sprite->setCurrentSequence(m_movingSequence);

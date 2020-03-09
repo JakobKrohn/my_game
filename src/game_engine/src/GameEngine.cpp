@@ -13,10 +13,16 @@
 #include "Player/Player.hpp"
 
 // TODO: This cannot be here.
-input_event::PlayerControls_T defaultPlayerOneControls = {
-    input_event::input_key::LEFT, input_event::input_key::RIGHT,
-    input_event::input_key::UP, input_event::input_key::DOWN,
-    input_event::input_key::SPACE};
+// clang-format off
+input_event::PlayerControls_T defaultPlayerOneControls = 
+{
+    input_event::input_key::LEFT, 
+    input_event::input_key::RIGHT,
+    input_event::input_key::UP, 
+    input_event::input_key::DOWN,
+    input_event::input_key::SPACE
+};
+// clang-format on
 
 using namespace game_engine;
 
@@ -29,7 +35,8 @@ GameEngine::GameEngine(std::shared_ptr<input_event::InputEvent_I> inputEvent,
 
     print("Game initializing");
 
-    m_background = m_graphics->createTileMap("assets/backgrounds/backgrounddetailed1.png", 1);
+    m_background = m_graphics->createTileMap(
+        "assets/backgrounds/backgrounddetailed1.png", 1);
 
     m_player = Factory::createPlayer("Jakob", m_graphics->createSprite());
 
@@ -61,7 +68,7 @@ void GameEngine::start()
     while (m_active.load())
     {
         m_inputEvent->check();
-        
+
         m_player->update();
 
         printPlayerInfo(m_player, m_playerText);
@@ -109,6 +116,10 @@ void GameEngine::setPlayerKeys(std::shared_ptr<components::Player> player,
         std::bind(std::bind(&components::Player::moveBackward, player, _1),
                   PLAYER_MOVEMENT_SPEED),
         controls.down);
+
+    m_inputEvent->registerCallback(
+        std::bind(std::bind(&components::Player::shoot, player)),
+        controls.shoot);
 }
 
 void GameEngine::printPlayerInfo(std::shared_ptr<components::Player> player,

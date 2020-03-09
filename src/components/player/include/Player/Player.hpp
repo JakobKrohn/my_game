@@ -21,8 +21,10 @@ class Player
     ~Player();
 
     void update();
-
     bool isMoving() const;
+
+    void shoot();
+
     void moveForward(int velocity);
     void moveBackward(int velocity);
     void rotateLeft(int velocity);
@@ -37,6 +39,7 @@ class Player
     std::shared_ptr<Sprite_I> m_sprite;
     unsigned int m_idleSequence;
     unsigned int m_movingSequence;
+    unsigned int m_shootSequence;
     bool m_isMoving;
     std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> m_moveTime;
 };
