@@ -25,7 +25,7 @@ class Sprite_I
      *
      * ID returned is used to set current sequence to draw to this
      */
-    virtual unsigned int addSequence(std::vector<const char *> assets, bool oneRun = false) = 0;
+    virtual unsigned int addSequence(std::vector<const char *> assets, int ms, bool oneRun = false) = 0;
     /**
      * Sets the current sequence to render.
      */
@@ -38,11 +38,6 @@ class Sprite_I
      */
     virtual void setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
                              std::shared_ptr<float> a) = 0;
-    /**
-     * Set the time interval for how long each image will be drawn,
-     *  before it is shifted.
-     */
-    virtual void setTimeInterval(int ms, int sequence = -1) = 0;
     /**
      * Set angle offset for assets loaded
      *  Used if the images are rotated before they are loaded

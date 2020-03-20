@@ -21,12 +21,11 @@ class Sprite : public Sprite_I
     void draw();
 
     // Sprite_I
-    unsigned int addSequence(std::vector<const char *> assets,
+    unsigned int addSequence(std::vector<const char *> assets, int ms,
                              bool oneRun = false);
     void setCurrentSequence(unsigned int sequence);
     void setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
                      std::shared_ptr<float> a);
-    void setTimeInterval(int ms, int sequence = -1);
     void setAngleOffset(int angle);
     void setSizePercentage(float sizePercentage);
 
@@ -44,6 +43,8 @@ class Sprite : public Sprite_I
     int m_angleOffset;
     std::vector<double> m_intervals;
     std::vector<bool> m_oneRuns;
+
+    void setTimeInterval(int ms, int sequence);
 };
 
 } // namespace sdl_graphics

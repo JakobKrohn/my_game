@@ -40,6 +40,7 @@ class Player
     unsigned int m_idleSequence;
     unsigned int m_movingSequence;
     unsigned int m_shootSequence;
+    unsigned int m_reloadSequence;
     bool m_isMoving;
     std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> m_moveTime;
 };

@@ -68,18 +68,165 @@ Player::Player(std::string name, std::shared_ptr<Movable_I> movable,
         "assets/Top_Down_Survivor/handgun/shoot/survivor-shoot_handgun_1.png",
         "assets/Top_Down_Survivor/handgun/shoot/survivor-shoot_handgun_2.png",
     };
+
+    std::vector<const char *> rifleIdle = 
+    {
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_0.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_1.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_2.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_3.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_4.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_5.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_6.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_7.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_8.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_9.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_10.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_11.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_12.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_13.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_14.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_15.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_16.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_17.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_18.png",
+        "assets/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_19.png",
+    };
+    std::vector<const char *> rifleMove = 
+    {
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_0.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_1.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_2.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_3.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_4.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_5.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_6.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_7.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_8.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_9.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_10.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_11.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_12.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_13.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_14.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_15.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_16.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_17.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_18.png",
+        "assets/Top_Down_Survivor/rifle/move/survivor-move_rifle_19.png",
+    };
+    std::vector<const char *> rifleReload = 
+    {
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_0.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_1.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_2.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_3.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_4.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_5.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_6.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_7.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_8.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_9.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_10.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_11.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_12.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_13.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_14.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_15.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_16.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_17.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_18.png",
+        "assets/Top_Down_Survivor/rifle/reload/survivor-reload_rifle_19.png",
+    };
+    std::vector<const char *> rifleShoot = 
+    {
+        "assets/Top_Down_Survivor/rifle/shoot/survivor-shoot_rifle_0.png",
+        "assets/Top_Down_Survivor/rifle/shoot/survivor-shoot_rifle_1.png",
+        "assets/Top_Down_Survivor/rifle/shoot/survivor-shoot_rifle_2.png",
+    };
+
+    std::vector<const char *> knifeIdle = 
+    {
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_0.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_1.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_2.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_3.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_4.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_5.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_6.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_7.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_8.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_9.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_10.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_11.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_12.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_13.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_14.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_15.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_16.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_17.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_18.png",
+        "assets/Top_Down_Survivor/knife/idle/survivor-idle_knife_19.png",
+    };
+    std::vector<const char *> knifeMove = 
+    {
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_0.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_1.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_2.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_3.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_4.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_5.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_6.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_7.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_8.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_9.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_10.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_11.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_12.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_13.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_14.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_15.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_16.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_17.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_18.png",
+        "assets/Top_Down_Survivor/knife/move/survivor-move_knife_19.png",
+    };
+    std::vector<const char *> knifeShoot = 
+    {
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_0.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_1.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_2.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_3.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_4.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_5.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_6.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_7.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_8.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_9.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_10.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_11.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_12.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_13.png",
+        "assets/Top_Down_Survivor/knife/meleeattack/survivor-meleeattack_knife_14.png",
+    };
+
+    m_sprite->setSizePercentage(0.4);
+
+    // m_idleSequence =    m_sprite->addSequence(gunIdle);
+    // m_movingSequence =  m_sprite->addSequence(gunMove);
+    // m_shootSequence =   m_sprite->addSequence(gunShoot, true);
+
+    m_idleSequence =    m_sprite->addSequence(rifleIdle, 80);
+    m_movingSequence =  m_sprite->addSequence(rifleMove, 1);
+    m_shootSequence =   m_sprite->addSequence(rifleShoot, 50, true);
+    m_reloadSequence =  m_sprite->addSequence(rifleReload, 20, true);
+
+    // m_idleSequence =    m_sprite->addSequence(knifeIdle, 1);
+    // m_movingSequence =  m_sprite->addSequence(knifeMove, 1);
+    // m_shootSequence =   m_sprite->addSequence(knifeShoot, 1, true);
+
     // clang-format on
-    m_sprite->setSizePercentage(1);
-
-    m_idleSequence = m_sprite->addSequence(gunIdle);
-    m_movingSequence = m_sprite->addSequence(gunMove);
-    m_shootSequence = m_sprite->addSequence(gunShoot, true);
-
     m_sprite->setCurrentSequence(m_idleSequence);
-
-    m_sprite->setTimeInterval(80, m_idleSequence);
-    m_sprite->setTimeInterval(1, m_movingSequence);
-    m_sprite->setTimeInterval(50, m_shootSequence);
 }
 
 Player::~Player()
@@ -110,8 +257,8 @@ bool Player::isMoving() const
 
 void Player::shoot()
 {
-    // std::cout << "shoot\n";
     m_sprite->setCurrentSequence(m_shootSequence);
+    // m_sprite->setCurrentSequence(m_reloadSequence); 
 }
 
 void Player::moveForward(int velocity)

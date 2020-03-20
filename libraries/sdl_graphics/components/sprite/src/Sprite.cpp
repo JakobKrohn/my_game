@@ -43,6 +43,7 @@ void Sprite::draw()
         if (m_oneRuns.at(m_currentSequence))
         {
             m_currentSequence = m_previousSequence;
+            m_currentIndex = 0;
         }
         else
             m_currentIndex = 0;
@@ -56,7 +57,8 @@ void Sprite::draw()
     m_sequences.at(m_currentSequence).at(m_currentIndex).draw(pos);
 }
 
-unsigned int Sprite::addSequence(std::vector<const char *> assets, bool oneRun)
+unsigned int Sprite::addSequence(std::vector<const char *> assets, int ms,
+                                 bool oneRun)
 {
     m_intervals.push_back(m_interval);
     m_oneRuns.push_back(oneRun);
@@ -64,6 +66,7 @@ unsigned int Sprite::addSequence(std::vector<const char *> assets, bool oneRun)
     for (const auto &asset : assets)
         m_sequences.back().emplace_back(
             Tile(m_renderer, asset, m_sizePercentage));
+    setTimeInterval(ms, m_sequences.size() - 1);
     return m_sequences.size() - 1;
 }
 
@@ -74,8 +77,6 @@ void Sprite::setCurrentSequence(unsigned int sequence)
 
     if (m_oneRuns.at(m_currentSequence))
         return;
-
-    // std::cout << "Current sequence: " << sequence << "\n";
 
     m_previousSequence = m_currentSequence;
     m_currentSequence = sequence;
@@ -88,6 +89,16 @@ void Sprite::setPosition(std::shared_ptr<float> x, std::shared_ptr<float> y,
     m_xPosition = x;
     m_yPosition = y;
     m_angle = a;
+}
+
+void Sprite::setAngleOffset(int angle)
+{
+    m_angleOffset = angle;
+}
+
+void Sprite::setSizePercentage(float sizePercentage)
+{
+    m_sizePercentage = sizePercentage;
 }
 
 void Sprite::setTimeInterval(int ms, int sequence)
@@ -105,14 +116,4 @@ void Sprite::setTimeInterval(int ms, int sequence)
         std::cout << "\tTime interval not fitting in vector!!!\n";
 
     m_intervals.at(sequence) = interval;
-}
-
-void Sprite::setAngleOffset(int angle)
-{
-    m_angleOffset = angle;
-}
-
-void Sprite::setSizePercentage(float sizePercentage)
-{
-    m_sizePercentage = sizePercentage;
 }
